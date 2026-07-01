@@ -1,17 +1,93 @@
 ---
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import ShowList from '../components/ShowList.astro';
+import GalleryGrid from '../components/GalleryGrid.astro';
+import ReleaseGrid from '../components/ReleaseGrid.astro';
+import PrintGrid from '../components/PrintGrid.astro';
+import {
+  getFeaturedPrints,
+  getGalleries,
+  getReleases,
+  getSiteSettings,
+  getUpcomingShows,
+} from '../lib/data';
 
+const settings = await getSiteSettings();
+const upcomingShows = await getUpcomingShows(3);
+const galleries = await getGalleries();
+const releases = await getReleases();
+const featuredPrints = await getFeaturedPrints(3);
+const latestRelease = releases[0];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout settings={settings}>
+  <Hero
+    bandName={settings.bandName}
+    tagline={settings.tagline}
+    heroImageUrl={settings.heroImageUrl}
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <div>
+          <p class="section-kicker">On Tour</p>
+          <h2 class="section-title">Upcoming Shows</h2>
+        </div>
+        <a href="/tour" class="btn btn-outline">All Dates</a>
+      </div>
+      <ShowList shows={upcomingShows} compact />
+    </div>
+  </section>
+
+  {
+    latestRelease && (
+      <section class="section section-alt">
+        <div class="container">
+          <div class="section-header reveal">
+            <div>
+              <p class="section-kicker">New Release</p>
+              <h2 class="section-title">{latestRelease.title}</h2>
+            </div>
+            <a href="/music" class="btn btn-outline">All Music</a>
+          </div>
+          <ReleaseGrid releases={[latestRelease]} />
+        </div>
+      </section>
+    )
+  }
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <div>
+          <p class="section-kicker">Photography</p>
+          <h2 class="section-title">Fine Art Prints</h2>
+        </div>
+        <a href="/prints" class="btn btn-outline">Shop Prints</a>
+      </div>
+      <PrintGrid prints={featuredPrints} />
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header reveal">
+        <div>
+          <p class="section-kicker">Live</p>
+          <h2 class="section-title">Photo Galleries</h2>
+        </div>
+        <a href="/photos" class="btn btn-outline">All Photos</a>
+      </div>
+      <GalleryGrid galleries={galleries.slice(0, 2)} />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .section-alt {
+    background: var(--color-bg-elevated);
+    border-block: 1px solid var(--color-border);
+  }
+</style>

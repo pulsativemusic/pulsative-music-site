@@ -1,0 +1,58 @@
+:root {
+  /* Colors — swap these when the visual identity is finalized */
+  --color-bg: #080808;
+  --color-bg-elevated: #111111;
+  --color-surface: #161616;
+  --color-text: #f4f0ea;
+  --color-text-muted: #9a948c;
+  --color-accent: #e63946;
+  --color-accent-hover: #ff4d5a;
+  --color-accent-muted: rgba(230, 57, 70, 0.15);
+  --color-border: rgba(244, 240, 234, 0.1);
+
+  /* Typography */
+  --font-display: "Bebas Neue", "Arial Narrow", sans-serif;
+  --font-body: "DM Sans", system-ui, sans-serif;
+
+  /* Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+  --space-2xl: 6rem;
+
+  /* Layout */
+  --max-width: 1200px;
+  --header-height: 4.5rem;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+
+  /* Effects */
+  --shadow-glow: 0 0 60px rgba(230, 57, 70, 0.25);
+  --transition-fast: 180ms ease;
+  --transition-base: 320ms cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Texture overlay (CSS grain — no image required) */
+  --grain-opacity: 0.04;
+}
+
+/* Theme variants — uncomment one block to preview a direction */
+
+/* .theme-grunge {
+  --color-bg: #0a0a0a;
+  --color-accent: #c41e3a;
+  --font-display: "Bebas Neue", impact, sans-serif;
+} */
+
+/* .theme-cinematic {
+  --color-bg: #050508;
+  --color-accent: #d4af37;
+  --grain-opacity: 0.02;
+} */
+
+/* .theme-retro {
+  --color-bg: #1a1420;
+  --color-accent: #ff6b35;
+  --color-text: #f8e8d8;
+} */

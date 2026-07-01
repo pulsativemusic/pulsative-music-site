@@ -1,0 +1,120 @@
+---
+import HeroAnimation from './islands/HeroAnimation';
+
+interface Props {
+  bandName: string;
+  tagline: string;
+  heroImageUrl?: string;
+}
+
+const { bandName, tagline, heroImageUrl } = Astro.props;
+---
+
+<section class="hero">
+  {
+    heroImageUrl && (
+      <img
+        class="hero-bg"
+        src={heroImageUrl}
+        alt=""
+        fetchpriority="high"
+        width={1920}
+        height={1080}
+      />
+    )
+  }
+  <div class="hero-overlay"></div>
+
+  <div class="container hero-content">
+    <HeroAnimation client:load bandName={bandName} tagline={tagline} />
+    <div class="hero-actions reveal reveal-delay-2">
+      <a href="/tour" class="btn btn-primary">See Tour Dates</a>
+      <a href="/music" class="btn btn-outline">Listen Now</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll" aria-hidden="true">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.05);
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(8, 8, 8, 0.3) 0%, rgba(8, 8, 8, 0.85) 70%, var(--color-bg) 100%),
+      radial-gradient(ellipse at 30% 50%, rgba(230, 57, 70, 0.15), transparent 60%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    padding-block: calc(var(--header-height) + var(--space-xl)) var(--space-2xl);
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: var(--space-lg);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--color-accent), transparent);
+    animation: scroll-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scroll-pulse {
+    0%,
+    100% {
+      opacity: 0.3;
+      transform: scaleY(0.6);
+    }
+    50% {
+      opacity: 1;
+      transform: scaleY(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-line {
+      animation: none;
+    }
+  }
+</style>

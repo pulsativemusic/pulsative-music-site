@@ -1,0 +1,75 @@
+---
+import type { SiteSettings } from '../../lib/types';
+
+interface Props {
+  settings: SiteSettings;
+}
+
+const { settings } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <p class="footer-name">{settings.bandName}</p>
+      <p class="footer-tagline text-muted">{settings.tagline}</p>
+    </div>
+
+    <div class="footer-links">
+      {
+        settings.socials.map((social) => (
+          <a href={social.url} target="_blank" rel="noopener noreferrer">
+            {social.platform}
+          </a>
+        ))
+      }
+    </div>
+
+    <p class="footer-copy text-muted">
+      &copy; {year} {settings.bandName}. All rights reserved.
+    </p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    padding-block: var(--space-xl);
+    border-top: 1px solid var(--color-border);
+    background: var(--color-bg-elevated);
+  }
+
+  .footer-inner {
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  .footer-name {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--space-xs);
+  }
+
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+  }
+
+  .footer-links a {
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    transition: color var(--transition-fast);
+  }
+
+  .footer-links a:hover {
+    color: var(--color-accent);
+  }
+
+  .footer-copy {
+    font-size: 0.8rem;
+  }
+</style>

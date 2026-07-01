@@ -1,0 +1,49 @@
+---
+import '../../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import type { SiteSettings } from '../../lib/types';
+
+interface Props {
+  title?: string;
+  description?: string;
+  settings: SiteSettings;
+}
+
+const { title, description, settings } = Astro.props;
+const pageTitle = title ? `${title} — ${settings.bandName}` : settings.bandName;
+const pageDescription = description ?? settings.seoDescription ?? settings.tagline;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={pageDescription} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:type" content="website" />
+    {settings.heroImageUrl && (
+      <meta property="og:image" content={settings.heroImageUrl} />
+    )}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <title>{pageTitle}</title>
+    <ClientRouter />
+  </head>
+  <body>
+    <Header settings={settings} />
+    <main>
+      <slot />
+    </main>
+    <Footer settings={settings} />
+  </body>
+</html>
+
+<style>
+  main {
+    min-height: calc(100vh - var(--header-height) - 12rem);
+  }
+</style>

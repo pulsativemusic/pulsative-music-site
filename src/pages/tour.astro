@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import ShowList from '../components/ShowList.astro';
+import {
+  getPastShows,
+  getSiteSettings,
+  getUpcomingShows,
+} from '../lib/data';
+
+const settings = await getSiteSettings();
+const upcomingShows = await getUpcomingShows();
+const pastShows = await getPastShows();
+---
+
+<BaseLayout title="Tour" description={`Tour dates for ${settings.bandName}`} settings={settings}>
+  <section class="page-hero section">
+    <div class="container">
+      <p class="section-kicker reveal">Live</p>
+      <h1 class="page-title reveal reveal-delay-1">Tour Dates</h1>
+      <p class="page-intro text-muted reveal reveal-delay-2">
+        Catch {settings.bandName} on the road. Add all dates to your calendar.
+      </p>
+      <a href="/tour/calendar.ics" class="btn btn-outline reveal reveal-delay-3">
+        Add to Calendar (.ics)
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title reveal">Upcoming</h2>
+      <ShowList shows={upcomingShows} />
+    </div>
+  </section>
+
+  {
+    pastShows.length > 0 && (
+      <section class="section section-alt">
+        <div class="container">
+          <h2 class="section-title reveal">Past Shows</h2>
+          <ShowList shows={pastShows} compact />
+        </div>
+      </section>
+    )
+  }
+</BaseLayout>
+
+<style>
+  .page-hero {
+    padding-bottom: 0;
+  }
+
+  .page-title {
+    font-size: clamp(3rem, 10vw, 6rem);
+    margin-bottom: var(--space-sm);
+  }
+
+  .page-intro {
+    max-width: 36rem;
+    margin-bottom: var(--space-md);
+  }
+
+  .section-alt {
+    background: var(--color-bg-elevated);
+    border-top: 1px solid var(--color-border);
+  }
+</style>

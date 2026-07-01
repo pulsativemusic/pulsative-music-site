@@ -1,0 +1,155 @@
+---
+import type { SiteSettings } from '../../lib/types';
+
+interface Props {
+  settings: SiteSettings;
+}
+
+const { settings } = Astro.props;
+
+const navItems = [
+  { href: '/music', label: 'Music' },
+  { href: '/tour', label: 'Tour' },
+  { href: '/photos', label: 'Photos' },
+  { href: '/prints', label: 'Prints' },
+  { href: '/about', label: 'About' },
+  { href: '/press', label: 'Press' },
+  { href: '/contact', label: 'Contact' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="header">
+  <div class="container header-inner">
+    <a href="/" class="logo" transition:name="logo">
+      {settings.bandName}
+    </a>
+
+    <nav class="nav" aria-label="Main navigation">
+      {
+        navItems.map((item) => (
+          <a
+            href={item.href}
+            class:list={['nav-link', { active: currentPath.startsWith(item.href) }]}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector('.menu-toggle');
+  const nav = document.querySelector('.nav');
+
+  toggle?.addEventListener('click', () => {
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!expanded));
+    nav?.classList.toggle('open');
+  });
+</script>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: var(--header-height);
+    background: rgba(8, 8, 8, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    gap: var(--space-md);
+  }
+
+  .logo {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    letter-spacing: 0.12em;
+    color: var(--color-text);
+    white-space: nowrap;
+  }
+
+  .logo:hover {
+    color: var(--color-accent);
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .nav-link {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    transition: color var(--transition-fast);
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    color: var(--color-accent);
+  }
+
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    padding: 0.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .menu-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--color-text);
+    transition: transform var(--transition-fast);
+  }
+
+  @media (max-width: 768px) {
+    .menu-toggle {
+      display: flex;
+    }
+
+    .nav {
+      position: fixed;
+      inset: var(--header-height) 0 auto 0;
+      flex-direction: column;
+      padding: var(--space-lg);
+      background: var(--color-bg-elevated);
+      border-bottom: 1px solid var(--color-border);
+      transform: translateY(-120%);
+      opacity: 0;
+      pointer-events: none;
+      transition:
+        transform var(--transition-base),
+        opacity var(--transition-base);
+    }
+
+    .nav.open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+</style>

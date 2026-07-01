@@ -1,0 +1,132 @@
+---
+import type { Show } from '../lib/types';
+import { formatShowDate } from '../lib/utils';
+
+interface Props {
+  shows: Show[];
+  compact?: boolean;
+}
+
+const { shows, compact = false } = Astro.props;
+---
+
+{
+  shows.length === 0 ? (
+    <p class="empty text-muted">No shows announced yet. Check back soon.</p>
+  ) : (
+    <ul class:list={['show-list', { compact }]}>
+      {shows.map((show) => (
+        <li class="show-item">
+          <div class="show-date">
+            <time datetime={show.date}>{formatShowDate(show.date)}</time>
+          </div>
+          <div class="show-details">
+            <h3 class="show-venue">{show.venue}</h3>
+            <p class="show-location text-muted">
+              {show.city}, {show.country}
+            </p>
+            {show.description && !compact && (
+              <p class="show-description">{show.description}</p>
+            )}
+          </div>
+          <div class="show-action">
+            {show.soldOut ? (
+              <span class="sold-out">Sold Out</span>
+            ) : show.ticketUrl ? (
+              <a
+                href={show.ticketUrl}
+                class="btn btn-primary"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Tickets
+              </a>
+            ) : (
+              <span class="text-muted">TBA</span>
+            )}
+          </div>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+<style>
+  .show-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-sm);
+  }
+
+  .show-item {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
+    padding: var(--space-md);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    transition:
+      border-color var(--transition-fast),
+      box-shadow var(--transition-fast);
+  }
+
+  .show-item:hover {
+    border-color: rgba(230, 57, 70, 0.4);
+    box-shadow: var(--shadow-glow);
+  }
+
+  @media (min-width: 640px) {
+    .show-item {
+      grid-template-columns: 11rem 1fr auto;
+      align-items: center;
+    }
+  }
+
+  .show-date time {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .show-venue {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .show-location {
+    font-size: 0.9rem;
+  }
+
+  .show-description {
+    margin-top: var(--space-xs);
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+
+  .sold-out {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+  }
+
+  .compact .show-description {
+    display: none;
+  }
+
+  .empty {
+    padding: var(--space-lg);
+    text-align: center;
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius-md);
+  }
+</style>
