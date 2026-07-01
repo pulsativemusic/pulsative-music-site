@@ -1,6 +1,6 @@
-# Band Site
+# Marco Bonadies
 
-High-performance promo website for a rock band, built with **Astro** and **Sanity CMS**.
+Official promo site for **Marco Bonadies** — music, tour dates, photography prints, and press. Built with **Astro** and **Sanity CMS**, deployed on **Cloudflare Pages**.
 
 ## Features
 
@@ -53,14 +53,15 @@ See [docs/EDITOR_GUIDE.md](docs/EDITOR_GUIDE.md) for band member instructions.
 | `/tour/calendar.ics` | Calendar download |
 | `/photos` | Gallery index |
 | `/photos/[slug]` | Individual gallery with lightbox |
-| `/about` | Bio and band members |
+| `/prints` | Fine art photography prints |
+| `/about` | Bio |
 | `/press` | Press kit downloads |
 | `/contact` | Booking and contact form |
 | `/admin` | Sanity Studio |
 
 ## Deployment
 
-See [docs/DEPLOY.md](docs/DEPLOY.md) for Vercel/Cloudflare Pages setup and Sanity webhook configuration.
+Hosted on [Cloudflare Pages](https://pages.cloudflare.com). See [docs/DEPLOY.md](docs/DEPLOY.md) for setup, environment variables, and Sanity webhook configuration.
 
 ## Design Tokens
 
@@ -71,4 +72,5 @@ Edit `src/styles/tokens.css` to change colors, fonts, and spacing. Theme variant
 - Astro 7 (static)
 - React islands (GSAP, PhotoSwipe)
 - Sanity CMS
+- Cloudflare Pages
 - Plain CSS with custom properties
