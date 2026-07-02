@@ -16,13 +16,6 @@ export default function HeroAnimation({ bandName, tagline }: HeroAnimationProps)
     }
 
     const ctx = gsap.context(() => {
-      gsap.from('.hero-kicker', {
-        opacity: 0,
-        y: 20,
-        duration: 0.6,
-        ease: 'power3.out',
-      });
-
       gsap.from('.hero-title .char', {
         opacity: 0,
         y: 60,
@@ -30,7 +23,6 @@ export default function HeroAnimation({ bandName, tagline }: HeroAnimationProps)
         stagger: 0.03,
         duration: 0.8,
         ease: 'power4.out',
-        delay: 0.2,
       });
 
       gsap.from('.hero-tagline', {
@@ -38,7 +30,7 @@ export default function HeroAnimation({ bandName, tagline }: HeroAnimationProps)
         y: 24,
         duration: 0.7,
         ease: 'power3.out',
-        delay: 0.8,
+        delay: 0.6,
       });
     }, containerRef);
 
@@ -49,7 +41,6 @@ export default function HeroAnimation({ bandName, tagline }: HeroAnimationProps)
 
   return (
     <div ref={containerRef} className="hero-text">
-      <p className="hero-kicker">New music out now</p>
       <h1 className="hero-title" aria-label={bandName}>
         {chars.map((char, index) => (
           <span key={`${char}-${index}`} className="char" aria-hidden="true">
@@ -62,14 +53,6 @@ export default function HeroAnimation({ bandName, tagline }: HeroAnimationProps)
       <style>{`
         .hero-text {
           max-width: 52rem;
-        }
-
-        .hero-kicker {
-          font-size: 0.75rem;
-          letter-spacing: 0.24em;
-          text-transform: uppercase;
-          color: var(--color-accent);
-          margin: 0 0 1rem;
         }
 
         .hero-title {
