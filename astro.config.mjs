@@ -6,14 +6,21 @@ import { defineConfig } from 'astro/config';
 import { loadEnv } from 'vite';
 
 const mode = process.env.NODE_ENV === 'production' ? 'production' : 'development';
-const env = loadEnv(mode, process.cwd(), '');
-const projectId = env.PUBLIC_SANITY_PROJECT_ID ?? 'placeholder';
-const dataset = env.PUBLIC_SANITY_DATASET ?? 'production';
+const fileEnv = loadEnv(mode, process.cwd(), '');
+// Cloudflare Pages injects vars into process.env; loadEnv only reads .env files.
+const projectId =
+  process.env.PUBLIC_SANITY_PROJECT_ID ??
+  fileEnv.PUBLIC_SANITY_PROJECT_ID ??
+  '492ijj89';
+const dataset =
+  process.env.PUBLIC_SANITY_DATASET ?? fileEnv.PUBLIC_SANITY_DATASET ?? 'production';
+const siteUrl =
+  process.env.PUBLIC_SITE_URL ?? fileEnv.PUBLIC_SITE_URL ?? 'https://example.com';
 
 /** @type {import('astro').AstroUserConfig} */
 export default defineConfig({
   output: 'static',
-  site: env.PUBLIC_SITE_URL ?? 'https://example.com',
+  site: siteUrl,
   integrations: [
     react(),
     sanity({
