@@ -1,0 +1,53 @@
+---
+interface Props {
+  variant?: 'primary' | 'outline';
+  size?: 'default' | 'sm';
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  disabled?: boolean;
+  target?: string;
+  rel?: string;
+  download?: boolean | string;
+  class?: string;
+}
+
+const {
+  variant = 'primary',
+  size = 'default',
+  href,
+  type = 'button',
+  disabled = false,
+  target,
+  rel,
+  download,
+  class: className,
+} = Astro.props;
+
+const classes = [
+  'btn',
+  variant === 'primary' ? 'btn-primary' : 'btn-outline',
+  size === 'sm' && 'btn-sm',
+  disabled && 'btn-disabled',
+  className,
+];
+---
+
+{
+  href ? (
+    <a
+      href={disabled ? undefined : href}
+      class:list={classes}
+      target={target}
+      rel={rel}
+      download={download}
+      aria-disabled={disabled || undefined}
+      tabindex={disabled ? -1 : undefined}
+    >
+      <slot />
+    </a>
+  ) : (
+    <button type={type} class:list={classes} disabled={disabled}>
+      <slot />
+    </button>
+  )
+}

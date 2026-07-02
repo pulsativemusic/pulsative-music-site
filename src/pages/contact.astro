@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../components/layout/BaseLayout.astro';
+import Button from '../components/Button.astro';
 import { getSiteSettings } from '../lib/data';
 
 const settings = await getSiteSettings();
@@ -59,7 +60,7 @@ const settings = await getSiteSettings();
             <span>Message</span>
             <textarea name="message" rows="5" required></textarea>
           </label>
-          <button type="submit" class="btn btn-primary">Send</button>
+          <Button type="submit" variant="primary">Send</Button>
         </form>
         <p class="form-note text-muted">
           Replace the Formspree action URL in <code>contact.astro</code> with your own form endpoint.

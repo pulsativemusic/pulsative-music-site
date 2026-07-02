@@ -1,6 +1,7 @@
 ---
 import type { Show } from '../lib/types';
 import { formatShowDate } from '../lib/utils';
+import Button from './Button.astro';
 
 interface Props {
   shows: Show[];
@@ -33,14 +34,15 @@ const { shows, compact = false } = Astro.props;
             {show.soldOut ? (
               <span class="sold-out">Sold Out</span>
             ) : show.ticketUrl ? (
-              <a
+              <Button
                 href={show.ticketUrl}
-                class="btn btn-primary"
+                variant="primary"
+                size="sm"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 Tickets
-              </a>
+              </Button>
             ) : (
               <span class="text-muted">TBA</span>
             )}
@@ -74,7 +76,7 @@ const { shows, compact = false } = Astro.props;
   }
 
   .show-item:hover {
-    border-color: rgba(230, 57, 70, 0.4);
+    border-color: var(--color-accent-hover-border);
     box-shadow: var(--shadow-glow);
   }
 

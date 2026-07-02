@@ -5,6 +5,7 @@ import ShowList from '../components/ShowList.astro';
 import GalleryGrid from '../components/GalleryGrid.astro';
 import ReleaseGrid from '../components/ReleaseGrid.astro';
 import PrintGrid from '../components/PrintGrid.astro';
+import Button from '../components/Button.astro';
 import {
   getFeaturedPrints,
   getGalleries,
@@ -35,7 +36,7 @@ const latestRelease = releases[0];
           <p class="section-kicker">On Tour</p>
           <h2 class="section-title">Upcoming Shows</h2>
         </div>
-        <a href="/tour" class="btn btn-outline">All Dates</a>
+        <Button href="/tour" variant="outline">All Dates</Button>
       </div>
       <ShowList shows={upcomingShows} compact />
     </div>
@@ -50,7 +51,7 @@ const latestRelease = releases[0];
               <p class="section-kicker">New Release</p>
               <h2 class="section-title">{latestRelease.title}</h2>
             </div>
-            <a href="/music" class="btn btn-outline">All Music</a>
+            <Button href="/music" variant="outline">All Music</Button>
           </div>
           <ReleaseGrid releases={[latestRelease]} />
         </div>
@@ -65,7 +66,7 @@ const latestRelease = releases[0];
           <p class="section-kicker">Photography</p>
           <h2 class="section-title">Fine Art Prints</h2>
         </div>
-        <a href="/prints" class="btn btn-outline">Shop Prints</a>
+        <Button href="/prints" variant="outline">Shop Prints</Button>
       </div>
       <PrintGrid prints={featuredPrints} />
     </div>
@@ -78,7 +79,7 @@ const latestRelease = releases[0];
           <p class="section-kicker">Live</p>
           <h2 class="section-title">Photo Galleries</h2>
         </div>
-        <a href="/photos" class="btn btn-outline">All Photos</a>
+        <Button href="/photos" variant="outline">All Photos</Button>
       </div>
       <GalleryGrid galleries={galleries.slice(0, 2)} />
     </div>

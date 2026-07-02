@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import ShowList from '../components/ShowList.astro';
+import Button from '../components/Button.astro';
 import {
   getPastShows,
   getSiteSettings,
@@ -20,9 +21,9 @@ const pastShows = await getPastShows();
       <p class="page-intro text-muted reveal reveal-delay-2">
         Catch {settings.bandName} on the road. Add all dates to your calendar.
       </p>
-      <a href="/tour/calendar.ics" class="btn btn-outline reveal reveal-delay-3">
+      <Button href="/tour/calendar.ics" variant="outline" class="reveal reveal-delay-3">
         Add to Calendar (.ics)
-      </a>
+      </Button>
     </div>
   </section>
 

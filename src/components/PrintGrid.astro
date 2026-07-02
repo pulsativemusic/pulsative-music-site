@@ -1,6 +1,7 @@
 ---
 import type { PhotoPrint } from '../lib/types';
 import { formatPrice } from '../lib/utils';
+import Button from './Button.astro';
 
 interface Props {
   prints: PhotoPrint[];
@@ -42,16 +43,19 @@ const { prints } = Astro.props;
             <div class="print-footer">
               <span class="print-price">{formatPrice(print.price, print.currency)}</span>
               {print.purchaseUrl && !print.soldOut ? (
-                <a
+                <Button
                   href={print.purchaseUrl}
-                  class="btn btn-primary"
+                  variant="primary"
+                  size="sm"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   Buy Print
-                </a>
+                </Button>
               ) : (
-                <span class="btn btn-outline disabled">Unavailable</span>
+                <Button variant="outline" size="sm" disabled>
+                  Unavailable
+                </Button>
               )}
             </div>
           </div>
@@ -79,7 +83,7 @@ const { prints } = Astro.props;
   }
 
   .print-card:hover {
-    border-color: rgba(230, 57, 70, 0.4);
+    border-color: var(--color-accent-hover-border);
   }
 
   .print-image {
@@ -151,16 +155,6 @@ const { prints } = Astro.props;
     font-family: var(--font-display);
     font-size: 1.1rem;
     letter-spacing: 0.04em;
-  }
-
-  .btn-primary {
-    padding: 0.5rem 1rem;
-    font-size: 0.7rem;
-  }
-
-  .btn.disabled {
-    opacity: 0.5;
-    pointer-events: none;
   }
 
   .empty {

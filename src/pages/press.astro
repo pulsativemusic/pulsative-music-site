@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../components/layout/BaseLayout.astro';
+import Button from '../components/Button.astro';
 import { getPressAssets, getSiteSettings } from '../lib/data';
 
 const settings = await getSiteSettings();
@@ -27,9 +28,9 @@ const assets = await getPressAssets();
               <h3>{asset.title}</h3>
               {asset.description && <p class="text-muted">{asset.description}</p>}
               {asset.fileUrl ? (
-                <a href={asset.fileUrl} class="btn btn-outline" download>
+                <Button href={asset.fileUrl} variant="outline" download>
                   Download
-                </a>
+                </Button>
               ) : (
                 <span class="text-muted">Coming soon</span>
               )}
