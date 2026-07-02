@@ -4,7 +4,7 @@
   font-family: 'Bebas Neue';
   font-style: normal;
   font-weight: 400;
-  font-display: swap;
+  font-display: optional;
   src: url('https://fonts.gstatic.com/s/bebasneue/v14/JTUSjIg69CK48gW7PXoo9Wlhyw.woff2')
     format('woff2');
 }
@@ -13,7 +13,7 @@
   font-family: 'DM Sans';
   font-style: normal;
   font-weight: 400;
-  font-display: swap;
+  font-display: optional;
   src: url('https://fonts.gstatic.com/s/dmsans/v15/rP2Hp2ywxg089UriCZOIHTWEBlw.woff2')
     format('woff2');
 }
@@ -22,7 +22,7 @@
   font-family: 'DM Sans';
   font-style: normal;
   font-weight: 600;
-  font-display: swap;
+  font-display: optional;
   src: url('https://fonts.gstatic.com/s/dmsans/v15/rP2Cp2ywxg089UriASitCBimC2TY.woff2')
     format('woff2');
 }

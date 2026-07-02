@@ -12,23 +12,29 @@ const year = new Date().getFullYear();
 <footer class="footer">
   <div class="container footer-inner">
     <div class="footer-brand">
+      <p class="footer-kicker">Official Site</p>
       <p class="footer-name">{settings.bandName}</p>
       <p class="footer-tagline text-muted">{settings.tagline}</p>
     </div>
 
-    <div class="footer-links">
-      {
-        settings.socials.map((social) => (
-          <a href={social.url} target="_blank" rel="noopener noreferrer">
-            {social.platform}
-          </a>
-        ))
-      }
-    </div>
+    <nav class="footer-nav" aria-label="Social links">
+      <p class="footer-links-label">Follow</p>
+      <div class="footer-links">
+        {
+          settings.socials.map((social) => (
+            <a href={social.url} target="_blank" rel="noopener noreferrer">
+              {social.platform}
+            </a>
+          ))
+        }
+      </div>
+    </nav>
 
-    <p class="footer-copy text-muted">
-      &copy; {year} {settings.bandName}. All rights reserved.
-    </p>
+    <div class="footer-meta">
+      <p class="footer-copy text-muted">
+        &copy; {year} {settings.bandName}. All rights reserved.
+      </p>
+    </div>
   </div>
 </footer>
 
@@ -41,14 +47,36 @@ const year = new Date().getFullYear();
 
   .footer-inner {
     display: grid;
-    gap: var(--space-lg);
+    gap: var(--space-xl);
+    align-items: end;
+  }
+
+  .footer-kicker {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: var(--space-xs);
   }
 
   .footer-name {
     font-family: var(--font-display);
-    font-size: 1.75rem;
+    font-size: clamp(1.9rem, 4vw, 2.4rem);
     letter-spacing: 0.1em;
     margin-bottom: var(--space-xs);
+  }
+
+  .footer-tagline {
+    margin-bottom: 0;
+    max-width: 36ch;
+  }
+
+  .footer-links-label {
+    margin-bottom: var(--space-sm);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
   }
 
   .footer-links {
@@ -70,6 +98,23 @@ const year = new Date().getFullYear();
   }
 
   .footer-copy {
-    font-size: 0.8rem;
+    font-size: 0.78rem;
+    margin-bottom: 0;
+  }
+
+  .footer-meta {
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--color-border);
+  }
+
+  @media (min-width: 50rem) {
+    .footer-inner {
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: var(--space-lg) var(--space-xl);
+    }
+
+    .footer-meta {
+      grid-column: 1 / -1;
+    }
   }
 </style>

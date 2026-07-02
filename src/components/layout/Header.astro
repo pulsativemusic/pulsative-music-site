@@ -47,14 +47,39 @@ const currentPath = Astro.url.pathname;
 </header>
 
 <script>
-  const toggle = document.querySelector('.menu-toggle');
-  const nav = document.querySelector('.nav');
+  const initMobileMenu = () => {
+    const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+    const nav = document.querySelector<HTMLElement>('.nav');
 
-  toggle?.addEventListener('click', () => {
-    const expanded = toggle.getAttribute('aria-expanded') === 'true';
-    toggle.setAttribute('aria-expanded', String(!expanded));
-    nav?.classList.toggle('open');
-  });
+    if (!toggle || !nav || toggle.dataset.initialized === 'true') {
+      return;
+    }
+
+    toggle.dataset.initialized = 'true';
+
+    toggle.addEventListener('click', () => {
+      const expanded = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!expanded));
+      nav.classList.toggle('open', !expanded);
+    });
+
+    nav.addEventListener('click', (event) => {
+      const target = event.target as HTMLElement | null;
+      if (!target?.closest('.nav-link')) {
+        return;
+      }
+
+      if (!window.matchMedia('(max-width: 768px)').matches) {
+        return;
+      }
+
+      toggle.setAttribute('aria-expanded', 'false');
+      nav.classList.remove('open');
+    });
+  };
+
+  initMobileMenu();
+  document.addEventListener('astro:page-load', initMobileMenu);
 </script>
 
 <style>
