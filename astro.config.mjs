@@ -17,6 +17,8 @@ const dataset =
 const siteUrl =
   process.env.PUBLIC_SITE_URL ?? fileEnv.PUBLIC_SITE_URL ?? 'https://example.com';
 
+console.log(`[build] Sanity project: ${projectId}, dataset: ${dataset}`);
+
 /** @type {import('astro').AstroUserConfig} */
 export default defineConfig({
   output: 'static',

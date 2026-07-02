@@ -2,7 +2,8 @@ import imageUrlBuilder from '@sanity/image-url';
 import type { SanityImageSource } from '@sanity/image-url';
 import type { SanityImage } from './types';
 
-const projectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID;
+const projectId =
+  import.meta.env.PUBLIC_SANITY_PROJECT_ID ?? '492ijj89';
 const dataset = import.meta.env.PUBLIC_SANITY_DATASET ?? 'production';
 
 export function isSanityConfigured(): boolean {

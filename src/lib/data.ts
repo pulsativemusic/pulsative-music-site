@@ -47,8 +47,7 @@ export async function getShows(): Promise<Show[]> {
     return mockShows;
   }
 
-  const shows = await sanityClient.fetch<Show[]>(queries.shows);
-  return shows.length > 0 ? shows : mockShows;
+  return await sanityClient.fetch<Show[]>(queries.shows);
 }
 
 export async function getUpcomingShows(limit?: number): Promise<Show[]> {
@@ -65,8 +64,7 @@ export async function getReleases(): Promise<Release[]> {
     return mockReleases;
   }
 
-  const releases = await sanityClient.fetch<Release[]>(queries.releases);
-  return releases.length > 0 ? releases : mockReleases;
+  return await sanityClient.fetch<Release[]>(queries.releases);
 }
 
 export async function getGalleries(): Promise<Gallery[]> {
@@ -74,8 +72,7 @@ export async function getGalleries(): Promise<Gallery[]> {
     return mockGalleries;
   }
 
-  const galleries = await sanityClient.fetch<Gallery[]>(queries.galleries);
-  return galleries.length > 0 ? galleries : mockGalleries;
+  return await sanityClient.fetch<Gallery[]>(queries.galleries);
 }
 
 export async function getGalleryBySlug(slug: string): Promise<Gallery | null> {
@@ -88,11 +85,7 @@ export async function getGalleryBySlug(slug: string): Promise<Gallery | null> {
     { slug },
   );
 
-  if (gallery) {
-    return gallery;
-  }
-
-  return mockGalleries.find((item) => item.slug === slug) ?? null;
+  return gallery;
 }
 
 export async function getPressAssets(): Promise<PressAsset[]> {
@@ -100,8 +93,7 @@ export async function getPressAssets(): Promise<PressAsset[]> {
     return mockPressAssets;
   }
 
-  const assets = await sanityClient.fetch<PressAsset[]>(queries.pressAssets);
-  return assets.length > 0 ? assets : mockPressAssets;
+  return await sanityClient.fetch<PressAsset[]>(queries.pressAssets);
 }
 
 export async function getAboutContent(): Promise<AboutContent> {
@@ -115,9 +107,9 @@ export async function getAboutContent(): Promise<AboutContent> {
   }
 
   return {
-    bio: about.bio?.length ? about.bio : mockAbout.bio,
-    members: about.members?.length ? about.members : mockAbout.members,
-    pressQuotes: about.pressQuotes?.length ? about.pressQuotes : mockAbout.pressQuotes,
+    bio: about.bio ?? [],
+    members: about.members ?? [],
+    pressQuotes: about.pressQuotes ?? [],
   };
 }
 
@@ -126,8 +118,7 @@ export async function getPhotoPrints(): Promise<PhotoPrint[]> {
     return mockPhotoPrints;
   }
 
-  const prints = await sanityClient.fetch<PhotoPrint[]>(queries.photoPrints);
-  return prints.length > 0 ? prints : mockPhotoPrints;
+  return await sanityClient.fetch<PhotoPrint[]>(queries.photoPrints);
 }
 
 export async function getFeaturedPrints(limit = 3): Promise<PhotoPrint[]> {
