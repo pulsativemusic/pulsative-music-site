@@ -42,7 +42,18 @@ export async function getSiteSettings(): Promise<SiteSettings> {
   const settings = await sanityClient.fetch<SiteSettings | null>(
     queries.siteSettings,
   );
-  return settings ?? mockSiteSettings;
+  if (!settings) {
+    return mockSiteSettings;
+  }
+
+  return {
+    ...mockSiteSettings,
+    ...settings,
+    socials:
+      settings.socials && settings.socials.length > 0
+        ? settings.socials
+        : mockSiteSettings.socials,
+  };
 }
 
 export async function getShows(): Promise<Show[]> {

@@ -1,11 +1,11 @@
 @import './tokens.css';
 
 @font-face {
-  font-family: 'Bebas Neue';
+  font-family: 'Michroma';
   font-style: normal;
   font-weight: 400;
   font-display: optional;
-  src: url('https://fonts.gstatic.com/s/bebasneue/v14/JTUSjIg69CK48gW7PXoo9Wlhyw.woff2')
+  src: url('https://fonts.gstatic.com/s/michroma/v21/PN_zRfy9qWD8fEagAPg9pTn5_PDb.woff2')
     format('woff2');
 }
 
@@ -176,7 +176,7 @@ p {
 
 .btn-primary {
   background: var(--color-accent);
-  color: #fff;
+  color: var(--color-on-accent);
   border-color: var(--color-accent);
 }
 

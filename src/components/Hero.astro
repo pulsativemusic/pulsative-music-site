@@ -82,8 +82,8 @@ const shortDescription = pickLocalized(settings.shortDescription, locale);
 
   .hero {
     position: relative;
-    height: 70vh;
-    min-height: 22rem;
+    height: 58vh;
+    min-height: 18rem;
     display: flex;
     align-items: center;
     overflow: hidden;
@@ -102,7 +102,7 @@ const shortDescription = pickLocalized(settings.shortDescription, locale);
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.72) 100%),
+      linear-gradient(180deg, rgba(9, 9, 11, 0.35) 0%, rgba(9, 9, 11, 0.72) 100%),
       radial-gradient(ellipse at 20% 40%, rgba(232, 255, 0, 0.08), transparent 55%),
       radial-gradient(ellipse at 80% 60%, rgba(232, 255, 0, 0.04), transparent 50%);
   }
@@ -110,7 +110,7 @@ const shortDescription = pickLocalized(settings.shortDescription, locale);
   .hero-content {
     position: relative;
     z-index: 1;
-    padding-block: calc(var(--header-height) + var(--space-md)) var(--space-lg);
+    padding-block: calc(var(--header-height) + var(--space-sm)) var(--space-md);
   }
 
   .hero-logo {

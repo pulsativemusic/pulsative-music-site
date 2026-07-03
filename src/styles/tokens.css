@@ -1,16 +1,17 @@
 :root {
-  --color-bg: #000000;
-  --color-bg-elevated: #0a0a0a;
-  --color-surface: #111111;
-  --color-text: #f5f5f5;
-  --color-text-muted: #9a9a9a;
+  --color-bg: #09090b;
+  --color-bg-elevated: #121215;
+  --color-surface: #18181b;
+  --color-text: #f4f4f5;
+  --color-text-muted: #a1a1aa;
   --color-accent: #e8ff00;
   --color-accent-hover: #f5ff66;
+  --color-on-accent: #09090b;
   --color-accent-muted: rgba(232, 255, 0, 0.12);
   --color-accent-hover-border: rgba(232, 255, 0, 0.2);
-  --color-border: rgba(245, 245, 245, 0.1);
+  --color-border: rgba(244, 244, 245, 0.08);
 
-  --font-display: "Bebas Neue", "Arial Narrow", sans-serif;
+  --font-display: "Michroma", "Arial Narrow", sans-serif;
   --font-body: "DM Sans", system-ui, sans-serif;
 
   --space-xs: 0.5rem;
