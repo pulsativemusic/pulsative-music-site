@@ -1,6 +1,7 @@
 // @ts-check
 /// <reference types="node" />
 import react from '@astrojs/react';
+import sitemap from '@astrojs/sitemap';
 import sanity from '@sanity/astro';
 import { defineConfig } from 'astro/config';
 import { loadEnv } from 'vite';
@@ -22,6 +23,7 @@ console.log(`[build] Sanity project: ${projectId}, dataset: ${dataset}`);
 export default defineConfig({
   output: 'static',
   site: siteUrl,
+  compressHTML: true,
   i18n: {
     defaultLocale: 'de',
     locales: ['de', 'en'],
@@ -31,6 +33,16 @@ export default defineConfig({
   },
   integrations: [
     react(),
+    sitemap({
+      i18n: {
+        defaultLocale: 'de',
+        locales: {
+          de: 'de-DE',
+          en: 'en-US',
+        },
+      },
+      filter: (page) => !page.includes('/admin'),
+    }),
     sanity({
       projectId,
       dataset,

@@ -9,7 +9,7 @@ const settings = await getSiteSettings();
 const ui = getUi(locale);
 ---
 
-<BaseLayout title={ui.contact.title} settings={settings}>
+<BaseLayout title={ui.contact.title} description={ui.contact.intro} settings={settings}>
   <section class="page-hero section">
     <div class="container">
       <p class="section-kicker reveal">{ui.contact.kicker}</p>

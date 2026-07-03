@@ -81,6 +81,14 @@ const ui = {
       soldOut: 'Ausverkauft',
       tickets: 'Tickets',
     },
+    seo: {
+      about:
+        'PULSATIVE — Neo-Brass-Kollektiv aus Köln. House, Techno und EDM live. Besetzung, Repertoire und Booking.',
+      promoKit:
+        'Pressebereich von PULSATIVE: EPK, Logos, Fotos und Booking-Kontakt für Medien und Veranstalter.',
+      legalImpressum: 'Impressum und Anbieterkennzeichnung der offiziellen PULSATIVE Website.',
+      legalPrivacy: 'Datenschutzerklärung der PULSATIVE Website inklusive Matomo Analytics.',
+    },
   },
   en: {
     nav: {
@@ -158,6 +166,14 @@ const ui = {
     misc: {
       soldOut: 'Sold Out',
       tickets: 'Tickets',
+    },
+    seo: {
+      about:
+        'PULSATIVE — neo-brass collective from Cologne. Live House, Techno and EDM. Lineup, repertoire and booking.',
+      promoKit:
+        'PULSATIVE press area: EPK, logos, photos, and booking contact for media and promoters.',
+      legalImpressum: 'Legal notice and provider information for the official PULSATIVE website.',
+      legalPrivacy: 'Privacy policy for the PULSATIVE website, including Matomo analytics.',
     },
   },
 } as const;

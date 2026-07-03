@@ -32,7 +32,7 @@ export const mockSiteSettings: SiteSettings = {
   bookingEmail: 'pulsative@proton.me',
   phone: '01577-9588093',
   seoDescription:
-    'PULSATIVE — Neo-Brass Collective from Cologne. House, Techno, EDM live. Booking, videos, press kit.',
+    'PULSATIVE — Neo-Brass-Kollektiv aus Köln. House, Techno und EDM live. Termine, Videos, Presse und Booking.',
   showreelYoutubeId: 'dQw4w9WgXcQ',
   showreelVideoUrl:
     'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',

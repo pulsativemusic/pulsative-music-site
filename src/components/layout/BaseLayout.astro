@@ -12,26 +12,40 @@ import {
   pickLocalized,
   switchLocalePath,
 } from '../../lib/i18n';
+import {
+  absoluteUrl,
+  buildMusicGroupJsonLd,
+  buildPageTitle,
+  buildWebPageJsonLd,
+  getSiteUrl,
+  ogLocale,
+  resolveAssetUrl,
+  resolvePageDescription,
+} from '../../lib/seo';
 
 interface Props {
   title?: string;
   description?: string;
   settings: SiteSettings;
+  noindex?: boolean;
 }
 
-const { title, description, settings } = Astro.props;
+const { title, description, settings, noindex = false } = Astro.props;
 const locale = (Astro.currentLocale ?? getLocaleFromPath(Astro.url.pathname)) as Locale;
 const alternateLocale: Locale = locale === 'de' ? 'en' : 'de';
-const tagline = pickLocalized(settings.tagline, locale);
-const pageTitle = title ? `${title} — ${settings.bandName}` : settings.bandName;
-const pageDescription = description ?? settings.seoDescription ?? tagline;
-const siteUrl = (import.meta.env.PUBLIC_SITE_URL ?? 'https://pulsative.band').replace(/\/$/, '');
+const siteUrl = getSiteUrl(Astro.site?.href.replace(/\/$/, ''));
 const canonicalPath = Astro.url.pathname;
-const canonicalUrl = `${siteUrl}${canonicalPath === '/' ? '' : canonicalPath}`;
-const alternateUrl = `${siteUrl}${switchLocalePath(canonicalPath, alternateLocale)}`;
-const ogImage = settings.heroImageUrl?.startsWith('/')
-  ? `${siteUrl}${settings.heroImageUrl}`
-  : settings.heroImageUrl;
+const canonicalUrl = absoluteUrl(canonicalPath === '/' ? '' : canonicalPath, siteUrl);
+const alternateUrl = absoluteUrl(switchLocalePath(canonicalPath, alternateLocale), siteUrl);
+const isHome = canonicalPath === '/' || canonicalPath === '/en' || canonicalPath === '/en/';
+const pageTitle = buildPageTitle(title, settings.bandName);
+const pageDescription = resolvePageDescription(description, settings, locale, isHome);
+const ogImageUrl = resolveAssetUrl(settings.heroImageUrl, siteUrl);
+const ogImageAlt = `${settings.bandName} — ${pickLocalized(settings.tagline, locale)}`;
+const jsonLd = isHome
+  ? buildMusicGroupJsonLd({ settings, siteUrl, description: pageDescription, locale })
+  : buildWebPageJsonLd(siteUrl, canonicalUrl, pageTitle, pageDescription);
+const jsonLdSerialized = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
 ---
 
 <!doctype html>
@@ -40,17 +54,41 @@ const ogImage = settings.heroImageUrl?.startsWith('/')
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={pageDescription} />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#09090b" />
+    {noindex ? (
+      <meta name="robots" content="noindex, nofollow" />
+    ) : (
+      <meta name="robots" content="index, follow, max-image-preview:large" />
+    )}
     <link rel="canonical" href={canonicalUrl} />
     <link rel="alternate" hreflang={locale} href={canonicalUrl} />
     <link rel="alternate" hreflang={alternateLocale} href={alternateUrl} />
-    <link rel="alternate" hreflang="x-default" href={`${siteUrl}${localizedPath('/', 'de')}`} />
+    <link rel="alternate" hreflang="x-default" href={absoluteUrl(localizedPath('/', 'de'), siteUrl)} />
+
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDescription} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
-    {ogImage && (
-      <meta property="og:image" content={ogImage} />
-    )}
+    <meta property="og:site_name" content={settings.bandName} />
+    <meta property="og:locale" content={ogLocale(locale)} />
+    <meta property="og:locale:alternate" content={ogLocale(alternateLocale)} />
+    {
+      ogImageUrl && (
+        <>
+          <meta property="og:image" content={ogImageUrl} />
+          <meta property="og:image:alt" content={ogImageAlt} />
+          <meta property="og:image:width" content="1024" />
+          <meta property="og:image:height" content="571" />
+        </>
+      )
+    }
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
+
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="preload"
@@ -76,6 +114,7 @@ const ogImage = settings.heroImageUrl?.startsWith('/')
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <title>{pageTitle}</title>
+    <script type="application/ld+json" set:html={jsonLdSerialized} />
     <ClientRouter />
   </head>
   <body>
