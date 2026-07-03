@@ -1,0 +1,174 @@
+---
+import { pickLocalized } from '../lib/i18n';
+import type { AboutContent, Locale } from '../lib/types';
+import { portableTextToPlainText } from '../lib/portable-text';
+
+interface AboutUi {
+  lineup: string;
+  repertoire: string;
+  setLength: string;
+}
+
+interface Props {
+  about: AboutContent;
+  locale: Locale;
+  bandName: string;
+  ui: AboutUi;
+}
+
+const { about, locale, bandName, ui } = Astro.props;
+const bioText = portableTextToPlainText(about.bio);
+const setLength = about.setLength ? pickLocalized(about.setLength, locale) : '';
+---
+
+<div class="about-grid">
+  {
+    about.bandPhotoUrl && (
+      <img
+        class="band-photo reveal"
+        src={about.bandPhotoUrl}
+        alt={bandName}
+        loading="lazy"
+        width={1200}
+        height={800}
+      />
+    )
+  }
+
+  <div class="bio reveal">
+    {bioText.split('\n\n').map((paragraph) => (
+      <p>{paragraph}</p>
+    ))}
+  </div>
+
+  {
+    about.lineup && about.lineup.length > 0 && (
+      <div class="about-block reveal">
+        <h2 class="section-title">{ui.lineup}</h2>
+        <p class="lineup-text">{about.lineup.join(' · ')}</p>
+      </div>
+    )
+  }
+
+  {
+    about.setLength && (
+      <div class="about-block reveal">
+        <h2 class="section-title">{ui.setLength}</h2>
+        <p class="set-length">{setLength}</p>
+      </div>
+    )
+  }
+
+  {
+    about.repertoire && about.repertoire.length > 0 && (
+      <div class="about-block reveal">
+        <h2 class="section-title">{ui.repertoire}</h2>
+        <ul class="repertoire-list">
+          {about.repertoire.map((track) => (
+            <li>{track}</li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
+
+  {
+    about.members.length > 0 && (
+      <div class="members">
+        <h2 class="section-title reveal">{ui.lineup}</h2>
+        <div class="member-grid">
+          {
+            about.members.map((member) => (
+              <article class="member-card reveal">
+                {member.photoUrl && (
+                  <img src={member.photoUrl} alt={member.name} loading="lazy" width={200} height={200} />
+                )}
+                <div>
+                  <h3>{member.name}</h3>
+                  {member.role && <p class="member-role">{member.role}</p>}
+                  {member.bio && <p class="text-muted">{member.bio}</p>}
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    )
+  }
+</div>
+
+<style>
+  .about-grid {
+    display: grid;
+    gap: var(--space-2xl);
+  }
+
+  .band-photo {
+    width: 100%;
+    max-height: 32rem;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+  }
+
+  .bio {
+    max-width: 42rem;
+    font-size: 1.1rem;
+    line-height: 1.8;
+  }
+
+  .about-block {
+    max-width: 42rem;
+  }
+
+  .lineup-text {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  .set-length {
+    font-size: 1.05rem;
+    margin: 0;
+  }
+
+  .repertoire-list {
+    margin: var(--space-sm) 0 0;
+    padding-left: 1.1rem;
+    line-height: 1.8;
+  }
+
+  .member-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--space-lg);
+    margin-top: var(--space-lg);
+  }
+
+  .member-card {
+    display: grid;
+    gap: var(--space-sm);
+  }
+
+  .member-card img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    filter: grayscale(20%);
+  }
+
+  .member-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.15rem;
+  }
+
+  .member-role {
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 0.5rem;
+  }
+</style>

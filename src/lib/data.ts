@@ -1,23 +1,26 @@
 import { sanityClient } from 'sanity:client';
 import {
   mockAbout,
-  mockGalleries,
+  mockLegalPages,
   mockPhotoPrints,
   mockPressAssets,
   mockReleases,
   mockShows,
   mockSiteSettings,
+  mockVideos,
 } from './mock-data';
 import { isSanityConfigured, queries } from './sanity';
 import type {
   AboutContent,
-  Gallery,
+  LegalPage,
   PhotoPrint,
   PressAsset,
   Release,
   Show,
   SiteSettings,
+  Video,
 } from './types';
+import type { Locale } from './types';
 
 function partitionShows(shows: Show[]) {
   const today = new Date().toISOString().slice(0, 10);
@@ -59,33 +62,20 @@ export async function getPastShows(): Promise<Show[]> {
   return partitionShows(await getShows()).past;
 }
 
+export async function getVideos(): Promise<Video[]> {
+  if (!isSanityConfigured()) {
+    return mockVideos;
+  }
+
+  return await sanityClient.fetch<Video[]>(queries.videos);
+}
+
 export async function getReleases(): Promise<Release[]> {
   if (!isSanityConfigured()) {
     return mockReleases;
   }
 
   return await sanityClient.fetch<Release[]>(queries.releases);
-}
-
-export async function getGalleries(): Promise<Gallery[]> {
-  if (!isSanityConfigured()) {
-    return mockGalleries;
-  }
-
-  return await sanityClient.fetch<Gallery[]>(queries.galleries);
-}
-
-export async function getGalleryBySlug(slug: string): Promise<Gallery | null> {
-  if (!isSanityConfigured()) {
-    return mockGalleries.find((gallery) => gallery.slug === slug) ?? null;
-  }
-
-  const gallery = await sanityClient.fetch<Gallery | null>(
-    queries.galleryBySlug,
-    { slug },
-  );
-
-  return gallery;
 }
 
 export async function getPressAssets(): Promise<PressAsset[]> {
@@ -96,21 +86,48 @@ export async function getPressAssets(): Promise<PressAsset[]> {
   return await sanityClient.fetch<PressAsset[]>(queries.pressAssets);
 }
 
-export async function getAboutContent(): Promise<AboutContent> {
+export async function getAboutContent(locale: Locale = 'de'): Promise<AboutContent> {
   if (!isSanityConfigured()) {
-    return mockAbout;
+    const bio =
+      locale === 'en' && mockAbout.bioEn?.length ? mockAbout.bioEn : mockAbout.bio;
+    return { ...mockAbout, bio };
   }
 
   const about = await sanityClient.fetch<Partial<AboutContent> | null>(queries.about);
   if (!about) {
-    return mockAbout;
+    const bio =
+      locale === 'en' && mockAbout.bioEn?.length ? mockAbout.bioEn : mockAbout.bio;
+    return { ...mockAbout, bio };
   }
 
+  const bio =
+    locale === 'en' && about.bioEn?.length ? about.bioEn : (about.bio ?? []);
+
   return {
-    bio: about.bio ?? [],
+    bio,
+    bandPhotoUrl: about.bandPhotoUrl,
     members: about.members ?? [],
     pressQuotes: about.pressQuotes ?? [],
+    lineup: about.lineup,
+    repertoire: about.repertoire,
+    setLength: about.setLength,
   };
+}
+
+export async function getLegalPage(
+  slug: 'impressum' | 'privacy',
+  locale: Locale,
+): Promise<LegalPage | null> {
+  if (!isSanityConfigured()) {
+    return mockLegalPages.find((page) => page.slug === slug && page.locale === locale) ?? null;
+  }
+
+  const page = await sanityClient.fetch<LegalPage | null>(queries.legalPage, {
+    slug,
+    locale,
+  });
+
+  return page;
 }
 
 export async function getPhotoPrints(): Promise<PhotoPrint[]> {
@@ -119,13 +136,6 @@ export async function getPhotoPrints(): Promise<PhotoPrint[]> {
   }
 
   return await sanityClient.fetch<PhotoPrint[]>(queries.photoPrints);
-}
-
-export async function getFeaturedPrints(limit = 3): Promise<PhotoPrint[]> {
-  const prints = await getPhotoPrints();
-  const featured = prints.filter((print) => print.featured);
-  const source = featured.length > 0 ? featured : prints;
-  return source.slice(0, limit);
 }
 
 export { partitionShows };

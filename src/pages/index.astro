@@ -2,88 +2,39 @@
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import ShowList from '../components/ShowList.astro';
-import GalleryGrid from '../components/GalleryGrid.astro';
-import ReleaseGrid from '../components/ReleaseGrid.astro';
-import PrintGrid from '../components/PrintGrid.astro';
 import Button from '../components/Button.astro';
-import {
-  getFeaturedPrints,
-  getGalleries,
-  getReleases,
-  getSiteSettings,
-  getUpcomingShows,
-} from '../lib/data';
+import { getSiteSettings, getUpcomingShows } from '../lib/data';
+import { getUi, localizedPath } from '../lib/i18n';
+import { getShowreelFromSettings } from '../lib/showreel';
 
+const locale = 'de';
 const settings = await getSiteSettings();
 const upcomingShows = await getUpcomingShows(3);
-const galleries = await getGalleries();
-const releases = await getReleases();
-const featuredPrints = await getFeaturedPrints(3);
-const latestRelease = releases[0];
+const ui = getUi(locale);
+const showreel = getShowreelFromSettings(settings);
 ---
 
 <BaseLayout settings={settings}>
-  <Hero
-    bandName={settings.bandName}
-    tagline={settings.tagline}
-    heroImageUrl={settings.heroImageUrl}
-  />
-
-  <section class="section">
-    <div class="container">
-      <div class="section-header reveal">
-        <div>
-          <p class="section-kicker">On Tour</p>
-          <h2 class="section-title">Upcoming Shows</h2>
-        </div>
-        <Button href="/tour" variant="outline">All Dates</Button>
-      </div>
-      <ShowList shows={upcomingShows} compact />
-    </div>
-  </section>
+  <Hero settings={settings} locale={locale} showreel={showreel} />
 
   {
-    latestRelease && (
+    upcomingShows.length > 0 && (
       <section class="section section-alt">
         <div class="container">
           <div class="section-header reveal">
             <div>
-              <p class="section-kicker">New Release</p>
-              <h2 class="section-title">{latestRelease.title}</h2>
+              <p class="section-kicker">{ui.home.upcomingShows}</p>
+              <h2 class="section-title">{ui.nav.live}</h2>
             </div>
-            <Button href="/music" variant="outline">All Music</Button>
+            <Button href={localizedPath('/live', locale)} variant="outline">
+              {ui.home.allDates}
+            </Button>
           </div>
-          <ReleaseGrid releases={[latestRelease]} />
+          <ShowList shows={upcomingShows} compact locale={locale} />
         </div>
       </section>
     )
   }
-
-  <section class="section">
-    <div class="container">
-      <div class="section-header reveal">
-        <div>
-          <p class="section-kicker">Photography</p>
-          <h2 class="section-title">Fine Art Prints</h2>
-        </div>
-        <Button href="/prints" variant="outline">Shop Prints</Button>
-      </div>
-      <PrintGrid prints={featuredPrints} />
-    </div>
-  </section>
-
-  <section class="section section-alt">
-    <div class="container">
-      <div class="section-header reveal">
-        <div>
-          <p class="section-kicker">Live</p>
-          <h2 class="section-title">Photo Galleries</h2>
-        </div>
-        <Button href="/photos" variant="outline">All Photos</Button>
-      </div>
-      <GalleryGrid galleries={galleries.slice(0, 2)} />
-    </div>
-  </section>
 </BaseLayout>
 
 <style>

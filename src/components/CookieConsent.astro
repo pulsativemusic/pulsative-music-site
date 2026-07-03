@@ -1,0 +1,143 @@
+---
+import type { Locale } from '../lib/types';
+import { getUi, privacyPath } from '../lib/i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const ui = getUi(locale);
+const matomoUrl = import.meta.env.PUBLIC_MATOMO_URL;
+const matomoSiteId = import.meta.env.PUBLIC_MATOMO_SITE_ID;
+---
+
+{
+  matomoUrl && matomoSiteId && (
+    <div id="cookie-consent" class="cookie-consent" hidden>
+      <div class="cookie-inner">
+        <p class="cookie-title">{ui.cookie.title}</p>
+        <p class="cookie-text">{ui.cookie.text}</p>
+        <div class="cookie-actions">
+          <button type="button" class="cookie-btn cookie-accept">{ui.cookie.accept}</button>
+          <button type="button" class="cookie-btn cookie-reject">{ui.cookie.reject}</button>
+          <a href={privacyPath(locale)} class="cookie-link">{ui.cookie.privacyLink}</a>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+<script
+  define:vars={{
+    matomoUrl,
+    matomoSiteId,
+    storageKey: 'pulsative-analytics-consent',
+  }}
+>
+  const banner = document.getElementById('cookie-consent');
+  if (!banner || !matomoUrl || !matomoSiteId) {
+    // ponytail: no Matomo env vars — banner and tracker stay off
+  } else {
+    const loadMatomo = () => {
+      if (window._matomoLoaded) return;
+      window._matomoLoaded = true;
+      window._paq = window._paq || [];
+      window._paq.push(['trackPageView']);
+      window._paq.push(['enableLinkTracking']);
+      window._paq.push(['setTrackerUrl', `${matomoUrl}/matomo.php`]);
+      window._paq.push(['setSiteId', matomoSiteId]);
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = `${matomoUrl}/matomo.js`;
+      document.head.appendChild(script);
+    };
+
+    const stored = localStorage.getItem(storageKey);
+    if (stored === 'accepted') {
+      loadMatomo();
+    } else if (stored !== 'rejected') {
+      banner.hidden = false;
+    }
+
+    banner.querySelector('.cookie-accept')?.addEventListener('click', () => {
+      localStorage.setItem(storageKey, 'accepted');
+      banner.hidden = true;
+      loadMatomo();
+    });
+
+    banner.querySelector('.cookie-reject')?.addEventListener('click', () => {
+      localStorage.setItem(storageKey, 'rejected');
+      banner.hidden = true;
+    });
+  }
+</script>
+
+<style>
+  .cookie-consent {
+    position: fixed;
+    inset-inline: var(--space-sm);
+    bottom: var(--space-sm);
+    z-index: 200;
+    max-width: 28rem;
+    margin-inline: auto;
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-glow);
+  }
+
+  .cookie-inner {
+    padding: var(--space-md);
+  }
+
+  .cookie-title {
+    font-family: var(--font-display);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-xs);
+  }
+
+  .cookie-text {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-sm);
+    line-height: 1.5;
+  }
+
+  .cookie-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    align-items: center;
+  }
+
+  .cookie-btn {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.55rem 0.9rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    border: 1px solid var(--color-border);
+    background: transparent;
+    color: var(--color-text);
+  }
+
+  .cookie-accept {
+    background: var(--color-accent);
+    color: #000;
+    border-color: var(--color-accent);
+  }
+
+  .cookie-link {
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
+    margin-left: auto;
+  }
+
+  .cookie-link:hover {
+    color: var(--color-accent);
+  }
+</style>

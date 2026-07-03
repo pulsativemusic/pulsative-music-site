@@ -1,149 +1,32 @@
 ---
 import BaseLayout from '../components/layout/BaseLayout.astro';
+import AboutSections from '../components/AboutContent.astro';
 import { getAboutContent, getSiteSettings } from '../lib/data';
-import { portableTextToPlainText } from '../lib/portable-text';
+import { getUi } from '../lib/i18n';
 
+const locale = 'de';
 const settings = await getSiteSettings();
-const about = await getAboutContent();
-const bioText = portableTextToPlainText(about.bio);
+const about = await getAboutContent(locale);
+const ui = getUi(locale);
 ---
 
-<BaseLayout title="About" description={`About ${settings.bandName}`} settings={settings}>
+<BaseLayout title={ui.about.title} settings={settings}>
   <section class="page-hero section">
     <div class="container">
-      <p class="section-kicker reveal">The Artist</p>
-      <h1 class="page-title reveal reveal-delay-1">About</h1>
+      <p class="section-kicker reveal">{ui.about.kicker}</p>
+      <h1 class="page-title reveal reveal-delay-1">{ui.about.title}</h1>
     </div>
   </section>
 
   <section class="section">
-    <div class="container about-grid">
-      <div class="bio reveal">
-        {bioText.split('\n\n').map((paragraph) => (
-          <p>{paragraph}</p>
-        ))}
-      </div>
-
-      <div class="members">
-        <h2 class="section-title reveal">Members</h2>
-        <div class="member-grid">
-          {
-            about.members.map((member) => (
-              <article class="member-card reveal">
-                {member.photoUrl && (
-                  <img src={member.photoUrl} alt={member.name} loading="lazy" width={200} height={200} />
-                )}
-                <div>
-                  <h3>{member.name}</h3>
-                  <p class="member-role">{member.role}</p>
-                  {member.bio && <p class="text-muted">{member.bio}</p>}
-                </div>
-              </article>
-            ))
-          }
-        </div>
-      </div>
+    <div class="container">
+      <AboutSections about={about} locale={locale} bandName={settings.bandName} ui={ui.about} />
     </div>
   </section>
-
-  {
-    about.pressQuotes.length > 0 && (
-      <section class="section section-alt">
-        <div class="container">
-          <h2 class="section-title reveal">Press</h2>
-          <div class="quotes">
-            {
-              about.pressQuotes.map((item) => (
-                <blockquote class="quote reveal">
-                  <p>"{item.quote}"</p>
-                  <cite>— {item.source}</cite>
-                </blockquote>
-              ))
-            }
-          </div>
-        </div>
-      </section>
-    )
-  }
 </BaseLayout>
 
 <style>
   .page-title {
     font-size: clamp(3rem, 10vw, 6rem);
-  }
-
-  .about-grid {
-    display: grid;
-    gap: var(--space-2xl);
-  }
-
-  .bio {
-    max-width: 42rem;
-    font-size: 1.1rem;
-    line-height: 1.8;
-  }
-
-  .member-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: var(--space-lg);
-    margin-top: var(--space-lg);
-  }
-
-  .member-card {
-    display: grid;
-    gap: var(--space-sm);
-  }
-
-  .member-card img {
-    width: 100%;
-    aspect-ratio: 1;
-    object-fit: cover;
-    border-radius: var(--radius-md);
-    filter: grayscale(20%);
-  }
-
-  .member-card h3 {
-    font-size: 1.25rem;
-    margin-bottom: 0.15rem;
-  }
-
-  .member-role {
-    font-size: 0.8rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--color-accent);
-    margin-bottom: 0.5rem;
-  }
-
-  .section-alt {
-    background: var(--color-bg-elevated);
-    border-top: 1px solid var(--color-border);
-  }
-
-  .quotes {
-    display: grid;
-    gap: var(--space-lg);
-    margin-top: var(--space-lg);
-  }
-
-  .quote {
-    margin: 0;
-    padding: var(--space-lg);
-    border-left: 3px solid var(--color-accent);
-    background: var(--color-surface);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-  }
-
-  .quote p {
-    font-size: 1.25rem;
-    font-style: italic;
-    margin-bottom: var(--space-sm);
-  }
-
-  .quote cite {
-    font-size: 0.85rem;
-    font-style: normal;
-    color: var(--color-text-muted);
   }
 </style>

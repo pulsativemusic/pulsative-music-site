@@ -2,16 +2,19 @@ import imageUrlBuilder from '@sanity/image-url';
 import type { SanityImageSource } from '@sanity/image-url';
 import type { SanityImage } from './types';
 
-const projectId =
-  import.meta.env.PUBLIC_SANITY_PROJECT_ID ?? '492ijj89';
+const projectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID ?? 'placeholder';
 const dataset = import.meta.env.PUBLIC_SANITY_DATASET ?? 'production';
 
 export function isSanityConfigured(): boolean {
-  return Boolean(projectId && projectId !== 'placeholder');
+  return Boolean(
+    projectId && projectId !== 'placeholder' && projectId !== 'your-project-id',
+  );
 }
 
 const builder =
-  projectId && projectId !== 'placeholder'
+  projectId &&
+  projectId !== 'placeholder' &&
+  projectId !== 'your-project-id'
     ? imageUrlBuilder({ projectId, dataset })
     : null;
 
@@ -58,10 +61,22 @@ export const queries = {
     _id,
     bandName,
     tagline,
+    shortDescription,
+    liveIntro,
+    videosIntro,
+    bookingContactName,
     bookingEmail,
+    phone,
     seoDescription,
+    showreelYoutubeId,
+    showreelTitle,
+    showreelDescription,
+    "showreelPosterUrl": showreelPoster.asset->url,
+    "showreelVideoUrl": showreelVideo.asset->url,
     socials[]{platform, url},
-    "heroImageUrl": heroImage.asset->url
+    "heroImageUrl": heroImage.asset->url,
+    "heroVideoUrl": heroVideo.asset->url,
+    "logoUrl": logo.asset->url
   }`,
 
   shows: `*[_type == "show"] | order(date desc){
@@ -77,6 +92,14 @@ export const queries = {
     "posterUrl": poster.asset->url
   }`,
 
+  videos: `*[_type == "video"] | order(sortOrder asc, _createdAt desc){
+    _id,
+    title,
+    youtubeId,
+    sortOrder,
+    "thumbnailUrl": thumbnail.asset->url
+  }`,
+
   releases: `*[_type == "release"] | order(releaseDate desc){
     _id,
     title,
@@ -88,44 +111,6 @@ export const queries = {
     "coverUrl": coverArt.asset->url
   }`,
 
-  galleries: `*[_type == "gallery"] | order(showDate desc){
-    _id,
-    title,
-    "slug": slug.current,
-    showDate,
-    venue,
-    coverImage,
-    "coverUrl": coverImage.asset->url,
-    photos[]{
-      _key,
-      caption,
-      credit,
-      image,
-      "imageUrl": image.asset->url,
-      "width": image.asset->metadata.dimensions.width,
-      "height": image.asset->metadata.dimensions.height
-    }
-  }`,
-
-  galleryBySlug: `*[_type == "gallery" && slug.current == $slug][0]{
-    _id,
-    title,
-    "slug": slug.current,
-    showDate,
-    venue,
-    coverImage,
-    "coverUrl": coverImage.asset->url,
-    photos[]{
-      _key,
-      caption,
-      credit,
-      image,
-      "imageUrl": image.asset->url,
-      "width": image.asset->metadata.dimensions.width,
-      "height": image.asset->metadata.dimensions.height
-    }
-  }`,
-
   pressAssets: `*[_type == "pressAsset"] | order(title asc){
     _id,
     title,
@@ -135,14 +120,27 @@ export const queries = {
   }`,
 
   about: `*[_type == "page" && slug.current == "about"][0]{
-    "bio": sections[_type == "richText"][0].body,
+    "bio": sections[_type == "richText" && heading == "Bio"][0].body,
+    "bioEn": sections[_type == "richText" && heading == "Bio (EN)"][0].body,
+    "bandPhotoUrl": sections[_type == "imageGrid"][0].images[0].asset->url,
     "members": sections[_type == "memberGrid"][0].members[]{
       name,
       role,
       bio,
       "photoUrl": photo.asset->url
     },
-    "pressQuotes": sections[_type == "pressQuotes"][0].quotes[]{quote, source}
+    "pressQuotes": sections[_type == "pressQuotes"][0].quotes[]{quote, source},
+    lineup,
+    repertoire,
+    setLength
+  }`,
+
+  legalPage: `*[_type == "legalPage" && slug == $slug && locale == $locale][0]{
+    _id,
+    title,
+    slug,
+    locale,
+    body
   }`,
 
   photoPrints: `*[_type == "photoPrint"] | order(featured desc, title asc){

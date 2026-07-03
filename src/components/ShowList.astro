@@ -1,19 +1,22 @@
 ---
-import type { Show } from '../lib/types';
+import type { Locale, Show } from '../lib/types';
+import { getUi } from '../lib/i18n';
 import { formatShowDate } from '../lib/utils';
 import Button from './Button.astro';
 
 interface Props {
   shows: Show[];
   compact?: boolean;
+  locale?: Locale;
 }
 
-const { shows, compact = false } = Astro.props;
+const { shows, compact = false, locale = 'de' } = Astro.props;
+const ui = getUi(locale);
 ---
 
 {
   shows.length === 0 ? (
-    <p class="empty text-muted">No shows announced yet. Check back soon.</p>
+    <p class="empty text-muted">—</p>
   ) : (
     <ul class:list={['show-list', { compact }]}>
       {shows.map((show) => (
@@ -32,7 +35,7 @@ const { shows, compact = false } = Astro.props;
           </div>
           <div class="show-action">
             {show.soldOut ? (
-              <span class="sold-out">Sold Out</span>
+              <span class="sold-out">{ui.misc.soldOut}</span>
             ) : show.ticketUrl ? (
               <Button
                 href={show.ticketUrl}
@@ -41,7 +44,7 @@ const { shows, compact = false } = Astro.props;
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Tickets
+                {ui.misc.tickets}
               </Button>
             ) : (
               <span class="text-muted">TBA</span>

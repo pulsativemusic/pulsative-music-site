@@ -1,0 +1,30 @@
+---
+import type { LegalPage } from '../lib/types';
+import { portableTextToPlainText } from '../lib/portable-text';
+
+interface Props {
+  page: LegalPage;
+}
+
+const { page } = Astro.props;
+const bodyText = portableTextToPlainText(page.body);
+---
+
+<article class="legal-content">
+  {bodyText.split('\n\n').map((paragraph) => (
+    <p>{paragraph}</p>
+  ))}
+</article>
+
+<style>
+  .legal-content {
+    max-width: 42rem;
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--color-text-muted);
+  }
+
+  .legal-content p {
+    margin-bottom: var(--space-md);
+  }
+</style>

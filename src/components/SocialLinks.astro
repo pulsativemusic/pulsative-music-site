@@ -1,0 +1,66 @@
+---
+import type { SocialLink } from '../lib/types';
+
+interface Props {
+  socials: SocialLink[];
+  class?: string;
+}
+
+const { socials, class: className } = Astro.props;
+
+const iconFor = (platform: string) => {
+  const key = platform.toLowerCase();
+  if (key.includes('instagram')) return 'instagram';
+  if (key.includes('tiktok')) return 'tiktok';
+  if (key.includes('facebook')) return 'facebook';
+  if (key.includes('youtube')) return 'youtube';
+  if (key.includes('spotify')) return 'spotify';
+  return 'link';
+};
+---
+
+<nav class:list={['social-links', className]} aria-label="Social media">
+  {
+    socials.map((social) => (
+      <a
+        href={social.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class={`social-link social-${iconFor(social.platform)}`}
+        aria-label={social.platform}
+      >
+        <span class="social-label">{social.platform}</span>
+      </a>
+    ))
+  }
+</nav>
+
+<style>
+  .social-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .social-link {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    padding: 0.35rem 0.65rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    transition:
+      color var(--transition-fast),
+      border-color var(--transition-fast),
+      box-shadow var(--transition-fast);
+  }
+
+  .social-link:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent-hover-border);
+    box-shadow: var(--shadow-glow);
+  }
+</style>

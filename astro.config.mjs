@@ -7,15 +7,14 @@ import { loadEnv } from 'vite';
 
 const mode = process.env.NODE_ENV === 'production' ? 'production' : 'development';
 const fileEnv = loadEnv(mode, process.cwd(), '');
-// Cloudflare Pages injects vars into process.env; loadEnv only reads .env files.
 const projectId =
   process.env.PUBLIC_SANITY_PROJECT_ID ??
   fileEnv.PUBLIC_SANITY_PROJECT_ID ??
-  '492ijj89';
+  'placeholder';
 const dataset =
   process.env.PUBLIC_SANITY_DATASET ?? fileEnv.PUBLIC_SANITY_DATASET ?? 'production';
 const siteUrl =
-  process.env.PUBLIC_SITE_URL ?? fileEnv.PUBLIC_SITE_URL ?? 'https://example.com';
+  process.env.PUBLIC_SITE_URL ?? fileEnv.PUBLIC_SITE_URL ?? 'https://pulsative.band';
 
 console.log(`[build] Sanity project: ${projectId}, dataset: ${dataset}`);
 
@@ -23,6 +22,13 @@ console.log(`[build] Sanity project: ${projectId}, dataset: ${dataset}`);
 export default defineConfig({
   output: 'static',
   site: siteUrl,
+  i18n: {
+    defaultLocale: 'de',
+    locales: ['de', 'en'],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
   integrations: [
     react(),
     sanity({

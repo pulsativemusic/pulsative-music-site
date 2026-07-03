@@ -1,5 +1,5 @@
 {
-  "name": "band-site",
+  "name": "pulsative-site",
   "type": "module",
   "version": "0.0.1",
   "engines": {
@@ -12,7 +12,9 @@
     "astro": "astro",
     "typecheck": "astro check",
     "seed": "node scripts/seed-sanity.mjs",
-    "sanity:schema": "sanity schema deploy"
+    "sanity:schema": "sanity schema deploy",
+    "studio": "pnpm --dir studio-pulsative-site dev",
+    "studio:deploy": "pnpm --dir studio-pulsative-site deploy"
   },
   "dependencies": {
     "@astrojs/react": "^6.0.0",

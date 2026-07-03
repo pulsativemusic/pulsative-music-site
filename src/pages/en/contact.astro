@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import SocialLinks from '../../components/SocialLinks.astro';
+import { getSiteSettings } from '../../lib/data';
+import { getUi } from '../../lib/i18n';
+
+const locale = 'en';
+const settings = await getSiteSettings();
+const ui = getUi(locale);
+---
+
+<BaseLayout title={ui.contact.title} settings={settings}>
+  <section class="page-hero section">
+    <div class="container">
+      <p class="section-kicker reveal">{ui.contact.kicker}</p>
+      <h1 class="page-title reveal reveal-delay-1">{ui.contact.title}</h1>
+      <p class="page-intro text-muted reveal reveal-delay-2">{ui.contact.intro}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container contact-grid">
+      <div class="contact-block reveal">
+        <h2 class="block-title">{ui.contact.booking}</h2>
+        {settings.bookingContactName && <p class="contact-name">{settings.bookingContactName}</p>}
+        <a href={`mailto:${settings.bookingEmail}`} class="contact-link">
+          {settings.bookingEmail}
+        </a>
+      </div>
+
+      {
+        settings.phone && (
+          <div class="contact-block reveal reveal-delay-1">
+            <h2 class="block-title">{ui.contact.phone}</h2>
+            <a href={`tel:${settings.phone.replace(/\s/g, '')}`} class="contact-link">
+              {settings.phone}
+            </a>
+          </div>
+        )
+      }
+
+      <div class="contact-block reveal reveal-delay-2">
+        <h2 class="block-title">{ui.contact.social}</h2>
+        <SocialLinks socials={settings.socials} />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-title {
+    font-size: clamp(3rem, 10vw, 6rem);
+    margin-bottom: var(--space-sm);
+  }
+
+  .contact-grid {
+    display: grid;
+    gap: var(--space-xl);
+  }
+
+  @media (min-width: 768px) {
+    .contact-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .block-title {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .contact-name {
+    margin-bottom: var(--space-xs);
+    color: var(--color-text-muted);
+  }
+
+  .contact-link {
+    font-size: 1.1rem;
+    color: var(--color-accent);
+  }
+
+  .contact-link:hover {
+    color: var(--color-accent-hover);
+  }
+</style>

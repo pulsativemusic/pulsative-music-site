@@ -1,28 +1,53 @@
 import type {
   AboutContent,
-  Gallery,
-  Page,
+  LegalPage,
   PhotoPrint,
   PressAsset,
   Release,
   Show,
   SiteSettings,
+  Video,
 } from './types';
 
 export const mockSiteSettings: SiteSettings = {
   _id: 'settings',
-  bandName: 'Marco Bonadies',
-  tagline: 'Music and photography from Cologne.',
-  bookingEmail: 'booking@marcobonadies.com',
+  bandName: 'PULSATIVE',
+  tagline: {
+    de: 'Neo-Brass Collective · House · Techno · EDM',
+    en: 'Neo-Brass Collective · House · Techno · EDM',
+  },
+  shortDescription: {
+    de: 'Festivals · Clubs · Streets · Events — Köln · NRW · Deutschland · Europa. Clubkultur acoustique · Boiler Room trifft Brassensemble.',
+    en: 'Festivals · Clubs · Streets · Events — Cologne · NRW · Germany · Europe. Club culture acoustique · Boiler Room meets brass ensemble.',
+  },
+  liveIntro: {
+    de: 'PULSATIVE live — Festivals, Clubs und Events in Köln, NRW und Europa.',
+    en: 'PULSATIVE live — festivals, clubs, and events across Cologne, NRW, and Europe.',
+  },
+  videosIntro: {
+    de: 'Festival Trailer, Live-Clips und Cover-Performances.',
+    en: 'Festival trailer, live clips, and cover performances.',
+  },
+  bookingContactName: 'Fabian Junge',
+  bookingEmail: 'pulsative@proton.me',
+  phone: '01577-9588093',
   seoDescription:
-    'Official site for Marco Bonadies — musician and photographer based in Cologne. Music, tour dates, and fine art prints.',
-  heroImageUrl:
-    'https://images.unsplash.com/photo-1498038432885-c6f3f1b912ee?w=1920&q=80',
+    'PULSATIVE — Neo-Brass Collective from Cologne. House, Techno, EDM live. Booking, videos, press kit.',
+  showreelYoutubeId: 'dQw4w9WgXcQ',
+  showreelVideoUrl:
+    'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+  showreelTitle: {
+    de: 'Festival Trailer',
+    en: 'Festival Trailer',
+  },
+  showreelDescription: {
+    de: 'Ein Minutengerüst aus PULSATIVE live — Klick zum Abspielen.',
+    en: 'A one-minute glimpse of PULSATIVE live — click to play.',
+  },
+  showreelPosterUrl: '/images/hero.png',
+  heroImageUrl: '/images/hero.png',
   socials: [
-    { platform: 'Instagram', url: 'https://instagram.com' },
-    { platform: 'Spotify', url: 'https://open.spotify.com' },
-    { platform: 'YouTube', url: 'https://youtube.com' },
-    { platform: 'TikTok', url: 'https://tiktok.com' },
+    { platform: 'Instagram', url: 'https://instagram.com/pulsative.music' },
   ],
 };
 
@@ -37,7 +62,7 @@ export const mockShows: Show[] = [
     soldOut: false,
     posterUrl:
       'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&q=80',
-    description: 'Home show — album release party.',
+    description: 'Home show — full live set.',
   },
   {
     _id: 'show-2',
@@ -72,138 +97,35 @@ export const mockShows: Show[] = [
   },
 ];
 
-export const mockReleases: Release[] = [
+export const mockVideos: Video[] = [
   {
-    _id: 'release-1',
-    title: 'Neon Wounds',
-    releaseDate: '2026-07-01',
-    coverUrl:
-      'https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=600&q=80',
-    spotifyUrl: 'https://open.spotify.com',
-    appleUrl: 'https://music.apple.com',
+    _id: 'video-1',
+    title: { de: 'Festival Trailer (1 min)', en: 'Festival Trailer (1 min)' },
     youtubeId: 'dQw4w9WgXcQ',
+    sortOrder: 1,
   },
   {
-    _id: 'release-2',
-    title: 'City Static EP',
-    releaseDate: '2025-11-14',
-    coverUrl:
-      'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&q=80',
-    spotifyUrl: 'https://open.spotify.com',
+    _id: 'video-2',
+    title: { de: 'Worakls — Detached Motion', en: 'Worakls — Detached Motion' },
+    youtubeId: 'dQw4w9WgXcQ',
+    sortOrder: 2,
+  },
+  {
+    _id: 'video-3',
+    title: { de: 'Roya — Cruise', en: 'Roya — Cruise' },
+    youtubeId: 'dQw4w9WgXcQ',
+    sortOrder: 3,
   },
 ];
 
-const galleryPhotos = (seed: number) =>
-  Array.from({ length: 8 }, (_, index) => ({
-    _key: `photo-${seed}-${index}`,
-    imageUrl: `https://images.unsplash.com/photo-${
-      [
-        '1470229722913-7c0e2dbbafd3',
-        '1514525253161-7a46d19cd819',
-        '1498038432885-c6f3f1b912ee',
-        '1506157786151-b8491531f063',
-        '1459749411175-04bf5294ceea',
-        '1511671782779-c97d3d27a1d4',
-        '1614613535308-eb5fbd3d2c17',
-        '1516280440614-37939bbacd81',
-      ][index]
-    }?w=1200&q=80`,
-    caption: `Live shot ${index + 1}`,
-    credit: 'Marco Bonadies',
-    width: 1200,
-    height: 800,
-  }));
+export const mockReleases: Release[] = [];
 
-export const mockGalleries: Gallery[] = [
-  {
-    _id: 'gallery-1',
-    title: 'Gloria Theater — Home Show',
-    slug: 'gloria-theater',
-    showDate: '2026-05-10',
-    venue: 'Gloria Theater, Cologne',
-    coverUrl:
-      'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&q=80',
-    photos: galleryPhotos(1),
-  },
-  {
-    _id: 'gallery-2',
-    title: 'Cologne Nights',
-    slug: 'cologne-nights',
-    showDate: '2026-06-22',
-    venue: 'Cologne, Germany',
-    coverUrl:
-      'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800&q=80',
-    photos: galleryPhotos(2),
-  },
-];
-
-export const mockPhotoPrints: PhotoPrint[] = [
-  {
-    _id: 'print-1',
-    title: 'Rhine at Dusk',
-    slug: 'rhine-at-dusk',
-    imageUrl:
-      'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=800&q=80',
-    description: 'The Rhine promenade as the city lights come on.',
-    category: 'city',
-    price: 89,
-    currency: 'EUR',
-    sizes: ['A4', 'A3', 'A2'],
-    purchaseUrl: 'https://example.com/buy/rhine-at-dusk',
-    soldOut: false,
-    featured: true,
-  },
-  {
-    _id: 'print-2',
-    title: 'Backstage Portrait',
-    slug: 'backstage-portrait',
-    imageUrl:
-      'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800&q=80',
-    description: 'Quiet moment before the set.',
-    category: 'portrait',
-    price: 75,
-    currency: 'EUR',
-    sizes: ['A4', 'A3'],
-    purchaseUrl: 'https://example.com/buy/backstage-portrait',
-    soldOut: false,
-    featured: true,
-  },
-  {
-    _id: 'print-3',
-    title: 'Dom Through Fog',
-    slug: 'dom-through-fog',
-    imageUrl:
-      'https://images.unsplash.com/photo-1599946347371-68eb71b16afc?w=800&q=80',
-    description: 'Cologne Cathedral on a misty autumn morning.',
-    category: 'landscape',
-    price: 95,
-    currency: 'EUR',
-    sizes: ['A3', 'A2'],
-    purchaseUrl: 'https://example.com/buy/dom-through-fog',
-    soldOut: false,
-    featured: true,
-  },
-  {
-    _id: 'print-4',
-    title: 'Stage Lights',
-    slug: 'stage-lights',
-    imageUrl:
-      'https://images.unsplash.com/photo-1459749411175-04bf5294ceea?w=800&q=80',
-    description: 'Live energy from a club date in Ehrenfeld.',
-    category: 'live',
-    price: 65,
-    currency: 'EUR',
-    sizes: ['A4', 'A3'],
-    purchaseUrl: 'https://example.com/buy/stage-lights',
-    soldOut: true,
-    featured: false,
-  },
-];
+export const mockPhotoPrints: PhotoPrint[] = [];
 
 export const mockPressAssets: PressAsset[] = [
   {
     _id: 'press-1',
-    title: 'Band Logo (PNG)',
+    title: 'PULSATIVE Logo (PNG)',
     assetType: 'logo',
     fileUrl: '/press/band-logo.svg',
     description: 'High-resolution logo on transparent background.',
@@ -217,10 +139,22 @@ export const mockPressAssets: PressAsset[] = [
   },
   {
     _id: 'press-3',
-    title: 'One-Sheet Bio',
-    assetType: 'bio',
-    fileUrl: '/press/one-sheet.pdf',
-    description: 'Short bio, lineup, and contact info.',
+    title: 'EPK Web (PDF)',
+    assetType: 'pressKit',
+    fileUrl: '/press/pulsative-epk-web.pdf',
+    description: 'Offizielles Electronic Press Kit — Bio, Repertoire, Besetzung, Booking.',
+  },
+  {
+    _id: 'press-4',
+    title: 'Technical Rider',
+    assetType: 'technicalRider',
+    description: 'Available soon.',
+  },
+  {
+    _id: 'press-5',
+    title: 'Stage Plot',
+    assetType: 'stagePlot',
+    description: 'Available soon.',
   },
 ];
 
@@ -235,38 +169,169 @@ export const mockAbout: AboutContent = {
         {
           _type: 'span',
           _key: 'bio1span',
-          text: 'Marco Bonadies is a musician and photographer based in Cologne, Germany. His songs blend intimate storytelling with driving rhythm, while his photography captures the city he calls home — from the Rhine at dusk to backstage portraits on tour. When he is not on stage, Marco is behind the lens, and selected works are available as limited-edition fine art prints.',
+          text: 'PULSATIVE übersetzt ikonische House-, Techno- und EDM-Tracks in ein organisches Live-Set. Subsonische Sousaphon-Basslines, Four-to-the-Floor-Grooves und minimalistische Bläser-Patterns: Damit bringt das Kölner Neo-Brass-Kollektiv Party People aller Generationen in Bewegung.',
+          marks: [],
+        },
+      ],
+    },
+    {
+      _type: 'block',
+      _key: 'bio2',
+      style: 'normal',
+      markDefs: [],
+      children: [
+        {
+          _type: 'span',
+          _key: 'bio2span',
+          text: 'PULSATIVE, das ist Clubkultur acoustique: präzise wie eine Maschine, gespielt von echten Menschen.',
           marks: [],
         },
       ],
     },
   ],
-  members: [
+  bioEn: [
     {
-      name: 'Marco Bonadies',
-      role: 'Musician & Photographer',
-      bio: 'Based in Cologne. Writes songs, shoots film, and prints what moves him.',
-      photoUrl:
-        'https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=400&q=80',
+      _type: 'block',
+      _key: 'bioEn1',
+      style: 'normal',
+      markDefs: [],
+      children: [
+        {
+          _type: 'span',
+          _key: 'bioEn1span',
+          text: 'PULSATIVE translates iconic house, techno, and EDM tracks into an organic live set. Subsonic sousaphone basslines, four-to-the-floor grooves, and minimalist brass patterns — the Cologne neo-brass collective gets party people of all generations moving.',
+          marks: [],
+        },
+      ],
+    },
+    {
+      _type: 'block',
+      _key: 'bioEn2',
+      style: 'normal',
+      markDefs: [],
+      children: [
+        {
+          _type: 'span',
+          _key: 'bioEn2span',
+          text: 'PULSATIVE is club culture acoustique: precise as a machine, played by real humans.',
+          marks: [],
+        },
+      ],
     },
   ],
-  pressQuotes: [
-    {
-      quote: 'A rare voice that sounds as honest on record as it does in a packed club.',
-      source: 'Kölner Stadt-Anzeiger',
-    },
-    {
-      quote: 'His photographs find beauty in the everyday — Cologne has rarely looked this cinematic.',
-      source: 'Fotografie Magazin',
-    },
+  bandPhotoUrl:
+    'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=1200&q=80',
+  members: [],
+  pressQuotes: [],
+  lineup: [
+    'Sousaphon',
+    'Bariton-, Alt-, Tenorsax',
+    'Posaune',
+    'Trompete',
+    'Schlagzeug',
+    'Percussion (optional)',
   ],
+  repertoire: [
+    'Benny Benassi – Satisfaction',
+    'Fisher – Losing It',
+    'Gaia – Freed from Desire',
+    'Roya – Cruise',
+    'Tyga & Zyntherius – Sunglasses at Night',
+    'u.v.m.',
+  ],
+  setLength: {
+    de: '30–45 Minuten. Erweiterbar bis 90 Minuten.',
+    en: '30–45 minutes. Extendable up to 90 minutes.',
+  },
 };
 
-export const mockPages: Page[] = [
+export const mockLegalPages: LegalPage[] = [
   {
-    _id: 'page-about',
-    slug: 'about',
-    title: 'About',
-    sections: [],
+    _id: 'legal-impressum-de',
+    title: 'Impressum',
+    slug: 'impressum',
+    locale: 'de',
+    body: [
+      {
+        _type: 'block',
+        _key: 'imp1',
+        style: 'normal',
+        markDefs: [],
+        children: [
+          {
+            _type: 'span',
+            _key: 'imp1span',
+            text: 'PULSATIVE\nFabian Junge (Booking)\nKöln, Deutschland\n\nE-Mail: pulsative@proton.me\nTelefon: 01577-9588093',
+            marks: [],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    _id: 'legal-privacy-de',
+    title: 'Datenschutzerklärung',
+    slug: 'privacy',
+    locale: 'de',
+    body: [
+      {
+        _type: 'block',
+        _key: 'priv1',
+        style: 'normal',
+        markDefs: [],
+        children: [
+          {
+            _type: 'span',
+            _key: 'priv1span',
+            text: 'Diese Website nutzt Matomo Analytics zur anonymen Auswertung der Website-Nutzung. Tracking erfolgt nur nach deiner Einwilligung über den Cookie-Banner. Du kannst deine Einwilligung jederzeit widerrufen, indem du die gespeicherten Website-Daten in deinem Browser löschst.',
+            marks: [],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    _id: 'legal-impressum-en',
+    title: 'Legal Notice',
+    slug: 'impressum',
+    locale: 'en',
+    body: [
+      {
+        _type: 'block',
+        _key: 'imp2',
+        style: 'normal',
+        markDefs: [],
+        children: [
+          {
+            _type: 'span',
+            _key: 'imp2span',
+            text: 'PULSATIVE\nFabian Junge (Booking)\nCologne, Germany\n\nEmail: pulsative@proton.me\nPhone: 01577-9588093',
+            marks: [],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    _id: 'legal-privacy-en',
+    title: 'Privacy Policy',
+    slug: 'privacy',
+    locale: 'en',
+    body: [
+      {
+        _type: 'block',
+        _key: 'priv2',
+        style: 'normal',
+        markDefs: [],
+        children: [
+          {
+            _type: 'span',
+            _key: 'priv2span',
+            text: 'This website uses Matomo Analytics to measure site usage anonymously. Tracking only runs after you consent via the cookie banner. You can withdraw consent at any time by clearing stored site data in your browser.',
+            marks: [],
+          },
+        ],
+      },
+    ],
   },
 ];

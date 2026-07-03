@@ -1,54 +1,52 @@
-# Deployment Guide
+# Deployment Guide — PULSATIVE
 
-This site is a static Astro build hosted on **Cloudflare Pages**, with content managed in Sanity CMS. Publishing in Sanity triggers a rebuild via webhook.
+Static Astro site on **Cloudflare Pages**, content in **Sanity CMS**. Publishing in Sanity can trigger a rebuild via webhook.
 
 ## Prerequisites
 
 - Sanity project at [sanity.io/manage](https://www.sanity.io/manage)
 - Cloudflare account with Pages enabled
 - GitHub repo connected to Cloudflare Pages
+- Domain `pulsative.band` configured in Cloudflare DNS
 
 ## Environment Variables
 
-Set these in **Cloudflare Pages → Settings → Environment variables**:
+Set in **Cloudflare Pages → Settings → Environment variables**:
 
 | Variable | Description |
 |----------|-------------|
 | `PUBLIC_SANITY_PROJECT_ID` | Sanity project ID |
 | `PUBLIC_SANITY_DATASET` | Usually `production` |
-| `PUBLIC_SITE_URL` | Production URL (e.g. `https://marcobonadies.com`) |
-| `NODE_VERSION` | `22` (matches `package.json` engines) |
+| `PUBLIC_SITE_URL` | `https://pulsative.band` |
+| `PUBLIC_MATOMO_URL` | Matomo instance URL (optional) |
+| `PUBLIC_MATOMO_SITE_ID` | Matomo site ID (optional) |
+| `NODE_VERSION` | `22` |
 
-`SANITY_API_TOKEN` is only needed locally for `npm run seed`, not at build time.
+`SANITY_API_TOKEN` is only needed locally for `pnpm run seed`, not at build time.
 
 ## Cloudflare Pages Setup
 
-1. In [Cloudflare Dashboard](https://dash.cloudflare.com) → **Workers & Pages** → **Create** → **Pages** → **Connect to Git**
-2. Select `Zarzarius/marco-bonadies-site`
+1. **Workers & Pages** → **Create** → **Pages** → **Connect to Git**
+2. Select the `pulsative-site` repository
 3. Build settings:
-   - **Framework preset:** Astro (or None)
-   - **Build command:** `npm run build`
+   - **Build command:** `pnpm build`
    - **Build output directory:** `dist`
-   - **Root directory:** `/`
-4. Add the environment variables above for **Production** (and Preview if you want Sanity in preview deploys)
+4. Add environment variables for Production (and Preview if desired)
 5. Deploy
 
-The repo includes `wrangler.toml` with `pages_build_output_dir` for Cloudflare tooling.
+`wrangler.toml` sets `pages_build_output_dir = "./dist"`.
 
 ### Custom domain
 
-In Pages → **Custom domains**, add your domain (e.g. `marcobonadies.com`). Update `PUBLIC_SITE_URL` to match and redeploy.
+In Pages → **Custom domains**, add `pulsative.band` and optionally redirect `www` to apex. Set `PUBLIC_SITE_URL=https://pulsative.band`.
 
 ## Sanity Webhook → Cloudflare Pages
 
-When content changes in Sanity, trigger a new Pages build:
-
-1. In Cloudflare: **Pages → your project → Settings → Builds → Deploy hooks** → **Add deploy hook**
-2. Copy the hook URL
-3. In Sanity: **API → Webhooks → Create**
-   - **URL:** your Cloudflare deploy hook URL
+1. Cloudflare: **Pages → Settings → Builds → Deploy hooks** → copy hook URL
+2. Sanity: **API → Webhooks → Create**
+   - **URL:** deploy hook URL
    - **Trigger on:** Create, Update, Delete
-   - **Filter:** `_type in ["show", "gallery", "photoPrint", "release", "siteSettings", "page", "pressAsset"]`
+   - **Filter:** `_type in ["show", "video", "siteSettings", "page", "pressAsset", "legalPage"]`
 
 ## Local Development
 
@@ -56,32 +54,42 @@ When content changes in Sanity, trigger a new Pages build:
 cp .env.example .env
 # Add your Sanity project ID
 
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
 - Site: `http://localhost:4321`
-- Sanity Studio: `http://localhost:4321/admin`
+- Embedded Studio (Astro): `http://localhost:4321/admin`
+- Standalone Studio: `pnpm studio` → `http://localhost:3333`
 
-Without Sanity credentials, the site uses built-in mock data.
+Schemas live in `studio-pulsative-site/schemaTypes/` (shared by both studios).
+
+Without Sanity credentials, the site uses built-in PULSATIVE mock data.
+
+## Standalone Sanity Studio
+
+```bash
+pnpm studio          # dev at http://localhost:3333
+pnpm studio:deploy   # deploy hosted studio to sanity.studio
+pnpm sanity:schema   # deploy schema from repo root (or from studio-pulsative-site)
+```
 
 ## Seeding Content
 
 ```bash
-SANITY_API_TOKEN=your-token npm run seed
+SANITY_API_TOKEN=your-token pnpm run seed
 ```
 
 ## Build Verification
 
 ```bash
-npm run build
-npm run preview
+pnpm build
+pnpm preview
 ```
 
-## Optional: Wrangler CLI
+## Manual deploy (optional)
 
 ```bash
-npx wrangler pages deploy dist --project-name=marco-bonadies-site
+pnpm build
+npx wrangler pages deploy dist --project-name=pulsative-site
 ```
-
-Useful for manual deploys without pushing to Git.

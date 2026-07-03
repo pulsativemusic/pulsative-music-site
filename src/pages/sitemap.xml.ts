@@ -1,19 +1,37 @@
 import type { APIRoute } from 'astro';
-import { getGalleries } from '../lib/data';
 
 export const GET: APIRoute = async () => {
-  const galleries = await getGalleries();
-  const siteUrl = (import.meta.env.PUBLIC_SITE_URL ?? 'https://example.com').replace(/\/$/, '');
+  const siteUrl = (import.meta.env.PUBLIC_SITE_URL ?? 'https://pulsative.band').replace(/\/$/, '');
 
-  const staticPages = ['', 'music', 'tour', 'photos', 'prints', 'about', 'press', 'contact'];
-  const galleryPages = galleries.map((gallery) => `photos/${gallery.slug}`);
-  const allPages = [...staticPages, ...galleryPages];
+  const dePages = [
+    '',
+    'live',
+    'videos',
+    'about',
+    'contact',
+    'promo-kit',
+    'impressum',
+    'datenschutz',
+  ];
+
+  const enPages = [
+    'en',
+    'en/live',
+    'en/videos',
+    'en/about',
+    'en/contact',
+    'en/promo-kit',
+    'en/imprint',
+    'en/privacy',
+  ];
+
+  const allPages = [...dePages, ...enPages];
 
   const urls = allPages
     .map((path) => {
       const loc = path ? `${siteUrl}/${path}` : siteUrl;
-      const priority = path === '' ? '1.0' : '0.7';
-      const changefreq = path === '' ? 'weekly' : 'monthly';
+      const priority = path === '' || path === 'en' ? '1.0' : '0.7';
+      const changefreq = path === '' || path === 'en' ? 'weekly' : 'monthly';
 
       return `  <url>
     <loc>${loc}</loc>

@@ -1,76 +1,33 @@
-# Marco Bonadies
+# PULSATIVE — Official Website
 
-Official promo site for **Marco Bonadies** — music, tour dates, photography prints, and press. Built with **Astro** and **Sanity CMS**, deployed on **Cloudflare Pages**.
+Astro 7 static site with Sanity CMS for [pulsative.band](https://pulsative.band).
 
-## Features
+## Stack
 
-- Static-first architecture for excellent performance
-- Sanity CMS for editing shows, galleries, releases, and pages
-- Embedded Sanity Studio at `/admin`
-- View Transitions for smooth navigation
-- GSAP hero animations and PhotoSwipe lightbox galleries
-- Swappable CSS design tokens for future rebranding
-- Mock data fallback for development without CMS credentials
-- `.ics` calendar feed for tour dates
-
-## Quick Start
-
-```bash
-cp .env.example .env
-npm install
-npm run dev
-```
-
-Open [http://localhost:4321](http://localhost:4321). Without Sanity credentials, the site runs on sample data.
-
-## Sanity Setup
-
-1. Create a project at [sanity.io/manage](https://www.sanity.io/manage)
-2. Add your project ID to `.env`:
-
-```env
-PUBLIC_SANITY_PROJECT_ID=your-project-id
-PUBLIC_SANITY_DATASET=production
-PUBLIC_SITE_URL=http://localhost:4321
-```
-
-3. Access the CMS at `/admin`
-4. Seed sample content:
-
-```bash
-SANITY_API_TOKEN=your-editor-token npm run seed
-```
-
-See [docs/EDITOR_GUIDE.md](docs/EDITOR_GUIDE.md) for band member instructions.
+- **Astro 7** — static site, bilingual DE/EN
+- **Sanity** — content management (`/admin`)
+- **Cloudflare Pages** — hosting
+- **Matomo** — analytics (consent-gated)
 
 ## Pages
 
-| Route | Description |
-|-------|-------------|
-| `/` | Homepage with hero, shows, music, photos |
-| `/music` | Releases and video embeds |
-| `/tour` | Upcoming and past shows |
-| `/tour/calendar.ics` | Calendar download |
-| `/photos` | Gallery index |
-| `/photos/[slug]` | Individual gallery with lightbox |
-| `/prints` | Fine art photography prints |
-| `/about` | Bio |
-| `/press` | Press kit downloads |
-| `/contact` | Booking and contact form |
-| `/admin` | Sanity Studio |
+| Route | Content |
+|-------|---------|
+| `/` | Homepage — hero, showreel, upcoming dates |
+| `/live` | Tour dates |
+| `/videos` | YouTube embeds |
+| `/about` | Bio and lineup |
+| `/contact` | Booking, phone, socials |
+| `/promo-kit` | Press downloads |
+| `/en/*` | English versions |
 
-## Deployment
+## Development
 
-Hosted on [Cloudflare Pages](https://pages.cloudflare.com). See [docs/DEPLOY.md](docs/DEPLOY.md) for setup, environment variables, and Sanity webhook configuration.
+```bash
+pnpm install
+pnpm dev
+```
 
-## Design Tokens
+Without Sanity credentials, mock PULSATIVE content is used automatically.
 
-Edit `src/styles/tokens.css` to change colors, fonts, and spacing. Theme variant classes (`.theme-grunge`, `.theme-cinematic`, `.theme-retro`) are ready to uncomment when the visual identity is chosen.
-
-## Tech Stack
-
-- Astro 7 (static)
-- React islands (GSAP, PhotoSwipe)
-- Sanity CMS
-- Cloudflare Pages
-- Plain CSS with custom properties
+See [docs/DEPLOY.md](docs/DEPLOY.md) for production deployment.

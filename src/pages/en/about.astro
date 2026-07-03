@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import AboutSections from '../../components/AboutContent.astro';
+import { getAboutContent, getSiteSettings } from '../../lib/data';
+import { getUi } from '../../lib/i18n';
+
+const locale = 'en';
+const settings = await getSiteSettings();
+const about = await getAboutContent(locale);
+const ui = getUi(locale);
+---
+
+<BaseLayout title={ui.about.title} settings={settings}>
+  <section class="page-hero section">
+    <div class="container">
+      <p class="section-kicker reveal">{ui.about.kicker}</p>
+      <h1 class="page-title reveal reveal-delay-1">{ui.about.title}</h1>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <AboutSections about={about} locale={locale} bandName={settings.bandName} ui={ui.about} />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-title {
+    font-size: clamp(3rem, 10vw, 6rem);
+  }
+</style>

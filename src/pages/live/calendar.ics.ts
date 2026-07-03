@@ -4,13 +4,13 @@ import { generateIcsFeed } from '../../lib/utils';
 
 export const GET: APIRoute = async () => {
   const [shows, settings] = await Promise.all([getShows(), getSiteSettings()]);
-  const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? 'https://example.com';
+  const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? 'https://pulsative.band';
   const ics = generateIcsFeed(shows, settings.bandName, siteUrl);
 
   return new Response(ics, {
     headers: {
       'Content-Type': 'text/calendar; charset=utf-8',
-      'Content-Disposition': 'attachment; filename="tour-dates.ics"',
+      'Content-Disposition': 'attachment; filename="pulsative-dates.ics"',
     },
   });
 };

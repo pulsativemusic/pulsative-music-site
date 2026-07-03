@@ -1,5 +1,12 @@
 import type { PortableTextBlock } from '@portabletext/types';
 
+export type Locale = 'de' | 'en';
+
+export interface LocalizedString {
+  de?: string;
+  en?: string;
+}
+
 export interface SanityImage {
   asset?: {
     _ref?: string;
@@ -16,11 +23,31 @@ export interface SocialLink {
 export interface SiteSettings {
   _id: string;
   bandName: string;
-  tagline: string;
+  tagline: LocalizedString | string;
+  shortDescription?: LocalizedString | string;
+  liveIntro?: LocalizedString | string;
+  videosIntro?: LocalizedString | string;
+  bookingContactName?: string;
   bookingEmail: string;
+  phone?: string;
   socials: SocialLink[];
   heroImageUrl?: string;
+  heroVideoUrl?: string;
+  logoUrl?: string;
+  showreelYoutubeId?: string;
+  showreelTitle?: LocalizedString | string;
+  showreelDescription?: LocalizedString | string;
+  showreelPosterUrl?: string;
+  showreelVideoUrl?: string;
   seoDescription?: string;
+}
+
+export interface Showreel {
+  youtubeId: string;
+  title?: LocalizedString | string;
+  description?: LocalizedString | string;
+  posterUrl?: string;
+  videoUrl?: string;
 }
 
 export interface Show {
@@ -34,6 +61,14 @@ export interface Show {
   poster?: SanityImage;
   posterUrl?: string;
   description?: string;
+}
+
+export interface Video {
+  _id: string;
+  title: LocalizedString | string;
+  youtubeId: string;
+  sortOrder: number;
+  thumbnailUrl?: string;
 }
 
 export interface Release {
@@ -68,12 +103,29 @@ export interface Gallery {
   photos: GalleryPhoto[];
 }
 
+export type PressAssetType =
+  | 'pressKit'
+  | 'photo'
+  | 'logo'
+  | 'bio'
+  | 'technicalRider'
+  | 'stagePlot'
+  | 'other';
+
 export interface PressAsset {
   _id: string;
   title: string;
-  assetType: 'photo' | 'logo' | 'bio' | 'other';
+  assetType: PressAssetType;
   fileUrl?: string;
   description?: string;
+}
+
+export interface LegalPage {
+  _id: string;
+  title: string;
+  slug: 'impressum' | 'privacy';
+  locale: Locale;
+  body: PortableTextBlock[];
 }
 
 export interface PageSection {
@@ -120,6 +172,11 @@ export interface BandMember {
 
 export interface AboutContent {
   bio: PortableTextBlock[];
+  bioEn?: PortableTextBlock[];
+  bandPhotoUrl?: string;
   members: BandMember[];
   pressQuotes: { quote: string; source: string }[];
+  lineup?: string[];
+  repertoire?: string[];
+  setLength?: LocalizedString | string;
 }

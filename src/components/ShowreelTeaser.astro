@@ -1,0 +1,89 @@
+---
+import ShowreelVideo from './islands/ShowreelVideo';
+import type { Locale, Showreel } from '../lib/types';
+import { pickLocalized } from '../lib/i18n';
+
+interface Props {
+  showreel: Showreel;
+  locale: Locale;
+}
+
+const { showreel, locale } = Astro.props;
+
+const title = pickLocalized(showreel.title, locale) || 'Showreel';
+const posterUrl =
+  showreel.posterUrl ??
+  (showreel.youtubeId
+    ? `https://img.youtube.com/vi/${showreel.youtubeId}/maxresdefault.jpg`
+    : undefined);
+
+const youtubeEmbedUrl = showreel.youtubeId
+  ? `https://www.youtube-nocookie.com/embed/${showreel.youtubeId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${showreel.youtubeId}&rel=0&modestbranding=1&playsinline=1`
+  : null;
+
+const fallbackSrc = '/videos/showreel.mp4';
+---
+
+<div class="showreel-teaser">
+  {
+    showreel.videoUrl ? (
+      <ShowreelVideo
+        client:load
+        src={showreel.videoUrl}
+        fallbackSrc={fallbackSrc}
+        poster={posterUrl}
+        title={title}
+      />
+    ) : (
+      youtubeEmbedUrl && (
+        <iframe
+          class="showreel-media showreel-media--youtube"
+          src={youtubeEmbedUrl}
+          title={title}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          loading="eager"
+        />
+      )
+    )
+  }
+  <div class="showreel-fade" aria-hidden="true"></div>
+</div>
+
+<style>
+  .showreel-teaser {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    overflow: hidden;
+  }
+
+  :global(.showreel-media) {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    object-fit: cover;
+    pointer-events: none;
+  }
+
+  :global(.showreel-media::-webkit-media-controls) {
+    display: none !important;
+  }
+
+  .showreel-fade {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.35) 0%,
+      transparent 18%,
+      transparent 82%,
+      rgba(0, 0, 0, 0.2) 100%
+    );
+  }
+</style>

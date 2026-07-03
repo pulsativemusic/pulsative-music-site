@@ -7,30 +7,32 @@ import {
   getSiteSettings,
   getUpcomingShows,
 } from '../lib/data';
+import { getUi, localizedPath, pickLocalized } from '../lib/i18n';
 
+const locale = 'de';
 const settings = await getSiteSettings();
+const ui = getUi(locale);
 const upcomingShows = await getUpcomingShows();
 const pastShows = await getPastShows();
+const intro = pickLocalized(settings.liveIntro, locale);
 ---
 
-<BaseLayout title="Tour" description={`Tour dates for ${settings.bandName}`} settings={settings}>
+<BaseLayout title={ui.live.title} description={intro} settings={settings}>
   <section class="page-hero section">
     <div class="container">
-      <p class="section-kicker reveal">Live</p>
-      <h1 class="page-title reveal reveal-delay-1">Tour Dates</h1>
-      <p class="page-intro text-muted reveal reveal-delay-2">
-        Catch {settings.bandName} on the road. Add all dates to your calendar.
-      </p>
-      <Button href="/tour/calendar.ics" variant="outline" class="reveal reveal-delay-3">
-        Add to Calendar (.ics)
+      <p class="section-kicker reveal">{ui.live.kicker}</p>
+      <h1 class="page-title reveal reveal-delay-1">{ui.live.title}</h1>
+      {intro && <p class="page-intro text-muted reveal reveal-delay-2">{intro}</p>}
+      <Button href={localizedPath('/live/calendar.ics', locale)} variant="outline" class="reveal reveal-delay-3">
+        {ui.live.calendar}
       </Button>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
-      <h2 class="section-title reveal">Upcoming</h2>
-      <ShowList shows={upcomingShows} />
+      <h2 class="section-title reveal">{ui.live.upcoming}</h2>
+      <ShowList shows={upcomingShows} locale={locale} />
     </div>
   </section>
 
@@ -38,8 +40,8 @@ const pastShows = await getPastShows();
     pastShows.length > 0 && (
       <section class="section section-alt">
         <div class="container">
-          <h2 class="section-title reveal">Past Shows</h2>
-          <ShowList shows={pastShows} compact />
+          <h2 class="section-title reveal">{ui.live.past}</h2>
+          <ShowList shows={pastShows} compact locale={locale} />
         </div>
       </section>
     )

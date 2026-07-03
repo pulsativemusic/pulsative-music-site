@@ -1,0 +1,65 @@
+---
+import { pickLocalized } from '../lib/i18n';
+import type { Locale, Video } from '../lib/types';
+
+interface Props {
+  videos: Video[];
+  locale: Locale;
+}
+
+const { videos, locale } = Astro.props;
+---
+
+<div class="video-grid">
+  {
+    videos.map((video) => (
+      <article class="video-card reveal">
+        <div class="video-embed">
+          <iframe
+            src={`https://www.youtube-nocookie.com/embed/${video.youtubeId}`}
+            title={pickLocalized(video.title, locale)}
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          />
+        </div>
+        <h3>{pickLocalized(video.title, locale)}</h3>
+      </article>
+    ))
+  }
+</div>
+
+<style>
+  .video-grid {
+    display: grid;
+    gap: var(--space-xl);
+  }
+
+  @media (min-width: 768px) {
+    .video-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .video-card h3 {
+    margin-top: var(--space-sm);
+    font-size: 1.1rem;
+  }
+
+  .video-embed {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  .video-embed iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+</style>

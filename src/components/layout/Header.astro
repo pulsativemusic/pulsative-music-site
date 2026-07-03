@@ -1,29 +1,45 @@
 ---
 import type { SiteSettings } from '../../lib/types';
+import type { Locale } from '../../lib/types';
+import {
+  getLocaleFromPath,
+  getUi,
+  localizedPath,
+  switchLocalePath,
+} from '../../lib/i18n';
+import SocialLinks from '../SocialLinks.astro';
 
 interface Props {
   settings: SiteSettings;
 }
 
 const { settings } = Astro.props;
+const locale = (Astro.currentLocale ?? getLocaleFromPath(Astro.url.pathname)) as Locale;
+const ui = getUi(locale);
+const currentPath = Astro.url.pathname;
 
 const navItems = [
-  { href: '/music', label: 'Music' },
-  { href: '/tour', label: 'Tour' },
-  { href: '/photos', label: 'Photos' },
-  { href: '/prints', label: 'Prints' },
-  { href: '/about', label: 'About' },
-  { href: '/press', label: 'Press' },
-  { href: '/contact', label: 'Contact' },
+  { href: localizedPath('/live', locale), label: ui.nav.live },
+  { href: localizedPath('/videos', locale), label: ui.nav.videos },
+  { href: localizedPath('/about', locale), label: ui.nav.about },
+  { href: localizedPath('/contact', locale), label: ui.nav.contact },
+  { href: localizedPath('/promo-kit', locale), label: ui.nav.promoKit },
 ];
 
-const currentPath = Astro.url.pathname;
+const alternateLocale = locale === 'de' ? 'en' : 'de';
+const alternateHref = switchLocalePath(currentPath, alternateLocale);
 ---
 
 <header class="header">
   <div class="container header-inner">
-    <a href="/" class="logo" transition:name="logo">
-      {settings.bandName}
+    <a href={localizedPath('/', locale)} class="logo" transition:name="logo">
+      {
+        settings.logoUrl ? (
+          <img src={settings.logoUrl} alt={settings.bandName} width={140} height={40} />
+        ) : (
+          settings.bandName
+        )
+      }
     </a>
 
     <nav class="nav" aria-label="Main navigation">
@@ -31,7 +47,7 @@ const currentPath = Astro.url.pathname;
         navItems.map((item) => (
           <a
             href={item.href}
-            class:list={['nav-link', { active: currentPath.startsWith(item.href) }]}
+            class:list={['nav-link', { active: currentPath.startsWith(item.href.replace(/\/$/, '')) }]}
           >
             {item.label}
           </a>
@@ -39,10 +55,16 @@ const currentPath = Astro.url.pathname;
       }
     </nav>
 
-    <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
-      <span></span>
-      <span></span>
-    </button>
+    <div class="header-actions">
+      <SocialLinks socials={settings.socials} class="header-socials" />
+      <a href={alternateHref} class="lang-switch" hreflang={alternateLocale}>
+        {locale === 'de' ? 'EN' : 'DE'}
+      </a>
+      <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -69,7 +91,7 @@ const currentPath = Astro.url.pathname;
         return;
       }
 
-      if (!window.matchMedia('(max-width: 768px)').matches) {
+      if (!window.matchMedia('(max-width: 900px)').matches) {
         return;
       }
 
@@ -88,7 +110,7 @@ const currentPath = Astro.url.pathname;
     top: 0;
     z-index: 100;
     height: var(--header-height);
-    background: rgba(8, 8, 8, 0.85);
+    background: rgba(0, 0, 0, 0.88);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--color-border);
   }
@@ -107,6 +129,13 @@ const currentPath = Astro.url.pathname;
     letter-spacing: 0.12em;
     color: var(--color-text);
     white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .logo img {
+    display: block;
+    height: 2rem;
+    width: auto;
   }
 
   .logo:hover {
@@ -133,6 +162,26 @@ const currentPath = Astro.url.pathname;
     color: var(--color-accent);
   }
 
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .header-socials {
+    display: none;
+  }
+
+  .lang-switch {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--color-accent);
+    padding: 0.35rem 0.5rem;
+    border: 1px solid var(--color-accent-hover-border);
+    border-radius: var(--radius-sm);
+  }
+
   .menu-toggle {
     display: none;
     flex-direction: column;
@@ -151,7 +200,13 @@ const currentPath = Astro.url.pathname;
     transition: transform var(--transition-fast);
   }
 
-  @media (max-width: 768px) {
+  @media (min-width: 901px) {
+    .header-socials {
+      display: flex;
+    }
+  }
+
+  @media (max-width: 900px) {
     .menu-toggle {
       display: flex;
     }

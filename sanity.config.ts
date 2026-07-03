@@ -1,13 +1,13 @@
 import { defineConfig } from 'sanity';
 import { structureTool } from 'sanity/structure';
-import { schemaTypes } from './sanity/schemaTypes';
+import { schemaTypes } from './studio-pulsative-site/schemaTypes';
 
-const projectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID ?? '492ijj89';
+const projectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID ?? 'placeholder';
 const dataset = import.meta.env.PUBLIC_SANITY_DATASET ?? 'production';
 
 export default defineConfig({
-  name: 'marco-bonadies',
-  title: 'Marco Bonadies',
+  name: 'pulsative',
+  title: 'PULSATIVE',
   projectId,
   dataset,
   plugins: [
@@ -24,12 +24,14 @@ export default defineConfig({
                   .documentId('siteSettings'),
               ),
             S.divider(),
-            S.documentTypeListItem('show').title('Shows'),
-            S.documentTypeListItem('gallery').title('Photo Galleries'),
-            S.documentTypeListItem('photoPrint').title('Photo Prints'),
-            S.documentTypeListItem('release').title('Releases'),
-            S.documentTypeListItem('pressAsset').title('Press Assets'),
+            S.documentTypeListItem('show').title('Live Dates'),
+            S.documentTypeListItem('video').title('Videos'),
             S.documentTypeListItem('page').title('Pages'),
+            S.documentTypeListItem('pressAsset').title('Press Kit'),
+            S.documentTypeListItem('legalPage').title('Legal Pages'),
+            S.divider(),
+            S.documentTypeListItem('release').title('Music (hidden)'),
+            S.documentTypeListItem('photoPrint').title('Merch (hidden)'),
           ]),
     }),
   ],

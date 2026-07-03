@@ -1,49 +1,89 @@
 ---
 import HeroAnimation from './islands/HeroAnimation';
-import Button from './Button.astro';
+import ShowreelTeaser from './ShowreelTeaser.astro';
+import type { Locale, Showreel, SiteSettings } from '../lib/types';
+import { getUi, pickLocalized } from '../lib/i18n';
 
 interface Props {
-  bandName: string;
-  tagline: string;
-  heroImageUrl?: string;
+  settings: SiteSettings;
+  locale: Locale;
+  showreel?: Showreel | null;
 }
 
-const { bandName, tagline, heroImageUrl } = Astro.props;
+const { settings, locale, showreel = null } = Astro.props;
+const ui = getUi(locale);
+const tagline = pickLocalized(settings.tagline, locale);
+const shortDescription = pickLocalized(settings.shortDescription, locale);
 ---
 
-<section class="hero">
-  {
-    heroImageUrl && (
-      <img
-        class="hero-bg"
-        src={heroImageUrl}
-        alt=""
-        fetchpriority="high"
-        width={1920}
-        height={1080}
-      />
-    )
-  }
-  <div class="hero-overlay"></div>
+<div class="home-hero-stack">
+  <section class="hero">
+    {
+      settings.heroVideoUrl ? (
+        <video
+          class="hero-bg"
+          src={settings.heroVideoUrl}
+          autoplay
+          muted
+          loop
+          playsinline
+          poster={settings.heroImageUrl}
+        />
+      ) : (
+        settings.heroImageUrl && (
+          <img
+            class="hero-bg"
+            src={settings.heroImageUrl}
+            alt=""
+            fetchpriority="high"
+            width={1920}
+            height={1080}
+          />
+        )
+      )
+    }
+    <div class="hero-overlay"></div>
 
-  <div class="container hero-content">
-    <HeroAnimation client:load bandName={bandName} tagline={tagline} />
-    <div class="hero-actions reveal reveal-delay-2">
-      <Button href="/tour" variant="primary">See Tour Dates</Button>
-      <Button href="/music" variant="outline">Listen Now</Button>
+    <div class="container hero-content">
+      {
+        settings.logoUrl ? (
+          <img class="hero-logo" src={settings.logoUrl} alt={settings.bandName} width={320} height={120} />
+        ) : (
+          <HeroAnimation client:load bandName={settings.bandName} tagline={tagline} />
+        )
+      }
+
+      {
+        settings.logoUrl && (
+          <div class="hero-text-static">
+            <p class="hero-tagline">{tagline}</p>
+          </div>
+        )
+      }
+
+      {shortDescription && <p class="hero-description">{shortDescription}</p>}
     </div>
-  </div>
 
-  <div class="hero-scroll" aria-hidden="true">
-    <span>Scroll</span>
-    <div class="scroll-line"></div>
-  </div>
-</section>
+    {!showreel && (
+      <div class="hero-scroll" aria-hidden="true">
+        <span>{ui.home.scroll}</span>
+        <div class="scroll-line"></div>
+      </div>
+    )}
+  </section>
+
+  {showreel && <ShowreelTeaser showreel={showreel} locale={locale} />}
+</div>
 
 <style>
+  .home-hero-stack {
+    width: 100%;
+  }
+
   .hero {
     position: relative;
-    min-height: 100vh;
+    height: 70vh;
+    min-height: 22rem;
     display: flex;
     align-items: center;
     overflow: hidden;
@@ -55,33 +95,54 @@ const { bandName, tagline, heroImageUrl } = Astro.props;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transform: scale(1.05);
+    transform: scale(1.03);
   }
 
   .hero-overlay {
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(180deg, rgba(8, 8, 8, 0.3) 0%, rgba(8, 8, 8, 0.85) 70%, var(--color-bg) 100%),
-      radial-gradient(ellipse at 30% 50%, rgba(230, 57, 70, 0.15), transparent 60%);
+      linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.72) 100%),
+      radial-gradient(ellipse at 20% 40%, rgba(232, 255, 0, 0.08), transparent 55%),
+      radial-gradient(ellipse at 80% 60%, rgba(232, 255, 0, 0.04), transparent 50%);
   }
 
   .hero-content {
     position: relative;
     z-index: 1;
-    padding-block: calc(var(--header-height) + var(--space-xl)) var(--space-2xl);
+    padding-block: calc(var(--header-height) + var(--space-md)) var(--space-lg);
   }
 
-  .hero-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-sm);
-    margin-top: var(--space-lg);
+  .hero-logo {
+    max-width: min(20rem, 70vw);
+    height: auto;
+    margin-bottom: var(--space-md);
+    filter: drop-shadow(0 0 24px rgba(232, 255, 0, 0.15));
+  }
+
+  .hero-text-static .hero-tagline {
+    font-size: clamp(0.95rem, 2.2vw, 1.2rem);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--color-text-muted);
+    max-width: 28rem;
+    margin: 0;
+    line-height: 1.55;
+    padding-inline-start: 0.85rem;
+    border-left: 2px solid rgba(232, 255, 0, 0.45);
+  }
+
+  .hero-description {
+    max-width: 40rem;
+    margin-top: var(--space-md);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--color-text);
   }
 
   .hero-scroll {
     position: absolute;
-    bottom: var(--space-lg);
+    bottom: var(--space-md);
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -92,11 +153,12 @@ const { bandName, tagline, heroImageUrl } = Astro.props;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--color-text-muted);
+    z-index: 1;
   }
 
   .scroll-line {
     width: 1px;
-    height: 40px;
+    height: 32px;
     background: linear-gradient(to bottom, var(--color-accent), transparent);
     animation: scroll-pulse 2s ease-in-out infinite;
   }

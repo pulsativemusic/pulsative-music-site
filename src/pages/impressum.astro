@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import LegalContent from '../components/LegalContent.astro';
+import { getLegalPage, getSiteSettings } from '../lib/data';
+import { mockLegalPages } from '../lib/mock-data';
+
+const locale = 'de';
+const settings = await getSiteSettings();
+const page =
+  (await getLegalPage('impressum', locale)) ??
+  mockLegalPages.find((p) => p.slug === 'impressum' && p.locale === locale)!;
+---
+
+<BaseLayout title={page.title} settings={settings}>
+  <section class="page-hero section">
+    <div class="container">
+      <h1 class="page-title reveal">{page.title}</h1>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <LegalContent page={page} />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-title {
+    font-size: clamp(2.5rem, 8vw, 4rem);
+  }
+</style>
