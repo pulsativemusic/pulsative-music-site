@@ -29,18 +29,22 @@ const intro = pickLocalized(settings.liveIntro, locale);
     </div>
   </section>
 
-  <section class="section">
+  <section class="section shows-section">
     <div class="container">
-      <h2 class="section-title reveal">{ui.live.upcoming}</h2>
+      <header class="shows-section-header reveal">
+        <h2 class="section-title">{ui.live.upcoming}</h2>
+      </header>
       <ShowList shows={upcomingShows} locale={locale} />
     </div>
   </section>
 
   {
     pastShows.length > 0 && (
-      <section class="section section-alt">
+      <section class="section section-alt shows-section">
         <div class="container">
-          <h2 class="section-title reveal">{ui.live.past}</h2>
+          <header class="shows-section-header reveal">
+            <h2 class="section-title">{ui.live.past}</h2>
+          </header>
           <ShowList shows={pastShows} compact locale={locale} />
         </div>
       </section>
@@ -50,7 +54,7 @@ const intro = pickLocalized(settings.liveIntro, locale);
 
 <style>
   .page-hero {
-    padding-bottom: 0;
+    padding-bottom: var(--space-lg);
   }
 
   .page-title {
@@ -60,7 +64,19 @@ const intro = pickLocalized(settings.liveIntro, locale);
 
   .page-intro {
     max-width: 36rem;
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-lg);
+  }
+
+  .shows-section {
+    padding-block: var(--space-2xl);
+  }
+
+  .shows-section-header {
+    margin-bottom: var(--space-xl);
+  }
+
+  .shows-section .section-title {
+    line-height: 1.1;
   }
 
   .section-alt {
