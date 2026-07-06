@@ -85,6 +85,9 @@ const ui = {
     misc: {
       soldOut: 'Ausverkauft',
       tickets: 'Tickets',
+      notFoundTitle: 'Seite nicht gefunden',
+      notFoundText: 'Diese URL existiert nicht. Zurück zur Startseite?',
+      backHome: 'Zur Startseite',
     },
     seo: {
       about:
@@ -176,6 +179,9 @@ const ui = {
     misc: {
       soldOut: 'Sold Out',
       tickets: 'Tickets',
+      notFoundTitle: 'Page not found',
+      notFoundText: "This URL doesn't exist. Head back to the homepage?",
+      backHome: 'Back to home',
     },
     seo: {
       about:

@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import { getSiteSettings } from '../lib/data';
+import { getLocaleFromPath, getUi, localizedPath } from '../lib/i18n';
+
+const locale = getLocaleFromPath(Astro.url.pathname);
+const settings = await getSiteSettings();
+const ui = getUi(locale);
+---
+
+<BaseLayout
+  title={ui.misc.notFoundTitle}
+  description={ui.misc.notFoundText}
+  settings={settings}
+  noindex
+>
+  <section class="page-hero section">
+    <div class="container not-found">
+      <p class="section-kicker reveal">404</p>
+      <h1 class="page-title reveal reveal-delay-1">{ui.misc.notFoundTitle}</h1>
+      <p class="page-intro text-muted reveal reveal-delay-2">{ui.misc.notFoundText}</p>
+      <div class="reveal reveal-delay-3">
+        <Button href={localizedPath('/', locale)}>{ui.misc.backHome}</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    max-width: 36rem;
+  }
+
+  .page-title {
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    margin-bottom: var(--space-sm);
+  }
+
+  .page-intro {
+    margin-bottom: var(--space-lg);
+  }
+</style>
