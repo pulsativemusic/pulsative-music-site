@@ -1,6 +1,20 @@
 import { defineField, defineType } from 'sanity';
 import { localizedString } from './localized';
 
+const orientationField = defineField({
+  name: 'orientation',
+  title: 'Aspect Ratio',
+  type: 'string',
+  options: {
+    list: [
+      { title: 'Portrait (9:16)', value: 'portrait' },
+      { title: 'Landscape (16:9)', value: 'landscape' },
+    ],
+    layout: 'radio',
+  },
+  initialValue: 'portrait',
+});
+
 export const video = defineType({
   name: 'video',
   title: 'Video',
@@ -19,6 +33,7 @@ export const video = defineType({
       type: 'number',
       initialValue: 0,
     }),
+    orientationField,
     defineField({
       name: 'thumbnail',
       title: 'Custom Thumbnail',

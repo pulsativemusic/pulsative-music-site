@@ -204,6 +204,7 @@ const documents = [
     title: { de: 'Festival Trailer (1 min)', en: 'Festival Trailer (1 min)' },
     vimeoId: '1203716758',
     sortOrder: 1,
+    orientation: 'portrait',
   },
   {
     _id: 'video-2',
@@ -211,6 +212,7 @@ const documents = [
     title: { de: 'Worakls — Detached Motion', en: 'Worakls — Detached Motion' },
     vimeoId: '1203716751',
     sortOrder: 2,
+    orientation: 'portrait',
   },
   {
     _id: 'video-3',
@@ -218,12 +220,14 @@ const documents = [
     title: { de: 'Roya — Cruise', en: 'Roya — Cruise' },
     vimeoId: '1203716757',
     sortOrder: 3,
+    orientation: 'portrait',
   },
   {
     _id: 'photo-1',
     _type: 'photo',
     title: { de: 'Gloria Theater', en: 'Gloria Theater' },
     sortOrder: 1,
+    orientation: 'portrait',
     credit: '© PULSATIVE',
   },
   {
@@ -231,6 +235,7 @@ const documents = [
     _type: 'photo',
     title: { de: 'Festival Stage', en: 'Festival Stage' },
     sortOrder: 2,
+    orientation: 'portrait',
     credit: '© PULSATIVE',
   },
   {
@@ -238,6 +243,7 @@ const documents = [
     _type: 'photo',
     title: { de: 'Backstage', en: 'Backstage' },
     sortOrder: 3,
+    orientation: 'portrait',
     credit: '© PULSATIVE',
   },
   {

@@ -109,6 +109,7 @@ export const mockPhotos: Photo[] = [
     imageUrl:
       'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=900&h=1600&fit=crop&q=80',
     sortOrder: 1,
+    orientation: 'portrait',
     credit: '© PULSATIVE',
   },
   {
@@ -117,6 +118,7 @@ export const mockPhotos: Photo[] = [
     imageUrl:
       'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=900&h=1600&fit=crop&q=80',
     sortOrder: 2,
+    orientation: 'portrait',
     credit: '© PULSATIVE',
   },
   {
@@ -125,6 +127,7 @@ export const mockPhotos: Photo[] = [
     imageUrl:
       'https://images.unsplash.com/photo-1506157786151-b8491531f063?w=900&h=1600&fit=crop&q=80',
     sortOrder: 3,
+    orientation: 'portrait',
     credit: '© PULSATIVE',
   },
 ];
@@ -135,18 +138,21 @@ export const mockVideos: Video[] = [
     title: { de: 'Festival Trailer (1 min)', en: 'Festival Trailer (1 min)' },
     vimeoId: '1203716758',
     sortOrder: 1,
+    orientation: 'portrait',
   },
   {
     _id: 'video-2',
     title: { de: 'Worakls — Detached Motion', en: 'Worakls — Detached Motion' },
     vimeoId: '1203716751',
     sortOrder: 2,
+    orientation: 'portrait',
   },
   {
     _id: 'video-3',
     title: { de: 'Roya — Cruise', en: 'Roya — Cruise' },
     vimeoId: '1203716757',
     sortOrder: 3,
+    orientation: 'portrait',
   },
 ];
 

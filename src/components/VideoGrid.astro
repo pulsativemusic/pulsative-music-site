@@ -1,4 +1,5 @@
 ---
+import { orientationClass } from '../lib/media';
 import { pickLocalized } from '../lib/i18n';
 import type { Locale, Video } from '../lib/types';
 
@@ -12,20 +13,24 @@ const { videos, locale } = Astro.props;
 
 <div class="video-grid">
   {
-    videos.map((video) => (
-      <article class="video-card reveal">
-        <div class="video-embed">
-          <iframe
-            src={`https://player.vimeo.com/video/${video.vimeoId}?title=0&byline=0&portrait=0`}
-            title={pickLocalized(video.title, locale)}
-            loading="lazy"
-            allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
-            allowfullscreen
-          />
-        </div>
-        <h3>{pickLocalized(video.title, locale)}</h3>
-      </article>
-    ))
+    videos.map((video) => {
+      const orientation = orientationClass(video.orientation);
+
+      return (
+        <article class="video-card reveal">
+          <div class:list={['video-embed', orientation]}>
+            <iframe
+              src={`https://player.vimeo.com/video/${video.vimeoId}?title=0&byline=0&portrait=0`}
+              title={pickLocalized(video.title, locale)}
+              loading="lazy"
+              allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+              allowfullscreen
+            />
+          </div>
+          <h3>{pickLocalized(video.title, locale)}</h3>
+        </article>
+      );
+    })
   }
 </div>
 
@@ -54,11 +59,24 @@ const { videos, locale } = Astro.props;
 
   .video-embed {
     position: relative;
-    aspect-ratio: 9 / 16;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     overflow: hidden;
+  }
+
+  .video-embed.portrait {
+    aspect-ratio: 9 / 16;
+  }
+
+  .video-embed.landscape {
+    aspect-ratio: 16 / 9;
+  }
+
+  @media (min-width: 1024px) {
+    .video-card:has(.landscape) {
+      grid-column: span 2;
+    }
   }
 
   .video-embed iframe {

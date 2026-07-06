@@ -15,7 +15,8 @@ Astro 7 static site with Sanity CMS for [pulsative.band](https://pulsative.band)
 |-------|---------|
 | `/` | Homepage — hero, showreel, upcoming dates |
 | `/live` | Tour dates |
-| `/videos` | YouTube embeds |
+| `/videos` | Vimeo embeds |
+| `/fotos` | Live photos (portrait grid) |
 | `/about` | Bio and lineup |
 | `/contact` | Booking, phone, socials |
 | `/promo-kit` | Press downloads |

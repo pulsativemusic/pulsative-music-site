@@ -64,11 +64,14 @@ export interface Show {
   description?: string;
 }
 
+export type MediaOrientation = 'portrait' | 'landscape';
+
 export interface Video {
   _id: string;
   title: LocalizedString | string;
   vimeoId: string;
   sortOrder: number;
+  orientation?: MediaOrientation;
   thumbnailUrl?: string;
 }
 
@@ -77,6 +80,7 @@ export interface Photo {
   title: LocalizedString | string;
   imageUrl: string;
   sortOrder: number;
+  orientation?: MediaOrientation;
   credit?: string;
 }
 

@@ -97,6 +97,7 @@ export const queries = {
     _id,
     title,
     vimeoId,
+    orientation,
     sortOrder,
     "thumbnailUrl": thumbnail.asset->url
   }`,
@@ -105,6 +106,7 @@ export const queries = {
     _id,
     title,
     credit,
+    orientation,
     sortOrder,
     "imageUrl": image.asset->url
   }`,

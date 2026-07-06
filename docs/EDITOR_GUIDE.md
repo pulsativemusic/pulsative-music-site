@@ -10,7 +10,7 @@ Quick reference for band members updating the website content.
 
 ## Adding a Show
 
-1. Click **Shows** in the sidebar
+1. Click **Live Dates** in the sidebar
 2. Click **Create** (+ button)
 3. Fill in:
    - **Date** — when the show happens
@@ -23,19 +23,21 @@ Quick reference for band members updating the website content.
 
 The show appears on the Tour page within a few minutes after publishing.
 
-## Adding a Photo Gallery
+## Adding a Photo
 
-1. Click **Photo Galleries**
-2. Click **Create**
-3. Fill in **Title** (e.g. "The Roxy — March 2026")
-4. Click **Generate** next to **Slug** (creates the URL)
-5. Set **Show Date** and **Venue**
-6. Upload a **Cover Image** for the gallery card
-7. Under **Photos**, click **Add item** for each photo:
-   - Upload the image
-   - Add a **Caption** (optional)
-   - Add **Credit** for the photographer (optional)
-8. Click **Publish**
+1. Click **Photos** in the sidebar
+2. Click **Create** (+ button)
+3. Fill in:
+   - **Title** (DE + EN)
+   - **Image** — upload a portrait photo (9:16 works best)
+   - **Credit** — photographer credit (optional)
+   - **Aspect Ratio** — Portrait (9:16) or Landscape (16:9)
+   - **Sort Order** — lower numbers appear first
+4. Click **Publish**
+
+Photos appear on `/fotos` (and `/en/fotos`) within a few minutes.
+
+Edit the page intro under **Site Settings** → **Fotos Page Intro**.
 
 ## Updating Band Info
 
