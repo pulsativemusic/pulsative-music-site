@@ -47,6 +47,7 @@ export default defineConfig({
       projectId,
       dataset,
       useCdn: false,
+      perspective: 'published',
       apiVersion: '2024-01-01',
       studioBasePath: '/admin',
     }),

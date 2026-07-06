@@ -46,7 +46,20 @@ In Pages → **Custom domains**, add `pulsative.band` and optionally redirect `w
 2. Sanity: **API → Webhooks → Create**
    - **URL:** deploy hook URL
    - **Trigger on:** Create, Update, Delete
-   - **Filter:** `_type in ["show", "video", "siteSettings", "page", "pressAsset", "legalPage"]`
+   - **Filter:** `_type in ["show", "video", "photo", "siteSettings", "page", "pressAsset", "legalPage", "release", "photoPrint"]`
+   - **Projection:** leave empty (deploy hook only needs the POST)
+3. In Studio, use **Publish** — draft saves do not update the live site.
+
+After a CMS change, Cloudflare should start a new build within a minute. Check **Pages → Deployments** for the triggered build.
+
+### Stale content troubleshooting
+
+| Symptom | Likely cause | Fix |
+|---------|----------------|-----|
+| Production unchanged after CMS edit | Static HTML from last build | Confirm webhook + deploy hook; wait for build to finish |
+| Some content types never update | Webhook filter too narrow | Include all types in the filter (see above) |
+| Local `pnpm preview` shows old data | Preview serves `dist/` from last build | Run `pnpm build` again, or use `pnpm dev` for live Sanity |
+| Local `pnpm dev` shows old data | Browser cache | Hard refresh; Sanity fetches use `cache: 'no-store'` |
 
 ## Local Development
 

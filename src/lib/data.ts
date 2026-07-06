@@ -1,4 +1,3 @@
-import { sanityClient } from 'sanity:client';
 import {
   mockAbout,
   mockLegalPages,
@@ -10,7 +9,7 @@ import {
   mockPhotos,
   mockVideos,
 } from './mock-data';
-import { isSanityConfigured, queries } from './sanity';
+import { fetchSanity, isSanityConfigured, queries } from './sanity';
 import type {
   AboutContent,
   LegalPage,
@@ -41,7 +40,7 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     return mockSiteSettings;
   }
 
-  const settings = await sanityClient.fetch<SiteSettings | null>(
+  const settings = await fetchSanity<SiteSettings | null>(
     queries.siteSettings,
   );
   if (!settings) {
@@ -63,7 +62,7 @@ export async function getShows(): Promise<Show[]> {
     return mockShows;
   }
 
-  return await sanityClient.fetch<Show[]>(queries.shows);
+  return await fetchSanity<Show[]>(queries.shows);
 }
 
 export async function getUpcomingShows(limit?: number): Promise<Show[]> {
@@ -80,7 +79,7 @@ export async function getVideos(): Promise<Video[]> {
     return mockVideos;
   }
 
-  return await sanityClient.fetch<Video[]>(queries.videos);
+  return await fetchSanity<Video[]>(queries.videos);
 }
 
 export async function getPhotos(): Promise<Photo[]> {
@@ -88,7 +87,7 @@ export async function getPhotos(): Promise<Photo[]> {
     return mockPhotos;
   }
 
-  return await sanityClient.fetch<Photo[]>(queries.photos);
+  return await fetchSanity<Photo[]>(queries.photos);
 }
 
 export async function getReleases(): Promise<Release[]> {
@@ -96,7 +95,7 @@ export async function getReleases(): Promise<Release[]> {
     return mockReleases;
   }
 
-  return await sanityClient.fetch<Release[]>(queries.releases);
+  return await fetchSanity<Release[]>(queries.releases);
 }
 
 export async function getPressAssets(): Promise<PressAsset[]> {
@@ -104,7 +103,7 @@ export async function getPressAssets(): Promise<PressAsset[]> {
     return mockPressAssets;
   }
 
-  return await sanityClient.fetch<PressAsset[]>(queries.pressAssets);
+  return await fetchSanity<PressAsset[]>(queries.pressAssets);
 }
 
 export async function getAboutContent(locale: Locale = 'de'): Promise<AboutContent> {
@@ -114,7 +113,7 @@ export async function getAboutContent(locale: Locale = 'de'): Promise<AboutConte
     return { ...mockAbout, bio };
   }
 
-  const about = await sanityClient.fetch<Partial<AboutContent> | null>(queries.about);
+  const about = await fetchSanity<Partial<AboutContent> | null>(queries.about);
   if (!about) {
     const bio =
       locale === 'en' && mockAbout.bioEn?.length ? mockAbout.bioEn : mockAbout.bio;
@@ -143,7 +142,7 @@ export async function getLegalPage(
     return mockLegalPages.find((page) => page.slug === slug && page.locale === locale) ?? null;
   }
 
-  const page = await sanityClient.fetch<LegalPage | null>(queries.legalPage, {
+  const page = await fetchSanity<LegalPage | null>(queries.legalPage, {
     slug,
     locale,
   });
@@ -156,7 +155,7 @@ export async function getPhotoPrints(): Promise<PhotoPrint[]> {
     return mockPhotoPrints;
   }
 
-  return await sanityClient.fetch<PhotoPrint[]>(queries.photoPrints);
+  return await fetchSanity<PhotoPrint[]>(queries.photoPrints);
 }
 
 export { partitionShows };
