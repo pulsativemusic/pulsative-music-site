@@ -11,7 +11,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "typecheck": "astro check",
-    "seed": "node scripts/seed-sanity.mjs",
+    "seed": "sanity exec scripts/seed-sanity.mjs --with-user-token",
+    "seed:token": "node scripts/seed-sanity.mjs",
     "sanity:schema": "sanity schema deploy",
     "studio": "pnpm --dir studio-pulsative-site dev",
     "studio:deploy": "pnpm --dir studio-pulsative-site deploy"

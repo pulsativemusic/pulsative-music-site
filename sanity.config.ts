@@ -1,6 +1,6 @@
 import { defineConfig } from 'sanity';
 import { structureTool } from 'sanity/structure';
-import { schemaTypes } from './studio-pulsative-site/schemaTypes';
+import { schemaTypes } from './sanity/schemaTypes';
 
 const projectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID ?? '9yuo6i9f';
 const dataset = import.meta.env.PUBLIC_SANITY_DATASET ?? 'production';
@@ -26,6 +26,7 @@ export default defineConfig({
             S.divider(),
             S.documentTypeListItem('show').title('Live Dates'),
             S.documentTypeListItem('video').title('Videos'),
+            S.documentTypeListItem('photo').title('Photos'),
             S.documentTypeListItem('page').title('Pages'),
             S.documentTypeListItem('pressAsset').title('Press Kit'),
             S.documentTypeListItem('legalPage').title('Legal Pages'),

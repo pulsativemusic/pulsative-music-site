@@ -64,6 +64,7 @@ export const queries = {
     shortDescription,
     liveIntro,
     videosIntro,
+    fotosIntro,
     bookingContactName,
     bookingEmail,
     phone,
@@ -95,9 +96,17 @@ export const queries = {
   videos: `*[_type == "video"] | order(sortOrder asc, _createdAt desc){
     _id,
     title,
-    youtubeId,
+    vimeoId,
     sortOrder,
     "thumbnailUrl": thumbnail.asset->url
+  }`,
+
+  photos: `*[_type == "photo"] | order(sortOrder asc, _createdAt desc){
+    _id,
+    title,
+    credit,
+    sortOrder,
+    "imageUrl": image.asset->url
   }`,
 
   releases: `*[_type == "release"] | order(releaseDate desc){

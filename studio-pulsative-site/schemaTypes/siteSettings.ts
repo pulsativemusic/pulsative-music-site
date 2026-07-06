@@ -20,6 +20,7 @@ export const siteSettings = defineType({
     localizedString('shortDescription', 'Short Description (Homepage)', 3),
     localizedString('liveIntro', 'Live Page Intro', 3),
     localizedString('videosIntro', 'Videos Page Intro', 3),
+    localizedString('fotosIntro', 'Fotos Page Intro', 3),
     defineField({
       name: 'bookingContactName',
       title: 'Booking Contact Name',

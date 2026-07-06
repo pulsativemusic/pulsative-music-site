@@ -8,6 +8,7 @@ const ui = {
     nav: {
       live: 'Live',
       videos: 'Videos',
+      fotos: 'Fotos',
       about: 'About',
       contact: 'Kontakt',
       promoKit: 'Promo Kit',
@@ -29,6 +30,10 @@ const ui = {
     videos: {
       kicker: 'Videos',
       title: 'Videos',
+    },
+    fotos: {
+      kicker: 'Fotos',
+      title: 'Fotos',
     },
     about: {
       kicker: 'Die Band',
@@ -94,6 +99,7 @@ const ui = {
     nav: {
       live: 'Live',
       videos: 'Videos',
+      fotos: 'Photos',
       about: 'About',
       contact: 'Contact',
       promoKit: 'Promo Kit',
@@ -115,6 +121,10 @@ const ui = {
     videos: {
       kicker: 'Videos',
       title: 'Videos',
+    },
+    fotos: {
+      kicker: 'Photos',
+      title: 'Photos',
     },
     about: {
       kicker: 'The Band',

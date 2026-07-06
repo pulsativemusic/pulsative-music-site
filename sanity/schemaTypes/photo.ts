@@ -1,29 +1,29 @@
 import { defineField, defineType } from 'sanity';
 import { localizedString } from './localized';
 
-export const video = defineType({
-  name: 'video',
-  title: 'Video',
+export const photo = defineType({
+  name: 'photo',
+  title: 'Photo',
   type: 'document',
   fields: [
     localizedString('title', 'Title'),
     defineField({
-      name: 'vimeoId',
-      title: 'Vimeo Video ID',
-      type: 'string',
+      name: 'image',
+      title: 'Image',
+      type: 'image',
+      options: { hotspot: true },
       validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: 'credit',
+      title: 'Credit',
+      type: 'string',
     }),
     defineField({
       name: 'sortOrder',
       title: 'Sort Order',
       type: 'number',
       initialValue: 0,
-    }),
-    defineField({
-      name: 'thumbnail',
-      title: 'Custom Thumbnail',
-      type: 'image',
-      options: { hotspot: true },
     }),
   ],
   orderings: [
@@ -37,13 +37,13 @@ export const video = defineType({
     select: {
       titleDe: 'title.de',
       titleEn: 'title.en',
-      vimeoId: 'vimeoId',
-      media: 'thumbnail',
+      credit: 'credit',
+      media: 'image',
     },
-    prepare({ titleDe, titleEn, vimeoId, media }) {
+    prepare({ titleDe, titleEn, credit, media }) {
       return {
-        title: titleDe ?? titleEn ?? vimeoId,
-        subtitle: vimeoId,
+        title: titleDe ?? titleEn ?? 'Photo',
+        subtitle: credit,
         media,
       };
     },

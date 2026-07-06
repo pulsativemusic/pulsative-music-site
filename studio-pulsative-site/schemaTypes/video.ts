@@ -8,8 +8,8 @@ export const video = defineType({
   fields: [
     localizedString('title', 'Title'),
     defineField({
-      name: 'youtubeId',
-      title: 'YouTube Video ID',
+      name: 'vimeoId',
+      title: 'Vimeo Video ID',
       type: 'string',
       validation: (rule) => rule.required(),
     }),
@@ -37,13 +37,13 @@ export const video = defineType({
     select: {
       titleDe: 'title.de',
       titleEn: 'title.en',
-      youtubeId: 'youtubeId',
+      vimeoId: 'vimeoId',
       media: 'thumbnail',
     },
-    prepare({ titleDe, titleEn, youtubeId, media }) {
+    prepare({ titleDe, titleEn, vimeoId, media }) {
       return {
-        title: titleDe ?? titleEn ?? youtubeId,
-        subtitle: youtubeId,
+        title: titleDe ?? titleEn ?? vimeoId,
+        subtitle: vimeoId,
         media,
       };
     },

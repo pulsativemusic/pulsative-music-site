@@ -1,5 +1,6 @@
 import { legalPage } from './legalPage';
 import { page } from './page';
+import { photo } from './photo';
 import { photoPrint } from './photoPrint';
 import { pressAsset } from './pressAsset';
 import { release } from './release';
@@ -11,6 +12,7 @@ export const schemaTypes = [
   siteSettings,
   show,
   video,
+  photo,
   page,
   pressAsset,
   legalPage,

@@ -7,6 +7,7 @@ import {
   mockReleases,
   mockShows,
   mockSiteSettings,
+  mockPhotos,
   mockVideos,
 } from './mock-data';
 import { isSanityConfigured, queries } from './sanity';
@@ -18,6 +19,7 @@ import type {
   Release,
   Show,
   SiteSettings,
+  Photo,
   Video,
 } from './types';
 import type { Locale } from './types';
@@ -79,6 +81,14 @@ export async function getVideos(): Promise<Video[]> {
   }
 
   return await sanityClient.fetch<Video[]>(queries.videos);
+}
+
+export async function getPhotos(): Promise<Photo[]> {
+  if (!isSanityConfigured()) {
+    return mockPhotos;
+  }
+
+  return await sanityClient.fetch<Photo[]>(queries.photos);
 }
 
 export async function getReleases(): Promise<Release[]> {

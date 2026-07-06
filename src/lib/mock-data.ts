@@ -6,6 +6,7 @@ import type {
   Release,
   Show,
   SiteSettings,
+  Photo,
   Video,
 } from './types';
 
@@ -27,6 +28,10 @@ export const mockSiteSettings: SiteSettings = {
   videosIntro: {
     de: 'Festival Trailer, Live-Clips und Cover-Performances.',
     en: 'Festival trailer, live clips, and cover performances.',
+  },
+  fotosIntro: {
+    de: 'Live-Momente, Backstage und Festival-Eindrücke.',
+    en: 'Live moments, backstage, and festival impressions.',
   },
   bookingContactName: 'Fabian Junge',
   bookingEmail: 'pulsative@proton.me',
@@ -93,7 +98,34 @@ export const mockShows: Show[] = [
     country: 'Germany',
     soldOut: false,
     posterUrl:
-      'https://images.unsplash.com/photo-1459749411175-04bf5294ceea?w=800&q=80',
+      'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&q=80',
+  },
+];
+
+export const mockPhotos: Photo[] = [
+  {
+    _id: 'photo-1',
+    title: { de: 'Gloria Theater', en: 'Gloria Theater' },
+    imageUrl:
+      'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=900&h=1600&fit=crop&q=80',
+    sortOrder: 1,
+    credit: '© PULSATIVE',
+  },
+  {
+    _id: 'photo-2',
+    title: { de: 'Festival Stage', en: 'Festival Stage' },
+    imageUrl:
+      'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=900&h=1600&fit=crop&q=80',
+    sortOrder: 2,
+    credit: '© PULSATIVE',
+  },
+  {
+    _id: 'photo-3',
+    title: { de: 'Backstage', en: 'Backstage' },
+    imageUrl:
+      'https://images.unsplash.com/photo-1506157786151-b8491531f063?w=900&h=1600&fit=crop&q=80',
+    sortOrder: 3,
+    credit: '© PULSATIVE',
   },
 ];
 
@@ -101,19 +133,19 @@ export const mockVideos: Video[] = [
   {
     _id: 'video-1',
     title: { de: 'Festival Trailer (1 min)', en: 'Festival Trailer (1 min)' },
-    youtubeId: 'dQw4w9WgXcQ',
+    vimeoId: '1203716758',
     sortOrder: 1,
   },
   {
     _id: 'video-2',
     title: { de: 'Worakls — Detached Motion', en: 'Worakls — Detached Motion' },
-    youtubeId: 'dQw4w9WgXcQ',
+    vimeoId: '1203716751',
     sortOrder: 2,
   },
   {
     _id: 'video-3',
     title: { de: 'Roya — Cruise', en: 'Roya — Cruise' },
-    youtubeId: 'dQw4w9WgXcQ',
+    vimeoId: '1203716757',
     sortOrder: 3,
   },
 ];

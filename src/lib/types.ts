@@ -27,6 +27,7 @@ export interface SiteSettings {
   shortDescription?: LocalizedString | string;
   liveIntro?: LocalizedString | string;
   videosIntro?: LocalizedString | string;
+  fotosIntro?: LocalizedString | string;
   bookingContactName?: string;
   bookingEmail: string;
   phone?: string;
@@ -66,9 +67,17 @@ export interface Show {
 export interface Video {
   _id: string;
   title: LocalizedString | string;
-  youtubeId: string;
+  vimeoId: string;
   sortOrder: number;
   thumbnailUrl?: string;
+}
+
+export interface Photo {
+  _id: string;
+  title: LocalizedString | string;
+  imageUrl: string;
+  sortOrder: number;
+  credit?: string;
 }
 
 export interface Release {
