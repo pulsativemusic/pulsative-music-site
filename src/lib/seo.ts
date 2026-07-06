@@ -1,7 +1,7 @@
 import type { Locale, SiteSettings } from './types';
 import { pickLocalized } from './i18n';
 
-export function getSiteUrl(fallback = 'https://pulsative.band'): string {
+export function getSiteUrl(fallback = 'https://pulsative-site.pages.dev'): string {
   const fromEnv = import.meta.env.PUBLIC_SITE_URL ?? import.meta.env.SITE;
   const raw = typeof fromEnv === 'string' ? fromEnv : fallback;
   return raw.replace(/\/$/, '');

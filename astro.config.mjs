@@ -11,11 +11,11 @@ const fileEnv = loadEnv(mode, process.cwd(), '');
 const projectId =
   process.env.PUBLIC_SANITY_PROJECT_ID ??
   fileEnv.PUBLIC_SANITY_PROJECT_ID ??
-  'placeholder';
+  '9yuo6i9f';
 const dataset =
   process.env.PUBLIC_SANITY_DATASET ?? fileEnv.PUBLIC_SANITY_DATASET ?? 'production';
 const siteUrl =
-  process.env.PUBLIC_SITE_URL ?? fileEnv.PUBLIC_SITE_URL ?? 'https://pulsative.band';
+  process.env.PUBLIC_SITE_URL ?? fileEnv.PUBLIC_SITE_URL ?? 'https://pulsative-site.pages.dev';
 
 console.log(`[build] Sanity project: ${projectId}, dataset: ${dataset}`);
 

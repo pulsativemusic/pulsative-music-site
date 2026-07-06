@@ -2,7 +2,7 @@ import { defineConfig } from 'sanity';
 import { structureTool } from 'sanity/structure';
 import { schemaTypes } from './studio-pulsative-site/schemaTypes';
 
-const projectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID ?? 'placeholder';
+const projectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID ?? '9yuo6i9f';
 const dataset = import.meta.env.PUBLIC_SANITY_DATASET ?? 'production';
 
 export default defineConfig({
