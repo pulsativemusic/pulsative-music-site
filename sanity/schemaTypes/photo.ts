@@ -19,6 +19,7 @@ export const photo = defineType({
   name: 'photo',
   title: 'Photo',
   type: 'document',
+  liveEdit: true,
   fields: [
     localizedString('title', 'Title'),
     defineField({

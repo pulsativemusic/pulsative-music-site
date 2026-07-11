@@ -19,6 +19,7 @@ export const video = defineType({
   name: 'video',
   title: 'Video',
   type: 'document',
+  liveEdit: true,
   fields: [
     localizedString('title', 'Title'),
     defineField({
