@@ -28,6 +28,10 @@ export interface SiteSettings {
   liveIntro?: LocalizedString | string;
   showHomepageUpcomingDates?: boolean;
   showLivePage?: boolean;
+  showAnnouncementBanner?: boolean;
+  announcementMessage?: LocalizedString | string;
+  announcementLink?: string;
+  announcementLinkLabel?: LocalizedString | string;
   videosIntro?: LocalizedString | string;
   fotosIntro?: LocalizedString | string;
   bookingContactName?: string;

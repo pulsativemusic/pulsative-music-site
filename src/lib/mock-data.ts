@@ -35,6 +35,7 @@ export const mockSiteSettings: SiteSettings = {
   },
   showHomepageUpcomingDates: true,
   showLivePage: true,
+  showAnnouncementBanner: false,
   bookingContactName: 'Fabian Junge',
   bookingEmail: 'pulsative@proton.me',
   phone: '01577-9588093',

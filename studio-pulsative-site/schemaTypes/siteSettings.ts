@@ -35,6 +35,22 @@ export const siteSettings = defineType({
       description:
         'Shows the Live nav link and /live page. When off, /live redirects to the homepage.',
     }),
+    defineField({
+      name: 'showAnnouncementBanner',
+      title: 'Show Announcement Banner',
+      type: 'boolean',
+      initialValue: false,
+      description:
+        'Shows a promo bar below the header on all pages. Turn off when the announcement is over.',
+    }),
+    localizedString('announcementMessage', 'Announcement Message'),
+    defineField({
+      name: 'announcementLink',
+      title: 'Announcement Link',
+      type: 'url',
+      description: 'Optional link — e.g. ticket URL or a page on this site.',
+    }),
+    localizedString('announcementLinkLabel', 'Announcement Link Label'),
     localizedString('videosIntro', 'Videos Page Intro', 3),
     localizedString('fotosIntro', 'Fotos Page Intro', 3),
     defineField({

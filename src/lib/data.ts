@@ -21,6 +21,7 @@ import type {
   Photo,
   Video,
 } from './types';
+import { pickLocalized } from './i18n';
 import type { Locale } from './types';
 
 function partitionShows(shows: Show[]) {
@@ -41,6 +42,18 @@ export function isHomepageUpcomingDatesEnabled(settings: SiteSettings) {
 
 export function isLivePageEnabled(settings: SiteSettings) {
   return settings.showLivePage !== false;
+}
+
+export function isAnnouncementBannerVisible(
+  settings: SiteSettings,
+  locale: Locale,
+) {
+  if (!settings.showAnnouncementBanner) {
+    return false;
+  }
+
+  const message = pickLocalized(settings.announcementMessage, locale);
+  return Boolean(message?.trim());
 }
 
 export async function getSiteSettings(): Promise<SiteSettings> {

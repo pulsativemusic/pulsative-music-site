@@ -82,6 +82,10 @@ const ui = {
       reject: 'Ablehnen',
       privacyLink: 'Datenschutz',
     },
+    announcement: {
+      label: 'Ankündigung',
+      learnMore: 'Mehr erfahren',
+    },
     misc: {
       soldOut: 'Ausverkauft',
       tickets: 'Tickets',
@@ -175,6 +179,10 @@ const ui = {
       accept: 'Accept',
       reject: 'Decline',
       privacyLink: 'Privacy Policy',
+    },
+    announcement: {
+      label: 'Announcement',
+      learnMore: 'Learn more',
     },
     misc: {
       soldOut: 'Sold Out',
