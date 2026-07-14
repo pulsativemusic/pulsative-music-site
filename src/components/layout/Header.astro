@@ -67,7 +67,9 @@ const alternateHref = switchLocalePath(currentPath, alternateLocale);
     </nav>
 
     <div class="header-actions">
-      <SocialLinks socials={settings.socials} class="header-socials" />
+      <div class="header-socials">
+        <SocialLinks socials={settings.socials} />
+      </div>
       <a href={alternateHref} class="lang-switch" hreflang={alternateLocale}>
         {locale === 'de' ? 'EN' : 'DE'}
       </a>
@@ -221,7 +223,10 @@ const alternateHref = switchLocalePath(currentPath, alternateLocale);
   .menu-toggle {
     display: none;
     flex-direction: column;
+    justify-content: center;
     gap: 6px;
+    width: 2.5rem;
+    height: 2.5rem;
     padding: 0.5rem;
     background: none;
     border: none;
@@ -233,7 +238,16 @@ const alternateHref = switchLocalePath(currentPath, alternateLocale);
     width: 24px;
     height: 2px;
     background: var(--color-text);
+    transform-origin: center;
     transition: transform var(--transition-fast);
+  }
+
+  .menu-toggle[aria-expanded='true'] span:first-child {
+    transform: translateY(4px) rotate(45deg);
+  }
+
+  .menu-toggle[aria-expanded='true'] span:last-child {
+    transform: translateY(-4px) rotate(-45deg);
   }
 
   @media (min-width: 1101px) {
