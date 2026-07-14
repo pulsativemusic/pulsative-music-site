@@ -20,11 +20,15 @@ const intro = pickLocalized(settings.videosIntro, locale);
     </div>
   </section>
 
-  <section class="section">
-    <div class="container">
-      <VideoGrid videos={videos} locale={locale} />
-    </div>
-  </section>
+  {
+    videos.length > 0 && (
+      <section class="section">
+        <div class="container">
+          <VideoGrid videos={videos} locale={locale} />
+        </div>
+      </section>
+    )
+  }
 </BaseLayout>
 
 <style>

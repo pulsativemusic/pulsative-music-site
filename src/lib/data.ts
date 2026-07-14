@@ -74,12 +74,16 @@ export async function getPastShows(): Promise<Show[]> {
   return partitionShows(await getShows()).past;
 }
 
+function withVimeoId(videos: Video[]): Video[] {
+  return videos.filter((video) => video.vimeoId?.trim());
+}
+
 export async function getVideos(): Promise<Video[]> {
   if (!isSanityConfigured()) {
-    return mockVideos;
+    return withVimeoId(mockVideos);
   }
 
-  return await fetchSanity<Video[]>(queries.videos);
+  return withVimeoId(await fetchSanity<Video[]>(queries.videos));
 }
 
 export async function getPhotos(): Promise<Photo[]> {

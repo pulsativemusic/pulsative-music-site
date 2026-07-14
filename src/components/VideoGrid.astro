@@ -9,30 +9,34 @@ interface Props {
 }
 
 const { videos, locale } = Astro.props;
+const playableVideos = videos.filter((video) => video.vimeoId?.trim());
 ---
 
-<div class="video-grid">
-  {
-    videos.map((video) => {
-      const orientation = orientationClass(video.orientation);
+{
+  playableVideos.length > 0 && (
+    <div class="video-grid">
+      {playableVideos.map((video) => {
+        const orientation = orientationClass(video.orientation);
+        const vimeoId = video.vimeoId.trim();
 
-      return (
-        <article class="video-card reveal">
-          <div class:list={['video-embed', orientation]}>
-            <iframe
-              src={`https://player.vimeo.com/video/${video.vimeoId}?title=0&byline=0&portrait=0`}
-              title={pickLocalized(video.title, locale)}
-              loading="lazy"
-              allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
-              allowfullscreen
-            />
-          </div>
-          <h3>{pickLocalized(video.title, locale)}</h3>
-        </article>
-      );
-    })
-  }
-</div>
+        return (
+          <article class="video-card reveal">
+            <div class:list={['video-embed', orientation]}>
+              <iframe
+                src={`https://player.vimeo.com/video/${vimeoId}?title=0&byline=0&portrait=0`}
+                title={pickLocalized(video.title, locale)}
+                loading="lazy"
+                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+                allowfullscreen
+              />
+            </div>
+            <h3>{pickLocalized(video.title, locale)}</h3>
+          </article>
+        );
+      })}
+    </div>
+  )
+}
 
 <style>
   .video-grid {

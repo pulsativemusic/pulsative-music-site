@@ -8,6 +8,24 @@ Quick reference for band members updating the website content.
 2. Sign in with your Sanity account
 3. Use the sidebar to find what you need
 
+## Site Settings (homepage & global)
+
+Open **Site Settings** (single document at the top of the sidebar).
+
+| Field | What it does |
+|-------|----------------|
+| **Band Name**, **Tagline**, **Short Description** | Homepage text |
+| **Hero Image** | Homepage background (used when no hero video is set) |
+| **Hero Video** | Optional MP4 background — overrides hero image when set |
+| **Showreel Vimeo ID** | Vimeo embed below the hero on the homepage |
+| **Showreel Title / Description / Poster** | Optional metadata for the showreel (poster is a loading fallback) |
+| **Live / Videos / Fotos Page Intro** | Intro text on those pages (DE + EN) |
+| **Booking Email**, **Phone**, **Social Links** | Contact page and header/footer |
+
+**Showreel & videos:** Only the numeric **Vimeo video ID** is needed (e.g. from `vimeo.com/1203716758` → `1203716758`). If **Showreel Vimeo ID** is empty, no showreel block appears on the homepage — no empty box.
+
+Click **Publish** when done.
+
 ## Adding a Show
 
 1. Click **Live Dates** in the sidebar
@@ -21,7 +39,26 @@ Quick reference for band members updating the website content.
    - **Poster** — upload a flyer image (optional)
 4. Click **Publish**
 
-The show appears on the Tour page within a few minutes after publishing.
+The show appears on the Live page within a few minutes after publishing. Future dates show under **Upcoming**; past dates move to **Past Shows** automatically.
+
+## Adding a Video
+
+1. Click **Videos** in the sidebar
+2. Click **Create** (+ button)
+3. Fill in:
+   - **Title** (DE + EN)
+   - **Vimeo Video ID** — required; copy the number from the Vimeo URL
+   - **Aspect Ratio** — Portrait (9:16) or Landscape (16:9); landscape tiles are wider on desktop
+   - **Sort Order** — lower numbers appear first
+   - **Custom Thumbnail** — optional
+4. Click **Publish**
+
+Videos appear on `/videos` (and `/en/videos`) within a few minutes.
+
+- Entries **without** a Vimeo ID are not shown on the site.
+- If no valid videos exist, the grid section is hidden (page title and intro can still show).
+
+Edit the page intro under **Site Settings** → **Videos Page Intro**.
 
 ## Adding a Photo
 
@@ -39,17 +76,9 @@ Photos appear on `/fotos` (and `/en/fotos`) within a few minutes.
 
 Edit the page intro under **Site Settings** → **Fotos Page Intro**.
 
-## Updating Band Info
-
-1. Click **Site Settings** (single document at the top)
-2. Update **Band Name**, **Tagline**, or **Booking Email**
-3. Change the **Hero Image** for the homepage background
-4. Edit **Social Links** — add/remove platforms and URLs
-5. Click **Publish**
-
 ## Adding a Release
 
-1. Click **Releases**
+1. Click **Releases** (listed as **Music (hidden)** in the sidebar)
 2. Add title, release date, cover art
 3. Paste Spotify, Apple Music, or YouTube links
 4. Publish
@@ -58,8 +87,9 @@ Edit the page intro under **Site Settings** → **Fotos Page Intro**.
 
 - Always click **Publish** — drafts don't appear on the live site
 - Use landscape images for hero and gallery covers
-- Keep show dates in the future for "Upcoming" section
-- Past dates automatically move to "Past Shows"
+- Portrait 9:16 works well for live photos and performance clips
+- Keep show dates in the future for the homepage **Upcoming** section
+- Clear **Showreel Vimeo ID** or delete a video document to remove it from the site — nothing empty is left behind
 
 ## Need Help?
 

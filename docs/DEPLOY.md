@@ -36,6 +36,12 @@ Set in **Cloudflare Pages → Settings → Environment variables**:
 
 `wrangler.toml` sets `pages_build_output_dir = "./dist"`.
 
+### 404 pages (important)
+
+Cloudflare Pages treats the site as a **single-page app** when `index.html` exists but **`404.html` does not** — unknown URLs then serve the homepage (hero + showreel).
+
+This project builds `404.html` from `src/pages/404.astro`. After deploy, bad URLs should return a proper 404 page, not the home page. If random paths still show the homepage, confirm the latest build includes `dist/404.html`.
+
 ### Custom domain
 
 In Pages → **Custom domains**, add `pulsative.band` and optionally redirect `www` to apex. Set `PUBLIC_SITE_URL=https://pulsative.band`.
@@ -75,7 +81,7 @@ pnpm dev
 - Embedded Studio (Astro): `http://localhost:4321/admin`
 - Standalone Studio: `pnpm studio` → `http://localhost:3333`
 
-Schemas live in `studio-pulsative-site/schemaTypes/` (shared by both studios).
+Schemas live in `sanity/schemaTypes/` (imported by the embedded Studio and `studio-pulsative-site/`).
 
 Without Sanity credentials, the site uses built-in PULSATIVE mock data.
 
@@ -87,11 +93,25 @@ pnpm studio:deploy   # deploy hosted studio to sanity.studio
 pnpm sanity:schema   # deploy schema from repo root (or from studio-pulsative-site)
 ```
 
-## Seeding Content
+## Schema & seeding
+
+Deploy schema changes before relying on new CMS fields:
 
 ```bash
-SANITY_API_TOKEN=your-token pnpm run seed
+pnpm sanity:schema
 ```
+
+Seed demo content (mock-data mirror, including Vimeo IDs, photos, shows):
+
+```bash
+# Logged in via Sanity CLI (recommended)
+pnpm run seed
+
+# Or with an Editor token in .env
+pnpm run seed:token
+```
+
+`SANITY_API_TOKEN` needs **Editor** role (create + upload). Placeholder tokens will fail with a permission error.
 
 ## Build Verification
 
