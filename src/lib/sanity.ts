@@ -70,6 +70,8 @@ export const queries = {
     tagline,
     shortDescription,
     liveIntro,
+    showHomepageUpcomingDates,
+    showLivePage,
     videosIntro,
     fotosIntro,
     bookingContactName,

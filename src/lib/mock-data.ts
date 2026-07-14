@@ -33,6 +33,8 @@ export const mockSiteSettings: SiteSettings = {
     de: 'Live-Momente, Backstage und Festival-Eindrücke.',
     en: 'Live moments, backstage, and festival impressions.',
   },
+  showHomepageUpcomingDates: true,
+  showLivePage: true,
   bookingContactName: 'Fabian Junge',
   bookingEmail: 'pulsative@proton.me',
   phone: '01577-9588093',

@@ -19,6 +19,22 @@ export const siteSettings = defineType({
     localizedString('tagline', 'Tagline'),
     localizedString('shortDescription', 'Short Description (Homepage)', 3),
     localizedString('liveIntro', 'Live Page Intro', 3),
+    defineField({
+      name: 'showHomepageUpcomingDates',
+      title: 'Show Upcoming Dates on Homepage',
+      type: 'boolean',
+      initialValue: true,
+      description:
+        'Shows the upcoming dates section on the homepage when there are future shows.',
+    }),
+    defineField({
+      name: 'showLivePage',
+      title: 'Show Live Page',
+      type: 'boolean',
+      initialValue: true,
+      description:
+        'Shows the Live nav link and /live page. When off, /live redirects to the homepage.',
+    }),
     localizedString('videosIntro', 'Videos Page Intro', 3),
     localizedString('fotosIntro', 'Fotos Page Intro', 3),
     defineField({

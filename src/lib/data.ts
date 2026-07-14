@@ -35,6 +35,14 @@ function partitionShows(shows: Show[]) {
   return { upcoming, past };
 }
 
+export function isHomepageUpcomingDatesEnabled(settings: SiteSettings) {
+  return settings.showHomepageUpcomingDates !== false;
+}
+
+export function isLivePageEnabled(settings: SiteSettings) {
+  return settings.showLivePage !== false;
+}
+
 export async function getSiteSettings(): Promise<SiteSettings> {
   if (!isSanityConfigured()) {
     return mockSiteSettings;

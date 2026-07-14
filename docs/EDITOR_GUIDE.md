@@ -20,6 +20,8 @@ Open **Site Settings** (single document at the top of the sidebar).
 | **Showreel Vimeo ID** | Vimeo embed below the hero on the homepage |
 | **Showreel Title / Description / Poster** | Optional metadata for the showreel (poster is a loading fallback) |
 | **Live / Videos / Fotos Page Intro** | Intro text on those pages (DE + EN) |
+| **Show Upcoming Dates on Homepage** | When on, future shows appear in the homepage section (only if dates exist) |
+| **Show Live Page** | When on, shows the Live nav link and `/live` page. When off, `/live` redirects to the homepage |
 | **Booking Email**, **Phone**, **Social Links** | Contact page and header/footer |
 
 **Showreel & videos:** Only the numeric **Vimeo video ID** is needed (e.g. from `vimeo.com/1203716758` → `1203716758`). If **Showreel Vimeo ID** is empty, no showreel block appears on the homepage — no empty box.
@@ -88,7 +90,8 @@ Edit the page intro under **Site Settings** → **Fotos Page Intro**.
 - Always click **Publish** — drafts don't appear on the live site
 - Use landscape images for hero and gallery covers
 - Portrait 9:16 works well for live photos and performance clips
-- Keep show dates in the future for the homepage **Upcoming** section
+- Keep show dates in the future for the homepage **Upcoming** section (when **Show Upcoming Dates on Homepage** is on)
+- Turn off **Show Live Page** to hide tour dates from navigation while keeping show data in the CMS
 - Clear **Showreel Vimeo ID** or delete a video document to remove it from the site — nothing empty is left behind
 
 ## Need Help?

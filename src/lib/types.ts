@@ -26,6 +26,8 @@ export interface SiteSettings {
   tagline: LocalizedString | string;
   shortDescription?: LocalizedString | string;
   liveIntro?: LocalizedString | string;
+  showHomepageUpcomingDates?: boolean;
+  showLivePage?: boolean;
   videosIntro?: LocalizedString | string;
   fotosIntro?: LocalizedString | string;
   bookingContactName?: string;

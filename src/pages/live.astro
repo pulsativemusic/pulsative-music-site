@@ -6,11 +6,17 @@ import {
   getPastShows,
   getSiteSettings,
   getUpcomingShows,
+  isLivePageEnabled,
 } from '../lib/data';
 import { getUi, localizedPath, pickLocalized } from '../lib/i18n';
 
 const locale = 'de';
 const settings = await getSiteSettings();
+
+if (!isLivePageEnabled(settings)) {
+  return Astro.redirect(localizedPath('/', locale));
+}
+
 const ui = getUi(locale);
 const upcomingShows = await getUpcomingShows();
 const pastShows = await getPastShows();
