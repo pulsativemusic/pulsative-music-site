@@ -27,7 +27,6 @@ const playableVideos = videos.filter((video) => video.vimeoId?.trim());
                 title={pickLocalized(video.title, locale)}
                 loading="lazy"
                 allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
-                allowfullscreen
               />
             </div>
             <h3>{pickLocalized(video.title, locale)}</h3>
