@@ -1,5 +1,4 @@
 ---
-import ShowreelVideo from './islands/ShowreelVideo';
 import type { Locale, Showreel } from '../lib/types';
 import { pickLocalized } from '../lib/i18n';
 
@@ -11,40 +10,23 @@ interface Props {
 const { showreel, locale } = Astro.props;
 
 const title = pickLocalized(showreel.title, locale) || 'Showreel';
-const posterUrl =
-  showreel.posterUrl ??
-  (showreel.youtubeId
-    ? `https://img.youtube.com/vi/${showreel.youtubeId}/maxresdefault.jpg`
-    : undefined);
 
-const youtubeEmbedUrl = showreel.youtubeId
-  ? `https://www.youtube-nocookie.com/embed/${showreel.youtubeId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${showreel.youtubeId}&rel=0&modestbranding=1&playsinline=1`
+const vimeoEmbedUrl = showreel.vimeoId
+  ? `https://player.vimeo.com/video/${showreel.vimeoId}?autoplay=1&muted=1&loop=1&title=0&byline=0&portrait=0`
   : null;
-
-const fallbackSrc = '/videos/showreel.mp4';
 ---
 
 <div class="showreel-teaser">
   {
-    showreel.videoUrl ? (
-      <ShowreelVideo
-        client:load
-        src={showreel.videoUrl}
-        fallbackSrc={fallbackSrc}
-        poster={posterUrl}
+    vimeoEmbedUrl && (
+      <iframe
+        class="showreel-media showreel-media--vimeo"
+        src={vimeoEmbedUrl}
         title={title}
+        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+        allowfullscreen
+        loading="eager"
       />
-    ) : (
-      youtubeEmbedUrl && (
-        <iframe
-          class="showreel-media showreel-media--youtube"
-          src={youtubeEmbedUrl}
-          title={title}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-          loading="eager"
-        />
-      )
     )
   }
   <div class="showreel-fade" aria-hidden="true"></div>
@@ -67,11 +49,6 @@ const fallbackSrc = '/videos/showreel.mp4';
     height: 100%;
     border: 0;
     object-fit: cover;
-    pointer-events: none;
-  }
-
-  :global(.showreel-media::-webkit-media-controls) {
-    display: none !important;
   }
 
   .showreel-fade {

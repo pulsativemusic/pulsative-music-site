@@ -89,12 +89,14 @@ export default function HeroAnimation({ bandName, tagline }: HeroAnimationProps)
 
         .hero-title {
           font-family: var(--font-display);
-          font-size: clamp(2.25rem, 9vw, 5.25rem);
+          font-size: clamp(2rem, 4.5vw + 0.5rem, 5.25rem);
           line-height: 0.88;
-          letter-spacing: 0.14em;
+          letter-spacing: clamp(0.06em, 0.08em, 0.14em);
           text-transform: uppercase;
           margin: 0 0 1.25rem;
           color: var(--color-text);
+          max-width: 100%;
+          overflow-wrap: anywhere;
         }
 
         .hero-title .char {

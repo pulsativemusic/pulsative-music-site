@@ -35,20 +35,18 @@ export interface SiteSettings {
   heroImageUrl?: string;
   heroVideoUrl?: string;
   logoUrl?: string;
-  showreelYoutubeId?: string;
+  showreelVimeoId?: string;
   showreelTitle?: LocalizedString | string;
   showreelDescription?: LocalizedString | string;
   showreelPosterUrl?: string;
-  showreelVideoUrl?: string;
   seoDescription?: string;
 }
 
 export interface Showreel {
-  youtubeId: string;
+  vimeoId: string;
   title?: LocalizedString | string;
   description?: LocalizedString | string;
   posterUrl?: string;
-  videoUrl?: string;
 }
 
 export interface Show {

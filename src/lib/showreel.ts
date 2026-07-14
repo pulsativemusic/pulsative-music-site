@@ -1,15 +1,14 @@
 import type { Showreel, SiteSettings } from './types';
 
 export function getShowreelFromSettings(settings: SiteSettings): Showreel | null {
-  if (!settings.showreelYoutubeId && !settings.showreelVideoUrl) {
+  if (!settings.showreelVimeoId) {
     return null;
   }
 
   return {
-    youtubeId: settings.showreelYoutubeId ?? '',
+    vimeoId: settings.showreelVimeoId,
     title: settings.showreelTitle,
     description: settings.showreelDescription,
     posterUrl: settings.showreelPosterUrl,
-    videoUrl: settings.showreelVideoUrl,
   };
 }

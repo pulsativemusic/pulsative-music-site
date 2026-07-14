@@ -76,11 +76,11 @@ export const queries = {
     bookingEmail,
     phone,
     seoDescription,
-    showreelYoutubeId,
+    // ponytail: coalesce until legacy siteSettings docs are re-saved with showreelVimeoId
+    "showreelVimeoId": coalesce(showreelVimeoId, showreelYoutubeId),
     showreelTitle,
     showreelDescription,
     "showreelPosterUrl": showreelPoster.asset->url,
-    "showreelVideoUrl": showreelVideo.asset->url,
     socials[]{platform, url},
     "heroImageUrl": heroImage.asset->url,
     "heroVideoUrl": heroVideo.asset->url,

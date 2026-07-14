@@ -38,9 +38,7 @@ export const mockSiteSettings: SiteSettings = {
   phone: '01577-9588093',
   seoDescription:
     'PULSATIVE — Neo-Brass-Kollektiv aus Köln. House, Techno und EDM live. Termine, Videos, Presse und Booking.',
-  showreelYoutubeId: 'dQw4w9WgXcQ',
-  showreelVideoUrl:
-    'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+  showreelVimeoId: '1203716758',
   showreelTitle: {
     de: 'Festival Trailer',
     en: 'Festival Trailer',
@@ -105,28 +103,41 @@ export const mockShows: Show[] = [
 export const mockPhotos: Photo[] = [
   {
     _id: 'photo-1',
-    title: { de: 'Gloria Theater', en: 'Gloria Theater' },
-    imageUrl:
-      'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=900&h=1600&fit=crop&q=80',
+    title: { de: 'Band auf der Bühne', en: 'Band on Stage' },
+    imageUrl: '/fotos/01-portrait-deck.png',
     sortOrder: 1,
     orientation: 'portrait',
     credit: '© PULSATIVE',
   },
   {
     _id: 'photo-2',
-    title: { de: 'Festival Stage', en: 'Festival Stage' },
-    imageUrl:
-      'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=900&h=1600&fit=crop&q=80',
+    title: { de: 'Live im Feld', en: 'Live in the Field' },
+    imageUrl: '/fotos/02-landscape-field.png',
     sortOrder: 2,
-    orientation: 'portrait',
+    orientation: 'landscape',
     credit: '© PULSATIVE',
   },
   {
     _id: 'photo-3',
-    title: { de: 'Backstage', en: 'Backstage' },
-    imageUrl:
-      'https://images.unsplash.com/photo-1506157786151-b8491531f063?w=900&h=1600&fit=crop&q=80',
+    title: { de: 'Instrumente hoch', en: 'Instruments Up' },
+    imageUrl: '/fotos/03-landscape-wide.png',
     sortOrder: 3,
+    orientation: 'landscape',
+    credit: '© PULSATIVE',
+  },
+  {
+    _id: 'photo-4',
+    title: { de: 'Von unten', en: 'Low Angle' },
+    imageUrl: '/fotos/04-portrait-low-angle.png',
+    sortOrder: 4,
+    orientation: 'portrait',
+    credit: '© PULSATIVE',
+  },
+  {
+    _id: 'photo-5',
+    title: { de: 'Wiese', en: 'Meadow' },
+    imageUrl: '/fotos/05-portrait-meadow.png',
+    sortOrder: 5,
     orientation: 'portrait',
     credit: '© PULSATIVE',
   },
