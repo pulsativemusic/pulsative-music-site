@@ -7,12 +7,12 @@
   --color-accent: #e8ff00;
   --color-accent-hover: #f5ff66;
   --color-on-accent: #09090b;
-  --color-accent-muted: rgba(232, 255, 0, 0.12);
+  --color-accent-muted: rgba(232, 255, 0, 0.42);
   --color-accent-hover-border: rgba(232, 255, 0, 0.2);
   --color-border: rgba(244, 244, 245, 0.08);
 
-  --font-display: "Michroma", "Arial Narrow", sans-serif;
-  --font-body: "DM Sans", system-ui, sans-serif;
+  --font-display: 'Michroma', 'Arial Narrow', sans-serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
 
   --space-xs: 0.5rem;
   --space-sm: 1rem;
