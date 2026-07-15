@@ -10,7 +10,7 @@ Quick reference for band members updating the website content.
 
 ## Site Settings (homepage & global)
 
-Open **Site Settings** (single document at the top of the sidebar).
+Open **Site Settings** (single document at the top of the sidebar). Fields are grouped into tabs: **General**, **Homepage**, **Live**, **Announcement**, **Page intros**, **Contact & social**, and **SEO**.
 
 | Field | What it does |
 |-------|----------------|
