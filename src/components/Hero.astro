@@ -113,6 +113,12 @@ const shortDescription = pickLocalized(settings.shortDescription, locale);
     padding-block: calc(var(--header-height) + var(--space-sm)) var(--space-md);
   }
 
+  :global(html:has(.announcement)) .hero-content {
+    padding-block-start: calc(
+      var(--header-height) + var(--announcement-banner-height) + var(--space-sm)
+    );
+  }
+
   .hero-logo {
     max-width: min(20rem, 70vw);
     height: auto;
