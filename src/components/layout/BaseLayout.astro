@@ -128,6 +128,7 @@ const jsonLdSerialized = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
 
 <style>
   main {
-    min-height: calc(100vh - var(--header-height) - 12rem);
+    padding-top: var(--announcement-banner-height);
+    min-height: calc(100vh - var(--header-height) - var(--announcement-banner-height) - 12rem);
   }
 </style>

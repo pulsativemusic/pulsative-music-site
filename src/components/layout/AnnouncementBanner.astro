@@ -22,7 +22,28 @@ const link = settings.announcementLink?.trim();
 ---
 
 <div class="announcement" role="region" aria-label={ui.announcement.label}>
-  <div class="container announcement-inner">
+  <div class="announcement-marquee">
+    <template data-announcement-template>
+      <span class="announcement-segment">
+        <span class="announcement-message">{message}</span>
+        {
+          link && (
+            <a href={link} class="announcement-link">
+              {linkLabel}
+            </a>
+          )
+        }
+      </span>
+    </template>
+
+    <div class="announcement-viewport">
+      <div class="announcement-track" data-announcement-track>
+        <div class="announcement-group" data-announcement-group></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="announcement-static">
     <p class="announcement-message">{message}</p>
     {
       link && (
@@ -34,44 +55,202 @@ const link = settings.announcementLink?.trim();
   </div>
 </div>
 
+<script>
+  let scrollAbort: AbortController | undefined;
+
+  const cloneSegment = (template: HTMLTemplateElement) => {
+    return template.content.firstElementChild!.cloneNode(true) as HTMLElement;
+  };
+
+  const disableSegmentLinks = (root: ParentNode) => {
+    root.querySelectorAll<HTMLAnchorElement>('.announcement-link').forEach((anchor) => {
+      anchor.tabIndex = -1;
+    });
+  };
+
+  const setupAnnouncementMarquee = (announcement: HTMLElement) => {
+    const viewport = announcement.querySelector<HTMLElement>('.announcement-viewport');
+    const track = announcement.querySelector<HTMLElement>('[data-announcement-track]');
+    const group = announcement.querySelector<HTMLElement>('[data-announcement-group]');
+    const template = announcement.querySelector<HTMLTemplateElement>(
+      '[data-announcement-template]',
+    );
+
+    if (!viewport || !track || !group || !template?.content.firstElementChild) {
+      return;
+    }
+
+    group.replaceChildren(cloneSegment(template));
+
+    let copies = 1;
+    while (group.scrollWidth < viewport.clientWidth && copies < 24) {
+      group.appendChild(cloneSegment(template));
+      copies += 1;
+    }
+
+    group.appendChild(cloneSegment(template));
+
+    const cloneGroup = group.cloneNode(true) as HTMLElement;
+    cloneGroup.setAttribute('aria-hidden', 'true');
+    disableSegmentLinks(cloneGroup);
+    track.replaceChildren(group, cloneGroup);
+
+    const loopWidth = group.getBoundingClientRect().width;
+    if (loopWidth <= 0) {
+      return;
+    }
+
+    const pixelsPerSecond = 72;
+    track.style.setProperty('--marquee-distance', `-${loopWidth}px`);
+    track.style.setProperty('--marquee-duration', `${loopWidth / pixelsPerSecond}s`);
+  };
+
+  const initAnnouncementMarquee = () => {
+    scrollAbort?.abort();
+
+    const announcement = document.querySelector<HTMLElement>('.announcement');
+    if (!announcement) {
+      return;
+    }
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
+
+    setupAnnouncementMarquee(announcement);
+
+    let lastScrollY = window.scrollY;
+    scrollAbort = new AbortController();
+
+    window.addEventListener(
+      'scroll',
+      () => {
+        const currentScrollY = window.scrollY;
+        const delta = currentScrollY - lastScrollY;
+
+        if (Math.abs(delta) < 2) {
+          return;
+        }
+
+        announcement.classList.toggle('reverse', delta < 0);
+        lastScrollY = currentScrollY;
+      },
+      { passive: true, signal: scrollAbort.signal },
+    );
+  };
+
+  document.addEventListener('astro:page-load', initAnnouncementMarquee);
+  initAnnouncementMarquee();
+</script>
+
 <style>
   .announcement {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    z-index: 99;
+    display: flex;
+    align-items: center;
+    min-height: var(--announcement-banner-height);
     background: var(--color-accent-muted);
     border-bottom: 1px solid var(--color-accent-hover-border);
   }
 
-  .announcement-inner {
+  .announcement-marquee {
+    display: block;
+    width: 100%;
+  }
+
+  .announcement-static {
+    display: none;
+    width: 100%;
+  }
+
+  .announcement-viewport {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .announcement-track {
     display: flex;
-    flex-wrap: wrap;
+    width: max-content;
+    animation: announcement-marquee var(--marquee-duration, 30s) linear infinite;
+  }
+
+  .announcement.reverse .announcement-track {
+    animation-direction: reverse;
+  }
+
+  .announcement-group {
+    display: flex;
+    flex-shrink: 0;
     align-items: center;
-    justify-content: center;
+  }
+
+  .announcement-segment {
+    display: inline-flex;
+    align-items: center;
     gap: var(--space-sm);
-    padding-block: 0.75rem;
-    text-align: center;
+    padding-inline: 2.5rem;
+    flex-shrink: 0;
+  }
+
+  .announcement-segment::after {
+    content: '◆';
+    font-size: 0.45rem;
+    color: var(--color-accent);
+    opacity: 0.85;
   }
 
   .announcement-message {
     margin: 0;
-    font-size: 0.875rem;
-    font-weight: 500;
+    font-family: var(--font-display);
+    font-size: 0.8125rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
     line-height: 1.4;
     color: var(--color-text);
+    white-space: nowrap;
   }
 
   .announcement-link {
     flex-shrink: 0;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--color-on-accent);
-    background: var(--color-accent);
-    padding: 0.4rem 0.85rem;
-    border-radius: var(--radius-sm);
-    transition: background var(--transition-fast);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    white-space: nowrap;
+    transition: color var(--transition-fast);
   }
 
   .announcement-link:hover {
-    background: var(--color-accent-hover);
+    color: var(--color-accent-hover);
+  }
+
+  @keyframes announcement-marquee {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+
+    to {
+      transform: translate3d(var(--marquee-distance, -50%), 0, 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .announcement-marquee {
+      display: none;
+    }
+
+    .announcement-static {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      text-align: center;
+    }
   }
 </style>

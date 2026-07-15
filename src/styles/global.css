@@ -37,6 +37,10 @@ html {
   scroll-behavior: smooth;
 }
 
+html:has(.announcement) {
+  --announcement-banner-height: 2.75rem;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
