@@ -57,6 +57,10 @@ const link = settings.announcementLink?.trim();
 
 <script>
   let scrollAbort: AbortController | undefined;
+  let marqueeRaf = 0;
+  let marqueeOffset = 0;
+  let marqueeDirection = 1;
+  let lastFrameTime = 0;
 
   const cloneSegment = (template: HTMLTemplateElement) => {
     return template.content.firstElementChild!.cloneNode(true) as HTMLElement;
@@ -66,6 +70,14 @@ const link = settings.announcementLink?.trim();
     root.querySelectorAll<HTMLAnchorElement>('.announcement-link').forEach((anchor) => {
       anchor.tabIndex = -1;
     });
+  };
+
+  const stopMarquee = () => {
+    if (marqueeRaf) {
+      cancelAnimationFrame(marqueeRaf);
+      marqueeRaf = 0;
+    }
+    lastFrameTime = 0;
   };
 
   const setupAnnouncementMarquee = (announcement: HTMLElement) => {
@@ -79,6 +91,9 @@ const link = settings.announcementLink?.trim();
     if (!viewport || !track || !group || !template?.content.firstElementChild) {
       return;
     }
+
+    stopMarquee();
+    track.getAnimations().forEach((animation) => animation.cancel());
 
     group.replaceChildren(cloneSegment(template));
 
@@ -95,18 +110,36 @@ const link = settings.announcementLink?.trim();
     disableSegmentLinks(cloneGroup);
     track.replaceChildren(group, cloneGroup);
 
-    const loopWidth = group.getBoundingClientRect().width;
+    const loopWidth = Math.round(group.getBoundingClientRect().width);
     if (loopWidth <= 0) {
       return;
     }
 
     const pixelsPerSecond = 72;
-    track.style.setProperty('--marquee-distance', `-${loopWidth}px`);
-    track.style.setProperty('--marquee-duration', `${loopWidth / pixelsPerSecond}s`);
+    marqueeOffset = ((marqueeOffset % loopWidth) + loopWidth) % loopWidth;
+    marqueeDirection = 1;
+    track.style.transform = `translate3d(${-marqueeOffset}px, 0, 0)`;
+
+    // Modular rAF — never finishes; reverse is just a sign flip (no WAAPI timeline edge)
+    const tick = (now: number) => {
+      if (lastFrameTime) {
+        const deltaSeconds = Math.min((now - lastFrameTime) / 1000, 0.064);
+        marqueeOffset =
+          (((marqueeOffset + marqueeDirection * pixelsPerSecond * deltaSeconds) % loopWidth) +
+            loopWidth) %
+          loopWidth;
+        track.style.transform = `translate3d(${-marqueeOffset}px, 0, 0)`;
+      }
+      lastFrameTime = now;
+      marqueeRaf = requestAnimationFrame(tick);
+    };
+
+    marqueeRaf = requestAnimationFrame(tick);
   };
 
   const initAnnouncementMarquee = () => {
     scrollAbort?.abort();
+    stopMarquee();
 
     const announcement = document.querySelector<HTMLElement>('.announcement');
     if (!announcement) {
@@ -132,7 +165,7 @@ const link = settings.announcementLink?.trim();
           return;
         }
 
-        announcement.classList.toggle('reverse', delta < 0);
+        marqueeDirection = delta < 0 ? -1 : 1;
         lastScrollY = currentScrollY;
       },
       { passive: true, signal: scrollAbort.signal },
@@ -175,11 +208,8 @@ const link = settings.announcementLink?.trim();
   .announcement-track {
     display: flex;
     width: max-content;
-    animation: announcement-marquee var(--marquee-duration, 30s) linear infinite;
-  }
-
-  .announcement.reverse .announcement-track {
-    animation-direction: reverse;
+    will-change: transform;
+    backface-visibility: hidden;
   }
 
   .announcement-group {
@@ -227,16 +257,6 @@ const link = settings.announcementLink?.trim();
 
   .announcement-link:hover {
     color: var(--color-accent-hover);
-  }
-
-  @keyframes announcement-marquee {
-    from {
-      transform: translate3d(0, 0, 0);
-    }
-
-    to {
-      transform: translate3d(var(--marquee-distance, -50%), 0, 0);
-    }
   }
 
   @media (prefers-reduced-motion: reduce) {
