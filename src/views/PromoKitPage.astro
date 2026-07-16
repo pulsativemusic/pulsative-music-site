@@ -1,9 +1,9 @@
 ---
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import Button from '../components/Button.astro';
-import { getPressAssets, getSiteSettings } from '../lib/data';
+import { getPressAssets, getSiteSettings, isNavPageEnabled } from '../lib/data';
 import type { Locale, PressAssetType } from '../lib/types';
-import { getUi } from '../lib/i18n';
+import { getUi, pathFor } from '../lib/i18n';
 
 interface Props {
   locale: Locale;
@@ -11,6 +11,11 @@ interface Props {
 
 const { locale } = Astro.props;
 const settings = await getSiteSettings();
+
+if (!isNavPageEnabled(settings, 'promoKit')) {
+  return Astro.redirect(pathFor('home', locale));
+}
+
 const assets = await getPressAssets();
 const ui = getUi(locale);
 

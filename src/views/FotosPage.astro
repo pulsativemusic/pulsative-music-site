@@ -1,8 +1,8 @@
 ---
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import PhotoGrid from '../components/PhotoGrid.astro';
-import { getPhotos, getSiteSettings } from '../lib/data';
-import { getUi, pickLocalized } from '../lib/i18n';
+import { getPhotos, getSiteSettings, isNavPageEnabled } from '../lib/data';
+import { getUi, pathFor, pickLocalized } from '../lib/i18n';
 import type { Locale } from '../lib/types';
 
 interface Props {
@@ -11,6 +11,11 @@ interface Props {
 
 const { locale } = Astro.props;
 const settings = await getSiteSettings();
+
+if (!isNavPageEnabled(settings, 'fotos')) {
+  return Astro.redirect(pathFor('home', locale));
+}
+
 const photos = await getPhotos();
 const ui = getUi(locale);
 const intro = pickLocalized(settings.fotosIntro, locale);

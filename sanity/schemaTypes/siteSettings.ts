@@ -17,6 +17,7 @@ export const siteSettings = defineType({
   groups: [
     { name: 'general', title: 'General', default: true },
     { name: 'homepage', title: 'Homepage' },
+    { name: 'navigation', title: 'Navigation' },
     { name: 'live', title: 'Live' },
     { name: 'announcement', title: 'Announcement' },
     { name: 'pages', title: 'Page intros' },
@@ -85,10 +86,55 @@ export const siteSettings = defineType({
       name: 'showLivePage',
       title: 'Show Live Page',
       type: 'boolean',
-      group: 'live',
+      group: 'navigation',
       initialValue: true,
       description:
         'Shows the Live nav link and /live page. When off, /live redirects to the homepage.',
+    }),
+    defineField({
+      name: 'showVideosPage',
+      title: 'Show Videos Page',
+      type: 'boolean',
+      group: 'navigation',
+      initialValue: true,
+      description:
+        'Shows the Videos nav link and /videos page. When off, /videos redirects to the homepage.',
+    }),
+    defineField({
+      name: 'showFotosPage',
+      title: 'Show Fotos Page',
+      type: 'boolean',
+      group: 'navigation',
+      initialValue: true,
+      description:
+        'Shows the Fotos nav link and /fotos page. When off, /fotos redirects to the homepage.',
+    }),
+    defineField({
+      name: 'showAboutPage',
+      title: 'Show About Page',
+      type: 'boolean',
+      group: 'navigation',
+      initialValue: true,
+      description:
+        'Shows the About nav link and /about page. When off, /about redirects to the homepage.',
+    }),
+    defineField({
+      name: 'showContactPage',
+      title: 'Show Contact Page',
+      type: 'boolean',
+      group: 'navigation',
+      initialValue: true,
+      description:
+        'Shows the Contact nav link and /contact page. When off, /contact redirects to the homepage.',
+    }),
+    defineField({
+      name: 'showPromoKitPage',
+      title: 'Show Promo Kit Page',
+      type: 'boolean',
+      group: 'navigation',
+      initialValue: true,
+      description:
+        'Shows the Promo Kit nav link and /promo-kit page. When off, /promo-kit redirects to the homepage.',
     }),
     localizedString('liveIntro', 'Live Page Intro', 3, 'live'),
 

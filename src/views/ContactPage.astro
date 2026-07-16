@@ -1,8 +1,8 @@
 ---
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import SocialLinks from '../components/SocialLinks.astro';
-import { getSiteSettings } from '../lib/data';
-import { getUi } from '../lib/i18n';
+import { getSiteSettings, isNavPageEnabled } from '../lib/data';
+import { getUi, pathFor } from '../lib/i18n';
 import type { Locale } from '../lib/types';
 
 interface Props {
@@ -11,6 +11,11 @@ interface Props {
 
 const { locale } = Astro.props;
 const settings = await getSiteSettings();
+
+if (!isNavPageEnabled(settings, 'contact')) {
+  return Astro.redirect(pathFor('home', locale));
+}
+
 const ui = getUi(locale);
 ---
 

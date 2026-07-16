@@ -40,8 +40,23 @@ export function isHomepageUpcomingDatesEnabled(settings: SiteSettings) {
   return settings.showHomepageUpcomingDates !== false;
 }
 
+export function isNavPageEnabled(
+  settings: SiteSettings,
+  page: 'live' | 'videos' | 'fotos' | 'about' | 'contact' | 'promoKit',
+) {
+  const flags = {
+    live: settings.showLivePage,
+    videos: settings.showVideosPage,
+    fotos: settings.showFotosPage,
+    about: settings.showAboutPage,
+    contact: settings.showContactPage,
+    promoKit: settings.showPromoKitPage,
+  } as const;
+  return flags[page] !== false;
+}
+
 export function isLivePageEnabled(settings: SiteSettings) {
-  return settings.showLivePage !== false;
+  return isNavPageEnabled(settings, 'live');
 }
 
 export function isAnnouncementBannerVisible(

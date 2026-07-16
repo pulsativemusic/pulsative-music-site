@@ -1,7 +1,7 @@
 ---
 import type { SiteSettings } from '../../lib/types';
 import type { Locale } from '../../lib/types';
-import { isLivePageEnabled } from '../../lib/data';
+import { isNavPageEnabled } from '../../lib/data';
 import {
   getLocaleFromPath,
   getUi,
@@ -20,15 +20,13 @@ const ui = getUi(locale);
 const currentPath = Astro.url.pathname;
 
 const navItems = [
-  ...(isLivePageEnabled(settings)
-    ? [{ href: pathFor('live', locale), label: ui.nav.live }]
-    : []),
-  { href: pathFor('videos', locale), label: ui.nav.videos },
-  { href: pathFor('fotos', locale), label: ui.nav.fotos },
-  { href: pathFor('about', locale), label: ui.nav.about },
-  { href: pathFor('contact', locale), label: ui.nav.contact },
-  { href: pathFor('promoKit', locale), label: ui.nav.promoKit },
-];
+  { page: 'live' as const, href: pathFor('live', locale), label: ui.nav.live },
+  { page: 'videos' as const, href: pathFor('videos', locale), label: ui.nav.videos },
+  { page: 'fotos' as const, href: pathFor('fotos', locale), label: ui.nav.fotos },
+  { page: 'about' as const, href: pathFor('about', locale), label: ui.nav.about },
+  { page: 'contact' as const, href: pathFor('contact', locale), label: ui.nav.contact },
+  { page: 'promoKit' as const, href: pathFor('promoKit', locale), label: ui.nav.promoKit },
+].filter((item) => isNavPageEnabled(settings, item.page));
 
 const alternateLocale = locale === 'de' ? 'en' : 'de';
 const alternateHref = switchLocalePath(currentPath, alternateLocale);
