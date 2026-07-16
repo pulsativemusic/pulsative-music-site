@@ -2,10 +2,14 @@
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import Button from '../components/Button.astro';
 import { getPressAssets, getSiteSettings } from '../lib/data';
-import type { PressAssetType } from '../lib/types';
+import type { Locale, PressAssetType } from '../lib/types';
 import { getUi } from '../lib/i18n';
 
-const locale = 'de';
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
 const settings = await getSiteSettings();
 const assets = await getPressAssets();
 const ui = getUi(locale);

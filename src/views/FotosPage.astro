@@ -3,8 +3,13 @@ import BaseLayout from '../components/layout/BaseLayout.astro';
 import PhotoGrid from '../components/PhotoGrid.astro';
 import { getPhotos, getSiteSettings } from '../lib/data';
 import { getUi, pickLocalized } from '../lib/i18n';
+import type { Locale } from '../lib/types';
 
-const locale = 'de';
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
 const settings = await getSiteSettings();
 const photos = await getPhotos();
 const ui = getUi(locale);

@@ -4,16 +4,24 @@ import LegalContent from '../components/LegalContent.astro';
 import { getLegalPage, getSiteSettings } from '../lib/data';
 import { getUi } from '../lib/i18n';
 import { mockLegalPages } from '../lib/mock-data';
+import type { Locale } from '../lib/types';
 
-const locale = 'de';
+interface Props {
+  locale: Locale;
+  slug: 'impressum' | 'privacy';
+}
+
+const { locale, slug } = Astro.props;
 const settings = await getSiteSettings();
 const ui = getUi(locale);
 const page =
-  (await getLegalPage('impressum', locale)) ??
-  mockLegalPages.find((p) => p.slug === 'impressum' && p.locale === locale)!;
+  (await getLegalPage(slug, locale)) ??
+  mockLegalPages.find((p) => p.slug === slug && p.locale === locale)!;
+
+const description = slug === 'impressum' ? ui.seo.legalImpressum : ui.seo.legalPrivacy;
 ---
 
-<BaseLayout title={page.title} description={ui.seo.legalImpressum} settings={settings}>
+<BaseLayout title={page.title} description={description} settings={settings}>
   <section class="page-hero section">
     <div class="container">
       <h1 class="page-title reveal">{page.title}</h1>

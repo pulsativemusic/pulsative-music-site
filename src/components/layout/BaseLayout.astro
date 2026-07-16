@@ -10,7 +10,7 @@ import type { Locale } from '../../lib/types';
 import { isAnnouncementBannerVisible } from '../../lib/data';
 import {
   getLocaleFromPath,
-  localizedPath,
+  pathFor,
   pickLocalized,
   switchLocalePath,
 } from '../../lib/i18n';
@@ -66,7 +66,7 @@ const jsonLdSerialized = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
     <link rel="canonical" href={canonicalUrl} />
     <link rel="alternate" hreflang={locale} href={canonicalUrl} />
     <link rel="alternate" hreflang={alternateLocale} href={alternateUrl} />
-    <link rel="alternate" hreflang="x-default" href={absoluteUrl(localizedPath('/', 'de'), siteUrl)} />
+    <link rel="alternate" hreflang="x-default" href={absoluteUrl(pathFor('home', 'de'), siteUrl)} />
 
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDescription} />

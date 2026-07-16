@@ -1,7 +1,13 @@
 import type { Locale } from './types';
+import { pathFor } from './routes';
 
-export const defaultLocale: Locale = 'de';
-export const locales: Locale[] = ['de', 'en'];
+export { defaultLocale, locales } from './routes';
+export {
+  pathFor,
+  resolveRoute,
+  switchLocalePath,
+  type RouteId,
+} from './routes';
 
 const ui = {
   de: {
@@ -222,40 +228,13 @@ export function pickLocalized(
 }
 
 export function getLocaleFromPath(pathname: string): Locale {
-  return pathname.startsWith('/en') ? 'en' : 'de';
-}
-
-export function localizedPath(path: string, locale: Locale): string {
-  const normalized = path.startsWith('/') ? path : `/${path}`;
-  if (locale === 'de') {
-    return normalized === '/' ? '/' : normalized;
-  }
-  if (normalized === '/') {
-    return '/en/';
-  }
-  return `/en${normalized}`;
-}
-
-export function switchLocalePath(currentPath: string, targetLocale: Locale): string {
-  const isEnglish = currentPath === '/en' || currentPath.startsWith('/en/');
-  const stripped = isEnglish
-    ? currentPath.replace(/^\/en/, '') || '/'
-    : currentPath;
-
-  if (targetLocale === 'de') {
-    return stripped === '/' ? '/' : stripped;
-  }
-
-  return localizedPath(stripped === '/' ? '' : stripped, 'en');
+  return pathname === '/en' || pathname.startsWith('/en/') ? 'en' : 'de';
 }
 
 export function legalPath(slug: 'impressum' | 'privacy', locale: Locale): string {
-  if (locale === 'de') {
-    return slug === 'impressum' ? '/impressum' : '/datenschutz';
-  }
-  return slug === 'impressum' ? '/en/imprint' : '/en/privacy';
+  return pathFor(slug, locale);
 }
 
 export function privacyPath(locale: Locale): string {
-  return legalPath('privacy', locale);
+  return pathFor('privacy', locale);
 }

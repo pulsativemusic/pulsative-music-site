@@ -4,8 +4,7 @@ import type { Locale } from '../../lib/types';
 import {
   getLocaleFromPath,
   getUi,
-  legalPath,
-  localizedPath,
+  pathFor,
   pickLocalized,
 } from '../../lib/i18n';
 import SocialLinks from '../SocialLinks.astro';
@@ -37,9 +36,9 @@ const tagline = pickLocalized(settings.tagline, locale);
     <nav class="footer-legal" aria-label="Legal links">
       <p class="footer-links-label">{ui.footer.legal}</p>
       <div class="footer-links">
-        <a href={legalPath('impressum', locale)}>{ui.legal.impressum}</a>
-        <a href={legalPath('privacy', locale)}>{ui.legal.privacy}</a>
-        <a href={localizedPath('/contact', locale)}>{ui.footer.contact}</a>
+        <a href={pathFor('impressum', locale)}>{ui.legal.impressum}</a>
+        <a href={pathFor('privacy', locale)}>{ui.legal.privacy}</a>
+        <a href={pathFor('contact', locale)}>{ui.footer.contact}</a>
       </div>
     </nav>
 

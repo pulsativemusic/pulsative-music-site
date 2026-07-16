@@ -5,7 +5,7 @@ import { isLivePageEnabled } from '../../lib/data';
 import {
   getLocaleFromPath,
   getUi,
-  localizedPath,
+  pathFor,
   switchLocalePath,
 } from '../../lib/i18n';
 import SocialLinks from '../SocialLinks.astro';
@@ -21,13 +21,13 @@ const currentPath = Astro.url.pathname;
 
 const navItems = [
   ...(isLivePageEnabled(settings)
-    ? [{ href: localizedPath('/live', locale), label: ui.nav.live }]
+    ? [{ href: pathFor('live', locale), label: ui.nav.live }]
     : []),
-  { href: localizedPath('/videos', locale), label: ui.nav.videos },
-  { href: localizedPath('/fotos', locale), label: ui.nav.fotos },
-  { href: localizedPath('/about', locale), label: ui.nav.about },
-  { href: localizedPath('/contact', locale), label: ui.nav.contact },
-  { href: localizedPath('/promo-kit', locale), label: ui.nav.promoKit },
+  { href: pathFor('videos', locale), label: ui.nav.videos },
+  { href: pathFor('fotos', locale), label: ui.nav.fotos },
+  { href: pathFor('about', locale), label: ui.nav.about },
+  { href: pathFor('contact', locale), label: ui.nav.contact },
+  { href: pathFor('promoKit', locale), label: ui.nav.promoKit },
 ];
 
 const alternateLocale = locale === 'de' ? 'en' : 'de';
@@ -36,7 +36,7 @@ const alternateHref = switchLocalePath(currentPath, alternateLocale);
 
 <header class="header">
   <div class="container header-inner">
-    <a href={localizedPath('/', locale)} class="logo" transition:name="logo">
+    <a href={pathFor('home', locale)} class="logo" transition:name="logo">
       {
         settings.logoUrl ? (
           <img

@@ -1,0 +1,53 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getStaticRoutePaths, type RouteId } from '../lib/routes';
+import type { Locale } from '../lib/types';
+import HomePage from '../views/HomePage.astro';
+import LivePage from '../views/LivePage.astro';
+import VideosPage from '../views/VideosPage.astro';
+import FotosPage from '../views/FotosPage.astro';
+import AboutPage from '../views/AboutPage.astro';
+import ContactPage from '../views/ContactPage.astro';
+import PromoKitPage from '../views/PromoKitPage.astro';
+import LegalPage from '../views/LegalPage.astro';
+
+export const getStaticPaths = (() => getStaticRoutePaths()) satisfies GetStaticPaths;
+
+interface Props {
+  routeId: RouteId;
+  locale: Locale;
+}
+
+const { routeId, locale } = Astro.props;
+
+function assertNever(value: never): never {
+  throw new Error(`Unhandled route: ${value}`);
+}
+---
+
+{
+  (() => {
+    switch (routeId) {
+      case 'home':
+        return <HomePage locale={locale} />;
+      case 'live':
+        return <LivePage locale={locale} />;
+      case 'videos':
+        return <VideosPage locale={locale} />;
+      case 'fotos':
+        return <FotosPage locale={locale} />;
+      case 'about':
+        return <AboutPage locale={locale} />;
+      case 'contact':
+        return <ContactPage locale={locale} />;
+      case 'promoKit':
+        return <PromoKitPage locale={locale} />;
+      case 'impressum':
+        return <LegalPage locale={locale} slug="impressum" />;
+      case 'privacy':
+        return <LegalPage locale={locale} slug="privacy" />;
+      default:
+        return assertNever(routeId);
+    }
+  })()
+}

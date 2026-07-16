@@ -1,13 +1,23 @@
 ---
-import BaseLayout from '../../components/layout/BaseLayout.astro';
-import Hero from '../../components/Hero.astro';
-import ShowList from '../../components/ShowList.astro';
-import Button from '../../components/Button.astro';
-import { getSiteSettings, getUpcomingShows, isHomepageUpcomingDatesEnabled, isLivePageEnabled } from '../../lib/data';
-import { getUi, localizedPath } from '../../lib/i18n';
-import { getShowreelFromSettings } from '../../lib/showreel';
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import ShowList from '../components/ShowList.astro';
+import Button from '../components/Button.astro';
+import {
+  getSiteSettings,
+  getUpcomingShows,
+  isHomepageUpcomingDatesEnabled,
+  isLivePageEnabled,
+} from '../lib/data';
+import { getUi, pathFor } from '../lib/i18n';
+import { getShowreelFromSettings } from '../lib/showreel';
+import type { Locale } from '../lib/types';
 
-const locale = 'en';
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
 const settings = await getSiteSettings();
 const upcomingShows = await getUpcomingShows(3);
 const ui = getUi(locale);
@@ -29,7 +39,7 @@ const showreel = getShowreelFromSettings(settings);
             </div>
             {
               isLivePageEnabled(settings) && (
-                <Button href={localizedPath('/live', locale)} variant="outline">
+                <Button href={pathFor('live', locale)} variant="outline">
                   {ui.home.allDates}
                 </Button>
               )

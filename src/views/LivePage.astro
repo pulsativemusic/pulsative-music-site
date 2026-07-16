@@ -1,20 +1,25 @@
 ---
-import BaseLayout from '../../components/layout/BaseLayout.astro';
-import ShowList from '../../components/ShowList.astro';
-import Button from '../../components/Button.astro';
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import ShowList from '../components/ShowList.astro';
+import Button from '../components/Button.astro';
 import {
   getPastShows,
   getSiteSettings,
   getUpcomingShows,
   isLivePageEnabled,
-} from '../../lib/data';
-import { getUi, localizedPath, pickLocalized } from '../../lib/i18n';
+} from '../lib/data';
+import { getUi, pathFor, pickLocalized } from '../lib/i18n';
+import type { Locale } from '../lib/types';
 
-const locale = 'en';
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
 const settings = await getSiteSettings();
 
 if (!isLivePageEnabled(settings)) {
-  return Astro.redirect(localizedPath('/', locale));
+  return Astro.redirect(pathFor('home', locale));
 }
 
 const ui = getUi(locale);
@@ -29,7 +34,7 @@ const intro = pickLocalized(settings.liveIntro, locale);
       <p class="section-kicker reveal">{ui.live.kicker}</p>
       <h1 class="page-title reveal reveal-delay-1">{ui.live.title}</h1>
       {intro && <p class="page-intro text-muted reveal reveal-delay-2">{intro}</p>}
-      <Button href={localizedPath('/live/calendar.ics', locale)} variant="outline" class="reveal reveal-delay-3">
+      <Button href="/live/calendar.ics" variant="outline" class="reveal reveal-delay-3">
         {ui.live.calendar}
       </Button>
     </div>

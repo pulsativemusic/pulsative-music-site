@@ -3,8 +3,13 @@ import BaseLayout from '../components/layout/BaseLayout.astro';
 import AboutSections from '../components/AboutContent.astro';
 import { getAboutContent, getSiteSettings } from '../lib/data';
 import { getUi } from '../lib/i18n';
+import type { Locale } from '../lib/types';
 
-const locale = 'de';
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
 const settings = await getSiteSettings();
 const about = await getAboutContent(locale);
 const ui = getUi(locale);

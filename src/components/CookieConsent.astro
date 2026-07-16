@@ -1,6 +1,6 @@
 ---
 import type { Locale } from '../lib/types';
-import { getUi, privacyPath } from '../lib/i18n';
+import { getUi, pathFor } from '../lib/i18n';
 
 interface Props {
   locale: Locale;
@@ -21,7 +21,7 @@ const matomoSiteId = import.meta.env.PUBLIC_MATOMO_SITE_ID;
         <div class="cookie-actions">
           <button type="button" class="cookie-btn cookie-accept">{ui.cookie.accept}</button>
           <button type="button" class="cookie-btn cookie-reject">{ui.cookie.reject}</button>
-          <a href={privacyPath(locale)} class="cookie-link">{ui.cookie.privacyLink}</a>
+          <a href={pathFor('privacy', locale)} class="cookie-link">{ui.cookie.privacyLink}</a>
         </div>
       </div>
     </div>
