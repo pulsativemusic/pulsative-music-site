@@ -1,4 +1,4 @@
-import { MicrophoneIcon } from '@sanity/icons';
+import { MicrophoneIcon } from '@sanity/icons/Microphone';
 import { defineField, defineType } from 'sanity';
 
 export const release = defineType({

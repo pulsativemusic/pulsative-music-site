@@ -1,11 +1,9 @@
-import {
-  CalendarIcon,
-  CaseIcon,
-  CogIcon,
-  DesktopIcon,
-  EyeClosedIcon,
-  ImagesIcon,
-} from '@sanity/icons';
+import { CalendarIcon } from '@sanity/icons/Calendar';
+import { CaseIcon } from '@sanity/icons/Case';
+import { CogIcon } from '@sanity/icons/Cog';
+import { DesktopIcon } from '@sanity/icons/Desktop';
+import { EyeClosedIcon } from '@sanity/icons/EyeClosed';
+import { ImagesIcon } from '@sanity/icons/Images';
 import type { StructureResolver } from 'sanity/structure';
 
 export const structure: StructureResolver = (S) =>

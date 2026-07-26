@@ -1,12 +1,10 @@
-import {
-  BlockElementIcon,
-  BlockquoteIcon,
-  CodeBlockIcon,
-  DocumentIcon,
-  ImagesIcon,
-  LaunchIcon,
-  UsersIcon,
-} from '@sanity/icons';
+import { BlockElementIcon } from '@sanity/icons/BlockElement';
+import { BlockquoteIcon } from '@sanity/icons/Blockquote';
+import { CodeBlockIcon } from '@sanity/icons/CodeBlock';
+import { DocumentIcon } from '@sanity/icons/Document';
+import { ImagesIcon } from '@sanity/icons/Images';
+import { LaunchIcon } from '@sanity/icons/Launch';
+import { UsersIcon } from '@sanity/icons/Users';
 import { defineArrayMember, defineField, defineType } from 'sanity';
 import { localizedString } from './localized';
 
