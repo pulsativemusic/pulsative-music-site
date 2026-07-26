@@ -6,6 +6,7 @@ import HomePage from '../views/HomePage.astro';
 import LivePage from '../views/LivePage.astro';
 import VideosPage from '../views/VideosPage.astro';
 import FotosPage from '../views/FotosPage.astro';
+import FotosDomePage from '../views/FotosDomePage.astro';
 import AboutPage from '../views/AboutPage.astro';
 import ContactPage from '../views/ContactPage.astro';
 import PromoKitPage from '../views/PromoKitPage.astro';
@@ -36,6 +37,8 @@ function assertNever(value: never): never {
         return <VideosPage locale={locale} />;
       case 'fotos':
         return <FotosPage locale={locale} />;
+      case 'fotosDome':
+        return <FotosDomePage locale={locale} />;
       case 'about':
         return <AboutPage locale={locale} />;
       case 'contact':

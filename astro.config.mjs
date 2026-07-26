@@ -24,6 +24,35 @@ export default defineConfig({
   output: 'static',
   site: siteUrl,
   compressHTML: true,
+  // Hash-based CSP (no unsafe-inline scripts). Incompatible with <ClientRouter />.
+  security: {
+    csp: {
+      algorithm: 'SHA-256',
+      directives: [
+        "default-src 'self'",
+        "base-uri 'self'",
+        "form-action 'self'",
+        "object-src 'none'",
+        "img-src 'self' data: blob: https://cdn.sanity.io https://images.unsplash.com https://pbs.twimg.com",
+        "font-src 'self' https://fonts.gstatic.com",
+        "media-src 'self' blob: https://cdn.sanity.io",
+        "frame-src https://player.vimeo.com https://www.youtube.com https://www.youtube-nocookie.com",
+        "connect-src 'self' https://static.cloudflareinsights.com",
+        "worker-src 'self' blob:",
+        'upgrade-insecure-requests',
+      ],
+      scriptDirective: {
+        resources: ["'self'", 'https://static.cloudflareinsights.com'],
+      },
+      styleDirective: {
+        resources: [
+          { resource: "'self'", kind: 'element' },
+          // React islands (DomeGallery) use style attributes.
+          { resource: "'unsafe-inline'", kind: 'attribute' },
+        ],
+      },
+    },
+  },
   i18n: {
     defaultLocale: 'de',
     locales: ['de', 'en'],
@@ -57,10 +86,6 @@ export default defineConfig({
     define: {
       'import.meta.env.PUBLIC_SANITY_PROJECT_ID': JSON.stringify(projectId),
       'import.meta.env.PUBLIC_SANITY_DATASET': JSON.stringify(dataset),
-    },
-    esbuild: {
-      jsx: 'automatic',
-      jsxImportSource: 'react',
     },
     ssr: {
       noExternal: ['photoswipe'],

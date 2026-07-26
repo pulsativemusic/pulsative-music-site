@@ -4,6 +4,6 @@
     "target": "ESNext",
     "lib": ["ESNext", "DOM", "DOM.Iterable"]
   },
-  "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist", "studio-pulsative-site"]
+  "include": [".astro/types.d.ts", "src/**/*", "sanity/**/*", "astro.config.mjs"],
+  "exclude": ["dist", "studio-pulsative-site", "node_modules"]
 }

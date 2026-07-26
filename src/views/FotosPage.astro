@@ -27,6 +27,9 @@ const intro = pickLocalized(settings.fotosIntro, locale);
       <p class="section-kicker reveal">{ui.fotos.kicker}</p>
       <h1 class="page-title reveal reveal-delay-1">{ui.fotos.title}</h1>
       {intro && <p class="page-intro text-muted reveal reveal-delay-2">{intro}</p>}
+      <p class="experiment-link reveal reveal-delay-2">
+        <a href={pathFor('fotosDome', locale)}>{ui.fotos.tryDome}</a>
+      </p>
     </div>
   </section>
 
@@ -45,5 +48,20 @@ const intro = pickLocalized(settings.fotosIntro, locale);
 
   .page-intro {
     max-width: 36rem;
+  }
+
+  .experiment-link {
+    margin-top: var(--space-md);
+  }
+
+  .experiment-link a {
+    color: var(--color-text-muted);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    font-size: 0.95rem;
+  }
+
+  .experiment-link a:hover {
+    color: var(--color-accent);
   }
 </style>

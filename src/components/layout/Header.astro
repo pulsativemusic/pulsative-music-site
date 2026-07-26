@@ -34,7 +34,7 @@ const alternateHref = switchLocalePath(currentPath, alternateLocale);
 
 <header class="header">
   <div class="container header-inner">
-    <a href={pathFor('home', locale)} class="logo" transition:name="logo">
+    <a href={pathFor('home', locale)} class="logo">
       {
         settings.logoUrl ? (
           <img
@@ -115,7 +115,6 @@ const alternateHref = switchLocalePath(currentPath, alternateLocale);
   };
 
   initMobileMenu();
-  document.addEventListener('astro:page-load', initMobileMenu);
 </script>
 
 <style>

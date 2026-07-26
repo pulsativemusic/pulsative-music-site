@@ -25,15 +25,7 @@ export default function PhotoLightbox({ images }: PhotoLightboxProps) {
 
     lightbox.init();
 
-    const handlePageLoad = () => {
-      lightbox.destroy();
-      lightbox.init();
-    };
-
-    document.addEventListener('astro:page-load', handlePageLoad);
-
     return () => {
-      document.removeEventListener('astro:page-load', handlePageLoad);
       lightbox.destroy();
     };
   }, [images]);

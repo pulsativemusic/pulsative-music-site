@@ -7,7 +7,7 @@ Astro 7 static site with Sanity CMS for [pulsative.band](https://pulsative.band)
 - **Astro 7** — static site, bilingual DE/EN
 - **Sanity** — content management (`/admin`)
 - **Cloudflare Pages** — hosting
-- **Matomo** — analytics (consent-gated)
+- **Cloudflare Web Analytics** — cookieless analytics (dashboard-enabled)
 
 ## Pages
 

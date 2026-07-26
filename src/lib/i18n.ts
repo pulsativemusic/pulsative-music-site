@@ -40,6 +40,11 @@ const ui = {
     fotos: {
       kicker: 'Fotos',
       title: 'Fotos',
+      tryDome: 'Dome-Galerie ausprobieren',
+      backToGrid: 'Zurück zur Raster-Galerie',
+      domeKicker: 'Experiment',
+      domeTitle: 'Dome-Galerie',
+      domeNote: 'Interaktiver Test — ziehen zum Drehen, tippen zum Vergrößern.',
     },
     about: {
       kicker: 'Die Band',
@@ -81,13 +86,6 @@ const ui = {
       contact: 'Kontakt',
       legal: 'Rechtliches',
     },
-    cookie: {
-      title: 'Cookies & Analytics',
-      text: 'Wir nutzen Matomo Analytics, um die Website-Nutzung anonym auszuwerten. Du kannst zustimmen oder ablehnen.',
-      accept: 'Akzeptieren',
-      reject: 'Ablehnen',
-      privacyLink: 'Datenschutz',
-    },
     announcement: {
       label: 'Ankündigung',
       learnMore: 'Mehr erfahren',
@@ -105,7 +103,7 @@ const ui = {
       promoKit:
         'Pressebereich von PULSATIVE: EPK, Logos, Fotos und Booking-Kontakt für Medien und Veranstalter.',
       legalImpressum: 'Impressum und Anbieterkennzeichnung der offiziellen PULSATIVE Website.',
-      legalPrivacy: 'Datenschutzerklärung der PULSATIVE Website inklusive Matomo Analytics.',
+      legalPrivacy: 'Datenschutzerklärung der PULSATIVE Website inklusive Cloudflare Web Analytics.',
     },
   },
   en: {
@@ -138,6 +136,11 @@ const ui = {
     fotos: {
       kicker: 'Photos',
       title: 'Photos',
+      tryDome: 'Try dome gallery',
+      backToGrid: 'Back to grid gallery',
+      domeKicker: 'Experiment',
+      domeTitle: 'Dome Gallery',
+      domeNote: 'Interactive test — drag to rotate, tap to enlarge.',
     },
     about: {
       kicker: 'The Band',
@@ -179,13 +182,6 @@ const ui = {
       contact: 'Contact',
       legal: 'Legal',
     },
-    cookie: {
-      title: 'Cookies & Analytics',
-      text: 'We use Matomo Analytics to measure site usage anonymously. You can accept or decline.',
-      accept: 'Accept',
-      reject: 'Decline',
-      privacyLink: 'Privacy Policy',
-    },
     announcement: {
       label: 'Announcement',
       learnMore: 'Learn more',
@@ -203,7 +199,7 @@ const ui = {
       promoKit:
         'PULSATIVE press area: EPK, logos, photos, and booking contact for media and promoters.',
       legalImpressum: 'Legal notice and provider information for the official PULSATIVE website.',
-      legalPrivacy: 'Privacy policy for the PULSATIVE website, including Matomo analytics.',
+      legalPrivacy: 'Privacy policy for the PULSATIVE website, including Cloudflare Web Analytics.',
     },
   },
 } as const;

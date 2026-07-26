@@ -1,5 +1,11 @@
 /*
   Cache-Control: public, max-age=0, must-revalidate
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  # CSP is emitted by Astro as a hash-based meta policy (see astro.config.mjs).
+  # Do not add a second Content-Security-Policy header here — browsers AND policies.
 
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable

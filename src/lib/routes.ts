@@ -8,6 +8,7 @@ export type RouteId =
   | 'live'
   | 'videos'
   | 'fotos'
+  | 'fotosDome'
   | 'about'
   | 'contact'
   | 'promoKit'
@@ -19,6 +20,7 @@ export const routes: Record<RouteId, Record<Locale, string>> = {
   live: { de: '/live', en: '/en/live' },
   videos: { de: '/videos', en: '/en/videos' },
   fotos: { de: '/fotos', en: '/en/fotos' },
+  fotosDome: { de: '/fotos-dome', en: '/en/fotos-dome' },
   about: { de: '/about', en: '/en/about' },
   contact: { de: '/contact', en: '/en/contact' },
   promoKit: { de: '/promo-kit', en: '/en/promo-kit' },

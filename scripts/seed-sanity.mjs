@@ -313,7 +313,7 @@ const documents = [
           {
             _type: 'span',
             _key: 'priv1span',
-            text: 'Diese Website nutzt Matomo Analytics zur anonymen Auswertung der Website-Nutzung. Tracking erfolgt nur nach deiner Einwilligung über den Cookie-Banner.',
+            text: 'Diese Website nutzt Cloudflare Web Analytics zur anonymen Auswertung der Website-Nutzung. Die Messung ist cookieless und erfolgt ohne Einwilligungs-Banner.',
             marks: [],
           },
         ],
@@ -359,7 +359,7 @@ const documents = [
           {
             _type: 'span',
             _key: 'priv2span',
-            text: 'This website uses Matomo Analytics to measure site usage anonymously. Tracking only runs after you consent via the cookie banner.',
+            text: 'This website uses Cloudflare Web Analytics to measure site usage anonymously. Measurement is cookieless and does not require a consent banner.',
             marks: [],
           },
         ],

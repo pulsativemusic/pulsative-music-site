@@ -18,11 +18,11 @@ Set in **Cloudflare Pages → Settings → Environment variables**:
 | `PUBLIC_SANITY_PROJECT_ID` | Sanity project ID |
 | `PUBLIC_SANITY_DATASET` | Usually `production` |
 | `PUBLIC_SITE_URL` | `https://pulsative.band` |
-| `PUBLIC_MATOMO_URL` | Matomo instance URL (optional) |
-| `PUBLIC_MATOMO_SITE_ID` | Matomo site ID (optional) |
 | `NODE_VERSION` | `22` |
 
 `SANITY_API_TOKEN` is only needed locally for `pnpm run seed`, not at build time.
+
+Analytics uses **Cloudflare Web Analytics** (cookieless). Enable it in the Cloudflare dashboard for the zone/Pages project — no site env vars required. The CSP allows `https://static.cloudflareinsights.com`.
 
 ## Cloudflare Pages Setup
 
