@@ -1,3 +1,4 @@
+import { PlayIcon } from '@sanity/icons';
 import { defineField, defineType } from 'sanity';
 import { localizedString } from './localized';
 
@@ -19,6 +20,7 @@ export const video = defineType({
   name: 'video',
   title: 'Video',
   type: 'document',
+  icon: PlayIcon,
   liveEdit: true,
   fields: [
     localizedString('title', 'Title'),

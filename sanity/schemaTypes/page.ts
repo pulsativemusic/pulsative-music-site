@@ -1,3 +1,12 @@
+import {
+  BlockElementIcon,
+  BlockquoteIcon,
+  CodeBlockIcon,
+  DocumentIcon,
+  ImagesIcon,
+  LaunchIcon,
+  UsersIcon,
+} from '@sanity/icons';
 import { defineArrayMember, defineField, defineType } from 'sanity';
 import { localizedString } from './localized';
 
@@ -5,6 +14,7 @@ const richText = defineArrayMember({
   name: 'richText',
   title: 'Rich Text',
   type: 'object',
+  icon: BlockElementIcon,
   fields: [
     defineField({ name: 'heading', title: 'Heading', type: 'string' }),
     defineField({ name: 'body', title: 'Body', type: 'array', of: [{ type: 'block' }] }),
@@ -15,6 +25,7 @@ const memberGrid = defineArrayMember({
   name: 'memberGrid',
   title: 'Band Members',
   type: 'object',
+  icon: UsersIcon,
   fields: [
     defineField({
       name: 'members',
@@ -40,6 +51,7 @@ const pressQuotes = defineArrayMember({
   name: 'pressQuotes',
   title: 'Press Quotes',
   type: 'object',
+  icon: BlockquoteIcon,
   fields: [
     defineField({
       name: 'quotes',
@@ -63,6 +75,7 @@ const imageGrid = defineArrayMember({
   name: 'imageGrid',
   title: 'Image Grid',
   type: 'object',
+  icon: ImagesIcon,
   fields: [
     defineField({ name: 'heading', title: 'Heading', type: 'string' }),
     defineField({
@@ -78,6 +91,7 @@ const embed = defineArrayMember({
   name: 'embed',
   title: 'Embed',
   type: 'object',
+  icon: CodeBlockIcon,
   fields: [
     defineField({ name: 'heading', title: 'Heading', type: 'string' }),
     defineField({ name: 'embedUrl', title: 'Embed URL', type: 'url' }),
@@ -88,6 +102,7 @@ const cta = defineArrayMember({
   name: 'cta',
   title: 'Call to Action',
   type: 'object',
+  icon: LaunchIcon,
   fields: [
     defineField({ name: 'heading', title: 'Heading', type: 'string' }),
     defineField({ name: 'text', title: 'Text', type: 'text', rows: 2 }),
@@ -100,6 +115,7 @@ export const page = defineType({
   name: 'page',
   title: 'Page',
   type: 'document',
+  icon: DocumentIcon,
   fields: [
     defineField({ name: 'title', title: 'Title', type: 'string' }),
     defineField({

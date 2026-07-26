@@ -2,6 +2,7 @@ import { defineConfig } from 'sanity';
 import { structureTool } from 'sanity/structure';
 import { visionTool } from '@sanity/vision';
 import { schemaTypes } from '../sanity/schemaTypes';
+import { structure } from '../sanity/structure';
 
 export default defineConfig({
   name: 'pulsative',
@@ -9,33 +10,7 @@ export default defineConfig({
   projectId: '9yuo6i9f',
   dataset: 'production',
 
-  plugins: [
-    structureTool({
-      structure: (S) =>
-        S.list()
-          .title('Content')
-          .items([
-            S.listItem()
-              .title('Site Settings')
-              .child(
-                S.document()
-                  .schemaType('siteSettings')
-                  .documentId('siteSettings'),
-              ),
-            S.divider(),
-            S.documentTypeListItem('show').title('Live Dates'),
-            S.documentTypeListItem('video').title('Videos'),
-            S.documentTypeListItem('photo').title('Photos'),
-            S.documentTypeListItem('page').title('Pages'),
-            S.documentTypeListItem('pressAsset').title('Press Kit'),
-            S.documentTypeListItem('legalPage').title('Legal Pages'),
-            S.divider(),
-            S.documentTypeListItem('release').title('Music (hidden)'),
-            S.documentTypeListItem('photoPrint').title('Merch (hidden)'),
-          ]),
-    }),
-    visionTool(),
-  ],
+  plugins: [structureTool({ structure }), visionTool()],
 
   schema: {
     types: schemaTypes,

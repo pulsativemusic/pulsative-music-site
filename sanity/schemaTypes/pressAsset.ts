@@ -1,9 +1,11 @@
+import { CaseIcon } from '@sanity/icons';
 import { defineField, defineType } from 'sanity';
 
 export const pressAsset = defineType({
   name: 'pressAsset',
   title: 'Press Asset',
   type: 'document',
+  icon: CaseIcon,
   fields: [
     defineField({ name: 'title', title: 'Title', type: 'string' }),
     defineField({

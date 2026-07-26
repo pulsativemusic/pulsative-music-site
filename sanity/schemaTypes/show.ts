@@ -1,9 +1,11 @@
+import { CalendarIcon } from '@sanity/icons';
 import { defineField, defineType } from 'sanity';
 
 export const show = defineType({
   name: 'show',
   title: 'Show',
   type: 'document',
+  icon: CalendarIcon,
   fields: [
     defineField({ name: 'date', title: 'Date', type: 'date' }),
     defineField({ name: 'venue', title: 'Venue', type: 'string' }),

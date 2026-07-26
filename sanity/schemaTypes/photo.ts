@@ -1,3 +1,4 @@
+import { ImageIcon } from '@sanity/icons';
 import { defineField, defineType } from 'sanity';
 import { localizedString } from './localized';
 
@@ -19,6 +20,7 @@ export const photo = defineType({
   name: 'photo',
   title: 'Photo',
   type: 'document',
+  icon: ImageIcon,
   liveEdit: true,
   fields: [
     localizedString('title', 'Title'),

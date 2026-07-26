@@ -1,3 +1,4 @@
+import { CogIcon } from '@sanity/icons';
 import { defineField, defineType } from 'sanity';
 import { localizedString } from './localized';
 
@@ -14,6 +15,7 @@ export const siteSettings = defineType({
   name: 'siteSettings',
   title: 'Site Settings',
   type: 'document',
+  icon: CogIcon,
   groups: [
     { name: 'general', title: 'General', default: true },
     { name: 'homepage', title: 'Homepage' },
