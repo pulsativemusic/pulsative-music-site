@@ -5,7 +5,7 @@ const socialPlatformOptions = [
   { title: 'Instagram', value: 'Instagram' },
   { title: 'TikTok', value: 'TikTok' },
   { title: 'Facebook', value: 'Facebook' },
-  { title: 'YouTube', value: 'YouTube' },
+  { title: 'Vimeo', value: 'Vimeo' },
   { title: 'Spotify', value: 'Spotify' },
   { title: 'Other', value: 'Other' },
 ];
