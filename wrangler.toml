@@ -1,4 +1,4 @@
-name = "pulsative-site"
+name = "pulsative-music-site"
 compatibility_date = "2026-01-01"
 
 # Workers static assets (not Pages). Skips wrangler autoconfig so

@@ -1,3 +1,4 @@
-/admin      /admin/index.html   200
-/admin/     /admin/index.html   200
-/admin/*    /admin/index.html   200
+# SPA fallback for Sanity Studio client routes.
+# Target /admin/ (not /admin/index.html) so html_handling does not
+# strip /index and re-trigger this rule (CF error 100324).
+/admin/*    /admin/    200

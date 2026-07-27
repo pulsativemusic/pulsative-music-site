@@ -26,14 +26,14 @@ Analytics uses **Cloudflare Web Analytics** (cookieless). Enable it in the Cloud
 
 ## Cloudflare Workers (static assets)
 
-1. **Workers & Pages** → connect the `pulsative-site` repository (Workers Builds)
+1. **Workers & Pages** → connect the repo to Worker **`pulsative-music-site`** (name must match `wrangler.toml`)
 2. Build settings:
    - **Build command:** `pnpm run build`
    - **Deploy command:** `npx wrangler deploy` (or `pnpm run deploy`)
 3. Add environment variables for Production (and Preview if desired)
 4. Deploy
 
-`wrangler.toml` serves `./dist` via Workers [static assets](https://developers.cloudflare.com/workers/static-assets/) with `not_found_handling = "404-page"`.
+`wrangler.toml` serves `./dist` via Workers [static assets](https://developers.cloudflare.com/workers/static-assets/) with `not_found_handling = "404-page"`. The Worker `name` must be `pulsative-music-site` (CI overrides mismatches and may open a fixup PR).
 
 ### 404 pages (important)
 
