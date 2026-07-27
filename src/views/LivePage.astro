@@ -66,6 +66,26 @@ const intro = pickLocalized(settings.liveIntro, locale);
 <style>
   .page-hero {
     padding-bottom: var(--space-lg);
+    container-type: inline-size;
+  }
+
+  /* Button is a child component — need :global to pierce Astro scope */
+  .page-hero :global(.btn) {
+    max-width: 100%;
+    box-sizing: border-box;
+    font-size: clamp(0.68rem, 0.5rem + 1cqi, 0.85rem);
+    letter-spacing: clamp(0.08em, 0.04em + 0.35cqi, 0.16em);
+    padding-inline: clamp(0.9rem, 0.4rem + 2cqi, 1.6rem);
+    white-space: nowrap;
+  }
+
+  @container (max-width: 24rem) {
+    .page-hero :global(.btn) {
+      white-space: normal;
+      line-height: 1.25;
+      text-align: center;
+      text-wrap: balance;
+    }
   }
 
   .page-title {
@@ -84,10 +104,25 @@ const intro = pickLocalized(settings.liveIntro, locale);
 
   .shows-section-header {
     margin-bottom: var(--space-xl);
+    min-width: 0;
+    container-type: inline-size;
   }
 
   .shows-section .section-title {
-    line-height: 1.1;
+    line-height: 1.15;
+    /* Fallback: shrink with the header so long DE words fit intact */
+    font-size: clamp(1.6rem, 0.85rem + 4.6cqi, 4rem);
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
+    text-wrap: balance;
+  }
+
+  @supports (text-fit: shrink) {
+    .shows-section .section-title {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      text-fit: shrink 50%;
+    }
   }
 
   .section-alt {
