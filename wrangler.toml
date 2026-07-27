@@ -1,3 +1,9 @@
 name = "pulsative-site"
 compatibility_date = "2026-01-01"
-pages_build_output_dir = "./dist"
+
+# Workers static assets (not Pages). Skips wrangler autoconfig so
+# `npx wrangler deploy` works in this pnpm workspace.
+[assets]
+directory = "./dist"
+not_found_handling = "404-page"
+html_handling = "auto-trailing-slash"

@@ -24,31 +24,28 @@ Set in **Cloudflare Pages → Settings → Environment variables**:
 
 Analytics uses **Cloudflare Web Analytics** (cookieless). Enable it in the Cloudflare dashboard for the zone/Pages project — no site env vars required. The CSP allows `https://static.cloudflareinsights.com`.
 
-## Cloudflare Pages Setup
+## Cloudflare Workers (static assets)
 
-1. **Workers & Pages** → **Create** → **Pages** → **Connect to Git**
-2. Select the `pulsative-site` repository
-3. Build settings:
-   - **Build command:** `pnpm build`
-   - **Build output directory:** `dist`
-4. Add environment variables for Production (and Preview if desired)
-5. Deploy
+1. **Workers & Pages** → connect the `pulsative-site` repository (Workers Builds)
+2. Build settings:
+   - **Build command:** `pnpm run build`
+   - **Deploy command:** `npx wrangler deploy` (or `pnpm run deploy`)
+3. Add environment variables for Production (and Preview if desired)
+4. Deploy
 
-`wrangler.toml` sets `pages_build_output_dir = "./dist"`.
+`wrangler.toml` serves `./dist` via Workers [static assets](https://developers.cloudflare.com/workers/static-assets/) with `not_found_handling = "404-page"`.
 
 ### 404 pages (important)
 
-Cloudflare Pages treats the site as a **single-page app** when `index.html` exists but **`404.html` does not** — unknown URLs then serve the homepage (hero + showreel).
-
-This project builds `404.html` from `src/pages/404.astro`. After deploy, bad URLs should return a proper 404 page, not the home page. If random paths still show the homepage, confirm the latest build includes `dist/404.html`.
+Unknown URLs serve the nearest `404.html` (built from `src/pages/404.astro`). After deploy, bad URLs should return that page, not the homepage. If random paths still show the homepage, confirm `dist/404.html` exists and `not_found_handling` is still `"404-page"`.
 
 ### Custom domain
 
-In Pages → **Custom domains**, add `pulsative.band` and optionally redirect `www` to apex. Set `PUBLIC_SITE_URL=https://pulsative.band`.
+In the Worker → **Settings → Domains & Routes**, add `pulsative.band` and optionally redirect `www` to apex. Set `PUBLIC_SITE_URL=https://pulsative.band`.
 
-## Sanity Webhook → Cloudflare Pages
+## Sanity Webhook → Cloudflare rebuild
 
-1. Cloudflare: **Pages → Settings → Builds → Deploy hooks** → copy hook URL
+1. Cloudflare: Worker → **Settings → Builds → Deploy hooks** → copy hook URL
 2. Sanity: **API → Webhooks → Create**
    - **URL:** deploy hook URL
    - **Trigger on:** Create, Update, Delete
@@ -56,7 +53,7 @@ In Pages → **Custom domains**, add `pulsative.band` and optionally redirect `w
    - **Projection:** leave empty (deploy hook only needs the POST)
 3. In Studio, use **Publish** — draft saves do not update the live site.
 
-After a CMS change, Cloudflare should start a new build within a minute. Check **Pages → Deployments** for the triggered build.
+After a CMS change, Cloudflare should start a new build within a minute. Check **Deployments** for the triggered build.
 
 ### Stale content troubleshooting
 
@@ -120,22 +117,9 @@ pnpm build
 pnpm preview
 ```
 
-## Workers Builds (Git)
-
-Build settings in the Cloudflare dashboard:
-
-| Setting | Value |
-|---------|--------|
-| **Build command** | `pnpm run build` |
-| **Deploy command** | `pnpm run deploy` |
-
-Do **not** use bare `npx wrangler deploy` here. This is a Pages project (`pages_build_output_dir` in `wrangler.toml`), and the repo is a pnpm workspace (`studio-pulsative-site`). Bare `wrangler deploy` runs autoconfig and fails on the workspace root.
-
-`pnpm run deploy` runs `wrangler pages deploy dist --project-name=pulsative-site`.
-
 ## Manual deploy (optional)
 
 ```bash
 pnpm build
-pnpm run deploy
+pnpm run deploy   # same as: npx wrangler deploy
 ```
