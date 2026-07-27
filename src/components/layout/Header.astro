@@ -48,7 +48,6 @@ const alternateHref = switchLocalePath(currentPath, alternateLocale);
           <span class="logo-text">{settings.bandName}</span>
         )
       }
-      <img class="logo-pulse" src="/pulse.svg" alt="" width={32} height={32} />
     </a>
 
     <nav class="nav" aria-label="Main navigation">
@@ -146,12 +145,6 @@ const alternateHref = switchLocalePath(currentPath, alternateLocale);
     letter-spacing: 0.12em;
     color: var(--color-text);
     white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .logo-pulse {
-    width: 2rem;
-    height: 2rem;
     flex-shrink: 0;
   }
 
@@ -260,11 +253,6 @@ const alternateHref = switchLocalePath(currentPath, alternateLocale);
     .logo {
       font-size: 1.15rem;
       gap: 0.5rem;
-    }
-
-    .logo-pulse {
-      width: 1.75rem;
-      height: 1.75rem;
     }
 
     .header-socials {

@@ -3,10 +3,8 @@ import imageUrlBuilder from '@sanity/image-url';
 import type { SanityImageSource } from '@sanity/image-url';
 import type { SanityImage } from './types';
 
-const fetchOptions = { cache: 'no-store' as const };
-
 export function fetchSanity<T>(query: string, params?: Record<string, unknown>): Promise<T> {
-  return sanityClient.fetch<T>(query, params ?? {}, fetchOptions);
+  return sanityClient.fetch<T>(query, params ?? {});
 }
 
 const projectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID ?? '9yuo6i9f';
