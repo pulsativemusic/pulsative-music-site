@@ -8,8 +8,8 @@ import type { Locale } from '../../lib/types';
 import { isAnnouncementBannerVisible } from '../../lib/data';
 import {
   getLocaleFromPath,
+  joinTagline,
   pathFor,
-  pickLocalized,
   switchLocalePath,
 } from '../../lib/i18n';
 import {
@@ -41,7 +41,7 @@ const isHome = canonicalPath === '/' || canonicalPath === '/en' || canonicalPath
 const pageTitle = buildPageTitle(title, settings.bandName);
 const pageDescription = resolvePageDescription(description, settings, locale, isHome);
 const ogImageUrl = resolveAssetUrl(settings.heroImageUrl, siteUrl);
-const ogImageAlt = `${settings.bandName} — ${pickLocalized(settings.tagline, locale)}`;
+const ogImageAlt = `${settings.bandName} — ${joinTagline(settings.taglineLine1, settings.taglineLine2, locale)}`;
 const jsonLd = isHome
   ? buildMusicGroupJsonLd({ settings, siteUrl, description: pageDescription, locale })
   : buildWebPageJsonLd(siteUrl, canonicalUrl, pageTitle, pageDescription);

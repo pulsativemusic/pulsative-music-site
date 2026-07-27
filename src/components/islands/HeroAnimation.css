@@ -41,12 +41,16 @@
   font-weight: 600;
   letter-spacing: 0.06em;
   color: var(--color-text-muted);
-  max-width: 28rem;
+  max-width: 42rem;
   margin: 0;
   line-height: 1.55;
   padding-left: 0.15rem;
   border-left: 2px solid rgba(232, 255, 0, 0.45);
   padding-inline-start: 0.85rem;
+}
+
+.hero-tagline-line {
+  display: block;
 }
 
 @keyframes hero-glow-pulse {

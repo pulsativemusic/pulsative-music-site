@@ -1,5 +1,5 @@
 import type { Locale, SiteSettings } from './types';
-import { pickLocalized } from './i18n';
+import { joinTagline, pickLocalized } from './i18n';
 
 export function getSiteUrl(fallback = 'https://pulsative-site.pages.dev'): string {
   const fromEnv = import.meta.env.PUBLIC_SITE_URL ?? import.meta.env.SITE;
@@ -46,7 +46,7 @@ export function resolvePageDescription(
   locale: Locale,
   isHome: boolean,
 ): string {
-  const tagline = pickLocalized(settings.tagline, locale);
+  const tagline = joinTagline(settings.taglineLine1, settings.taglineLine2, locale);
   const candidate =
     description ??
     (isHome ? pickLocalized(settings.shortDescription, locale) : undefined) ??

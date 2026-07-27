@@ -223,6 +223,16 @@ export function pickLocalized(
   return value[locale] ?? value.de ?? value.en ?? '';
 }
 
+export function joinTagline(
+  line1: { de?: string; en?: string } | string | undefined,
+  line2: { de?: string; en?: string } | string | undefined,
+  locale: Locale,
+): string {
+  return [pickLocalized(line1, locale), pickLocalized(line2, locale)]
+    .filter(Boolean)
+    .join(' ');
+}
+
 export function getLocaleFromPath(pathname: string): Locale {
   return pathname === '/en' || pathname.startsWith('/en/') ? 'en' : 'de';
 }

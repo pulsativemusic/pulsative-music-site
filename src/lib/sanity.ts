@@ -77,7 +77,8 @@ export const queries = {
   siteSettings: `*[_type == "siteSettings"][0]{
     _id,
     bandName,
-    tagline,
+    taglineLine1,
+    taglineLine2,
     shortDescription,
     liveIntro,
     showHomepageUpcomingDates,

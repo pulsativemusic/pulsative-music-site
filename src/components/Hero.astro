@@ -12,7 +12,8 @@ interface Props {
 
 const { settings, locale, showreel = null } = Astro.props;
 const ui = getUi(locale);
-const tagline = pickLocalized(settings.tagline, locale);
+const taglineLine1 = pickLocalized(settings.taglineLine1, locale);
+const taglineLine2 = pickLocalized(settings.taglineLine2, locale);
 const shortDescription = pickLocalized(settings.shortDescription, locale);
 ---
 
@@ -54,14 +55,22 @@ const shortDescription = pickLocalized(settings.shortDescription, locale);
         settings.logoUrl ? (
           <img class="hero-logo" src={settings.logoUrl} alt={settings.bandName} width={320} height={120} />
         ) : (
-          <HeroAnimation client:load bandName={settings.bandName} tagline={tagline} />
+          <HeroAnimation
+            client:load
+            bandName={settings.bandName}
+            taglineLine1={taglineLine1}
+            taglineLine2={taglineLine2}
+          />
         )
       }
 
       {
         settings.logoUrl && (
           <div class="hero-text-static">
-            <p class="hero-tagline">{tagline}</p>
+            <p class="hero-tagline">
+              {taglineLine1 && <span class="hero-tagline-line">{taglineLine1}</span>}
+              {taglineLine2 && <span class="hero-tagline-line">{taglineLine2}</span>}
+            </p>
           </div>
         )
       }
@@ -137,11 +146,15 @@ const shortDescription = pickLocalized(settings.shortDescription, locale);
     font-weight: 600;
     letter-spacing: 0.06em;
     color: var(--color-text-muted);
-    max-width: 28rem;
+    max-width: 42rem;
     margin: 0;
     line-height: 1.55;
     padding-inline-start: 0.85rem;
     border-left: 2px solid rgba(232, 255, 0, 0.45);
+  }
+
+  .hero-text-static .hero-tagline-line {
+    display: block;
   }
 
   .hero-description {

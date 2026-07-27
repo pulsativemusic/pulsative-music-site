@@ -2000,7 +2000,30 @@
         },
         "optional": true
       },
-      "tagline": {
+      "taglineLine1": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "object",
+          "attributes": {
+            "de": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": true
+            },
+            "en": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": true
+            }
+          }
+        },
+        "optional": true
+      },
+      "taglineLine2": {
         "type": "objectAttribute",
         "value": {
           "type": "object",

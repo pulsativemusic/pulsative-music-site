@@ -13,9 +13,13 @@ import type {
 export const mockSiteSettings: SiteSettings = {
   _id: 'settings',
   bandName: 'PULSATIVE',
-  tagline: {
-    de: 'Neo-Brass Collective · House · Techno · EDM',
-    en: 'Neo-Brass Collective · House · Techno · EDM',
+  taglineLine1: {
+    de: 'Neo-Brass Collective',
+    en: 'Neo-Brass Collective',
+  },
+  taglineLine2: {
+    de: 'House · Techno · EDM',
+    en: 'House · Techno · EDM',
   },
   shortDescription: {
     de: 'Festivals · Clubs · Streets · Events — Köln · NRW · Deutschland · Europa. Clubkultur acoustique · Boiler Room trifft Brassensemble.',

@@ -30,7 +30,8 @@ export const siteSettings = defineType({
       type: 'string',
       group: 'general',
     }),
-    localizedString('tagline', 'Tagline', undefined, 'general'),
+    localizedString('taglineLine1', 'Tagline line 1', undefined, 'general'),
+    localizedString('taglineLine2', 'Tagline line 2', undefined, 'general'),
     defineField({
       name: 'logo',
       title: 'Logo',

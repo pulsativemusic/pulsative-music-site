@@ -36,7 +36,8 @@ export interface SocialLink {
 export interface SiteSettings {
   _id: string;
   bandName: string;
-  tagline: LocalizedString | string;
+  taglineLine1: LocalizedString | string;
+  taglineLine2?: LocalizedString | string;
   shortDescription?: LocalizedString | string;
   liveIntro?: LocalizedString | string;
   showHomepageUpcomingDates?: boolean;

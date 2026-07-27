@@ -4,10 +4,15 @@ import './HeroAnimation.css';
 
 interface HeroAnimationProps {
   bandName: string;
-  tagline: string;
+  taglineLine1: string;
+  taglineLine2?: string;
 }
 
-export default function HeroAnimation({ bandName, tagline }: HeroAnimationProps) {
+export default function HeroAnimation({
+  bandName,
+  taglineLine1,
+  taglineLine2 = '',
+}: HeroAnimationProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -55,7 +60,7 @@ export default function HeroAnimation({ bandName, tagline }: HeroAnimationProps)
     }, root);
 
     return () => ctx.revert();
-  }, [bandName, tagline]);
+  }, [bandName, taglineLine1, taglineLine2]);
 
   const chars = bandName.split('');
 
@@ -69,7 +74,10 @@ export default function HeroAnimation({ bandName, tagline }: HeroAnimationProps)
           </span>
         ))}
       </h1>
-      <p className="hero-tagline">{tagline}</p>
+      <p className="hero-tagline">
+        {taglineLine1 ? <span className="hero-tagline-line">{taglineLine1}</span> : null}
+        {taglineLine2 ? <span className="hero-tagline-line">{taglineLine2}</span> : null}
+      </p>
     </div>
   );
 }
