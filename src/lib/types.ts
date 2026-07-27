@@ -101,6 +101,8 @@ export interface Photo {
   _id: string;
   title: LocalizedString | string;
   imageUrl: string;
+  /** CSS object-position from Sanity hotspot, e.g. "42% 30%" */
+  objectPosition?: string;
   sortOrder: number;
   orientation?: MediaOrientation;
   credit?: string;

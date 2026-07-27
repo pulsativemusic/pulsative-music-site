@@ -29,6 +29,7 @@ const { photos, locale } = Astro.props;
                 loading="lazy"
                 width={isPortrait ? 900 : 1600}
                 height={isPortrait ? 1600 : 900}
+                style={photo.objectPosition ? { objectPosition: photo.objectPosition } : undefined}
               />
               <div class="photo-meta">
                 <h3>{pickLocalized(photo.title, locale)}</h3>

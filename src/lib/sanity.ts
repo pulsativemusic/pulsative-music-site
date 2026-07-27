@@ -57,7 +57,20 @@ export function getImageUrl(
     result = result.height(options.height);
   }
 
+  // Both dims → crop; @sanity/image-url uses hotspot/crop from the source
+  if (options?.width && options?.height) {
+    result = result.fit('crop');
+  }
+
   return result.url();
+}
+
+/** CSS object-position from Sanity hotspot (x/y are 0–1). */
+export function objectPositionFromHotspot(
+  hotspot: SanityImage['hotspot'] | undefined,
+): string | undefined {
+  if (!hotspot) return undefined;
+  return `${hotspot.x * 100}% ${hotspot.y * 100}%`;
 }
 
 export const queries = {

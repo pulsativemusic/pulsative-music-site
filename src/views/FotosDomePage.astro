@@ -23,6 +23,7 @@ const intro = pickLocalized(settings.fotosIntro, locale);
 const domeImages = photos.map((photo) => ({
   src: photo.imageUrl,
   alt: pickLocalized(photo.title, locale) || '',
+  objectPosition: photo.objectPosition,
 }));
 ---
 

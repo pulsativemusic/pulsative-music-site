@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useCallback, useState } from 'react';
 import { useGesture } from '@use-gesture/react';
 import './DomeGallery.css';
 
-export type ImageItem = string | { src: string; alt?: string };
+export type ImageItem = string | { src: string; alt?: string; objectPosition?: string };
 
 export type DomeGalleryProps = {
   images?: ImageItem[];
@@ -27,6 +27,7 @@ export type DomeGalleryProps = {
 type ItemDef = {
   src: string;
   alt: string;
+  objectPosition?: string;
   x: number;
   y: number;
   sizeX: number;
@@ -108,9 +109,13 @@ function buildItems(pool: ImageItem[], seg: number): ItemDef[] {
 
   const normalizedImages = pool.map(image => {
     if (typeof image === 'string') {
-      return { src: image, alt: '' };
+      return { src: image, alt: '', objectPosition: undefined as string | undefined };
     }
-    return { src: image.src || '', alt: image.alt || '' };
+    return {
+      src: image.src || '',
+      alt: image.alt || '',
+      objectPosition: image.objectPosition,
+    };
   });
 
   const usedImages = Array.from({ length: totalSlots }, (_, i) => normalizedImages[i % normalizedImages.length]);
@@ -131,7 +136,8 @@ function buildItems(pool: ImageItem[], seg: number): ItemDef[] {
   return coords.map((c, i) => ({
     ...c,
     src: usedImages[i].src,
-    alt: usedImages[i].alt
+    alt: usedImages[i].alt,
+    objectPosition: usedImages[i].objectPosition,
   }));
 }
 
@@ -142,13 +148,17 @@ function computeItemBaseRotation(offsetX: number, offsetY: number, sizeX: number
   return { rotateX, rotateY };
 }
 
-function normalizeImages(pool: ImageItem[]): { src: string; alt: string }[] {
+function normalizeImages(pool: ImageItem[]): { src: string; alt: string; objectPosition?: string }[] {
   return pool
     .map((image) => {
       if (typeof image === 'string') {
         return { src: image, alt: '' };
       }
-      return { src: image.src || '', alt: image.alt || '' };
+      return {
+        src: image.src || '',
+        alt: image.alt || '',
+        objectPosition: image.objectPosition,
+      };
     })
     .filter((image) => image.src);
 }
@@ -164,7 +174,12 @@ function FlatGallery({ images }: { images: ImageItem[] }) {
     <div className="dome-flat-grid">
       {items.map((item, i) => (
         <figure key={`${item.src}-${i}`} className="dome-flat-item">
-          <img src={item.src} alt={item.alt} loading="lazy" />
+          <img
+            src={item.src}
+            alt={item.alt}
+            loading="lazy"
+            style={item.objectPosition ? { objectPosition: item.objectPosition } : undefined}
+          />
         </figure>
       ))}
     </div>
@@ -660,7 +675,10 @@ function DomeGallerySphere({
       const originalImg = overlay.querySelector('img');
       if (originalImg) {
         const img = originalImg.cloneNode() as HTMLImageElement;
-        img.style.cssText = 'width: 100%; height: 100%; object-fit: cover;';
+        const objectPosition = originalImg.style.objectPosition;
+        img.style.cssText = `width: 100%; height: 100%; object-fit: cover;${
+          objectPosition ? ` object-position: ${objectPosition};` : ''
+        }`;
         animatingOverlay.appendChild(img);
       }
 
@@ -781,7 +799,12 @@ function DomeGallerySphere({
                   onClick={onTileClick}
                   onPointerUp={onTilePointerUp}
                 >
-                  <img src={it.src} draggable={false} alt={it.alt} />
+                  <img
+                    src={it.src}
+                    draggable={false}
+                    alt={it.alt}
+                    style={it.objectPosition ? { objectPosition: it.objectPosition } : undefined}
+                  />
                 </div>
               </div>
             ))}

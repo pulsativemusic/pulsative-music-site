@@ -82,8 +82,8 @@ const shortDescription = pickLocalized(settings.shortDescription, locale);
 
   .hero {
     position: relative;
-    height: 58vh;
-    min-height: 18rem;
+    height: 75svh;
+    min-height: 22rem;
     display: flex;
     align-items: center;
     overflow: hidden;
@@ -95,6 +95,7 @@ const shortDescription = pickLocalized(settings.shortDescription, locale);
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center top;
     transform: scale(1.03);
   }
 
@@ -110,13 +111,7 @@ const shortDescription = pickLocalized(settings.shortDescription, locale);
   .hero-content {
     position: relative;
     z-index: 1;
-    padding-block: calc(var(--header-height) + var(--space-sm)) var(--space-md);
-  }
-
-  :global(html:has(.announcement)) .hero-content {
-    padding-block-start: calc(
-      var(--header-height) + var(--announcement-banner-height) + var(--space-sm)
-    );
+    padding-block: var(--space-md);
   }
 
   .hero-logo {

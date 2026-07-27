@@ -9,7 +9,7 @@ import {
   mockPhotos,
   mockVideos,
 } from './mock-data';
-import { fetchSanity, getImageUrl, isSanityConfigured, queries } from './sanity';
+import { fetchSanity, getImageUrl, isSanityConfigured, objectPositionFromHotspot, queries } from './sanity';
 import type {
   AboutContent,
   BandMember,
@@ -168,7 +168,11 @@ export async function getPhotos(): Promise<Photo[]> {
   return rows.flatMap(({ image, ...photo }) => {
     const imageUrl = getImageUrl(image);
     if (!imageUrl) return [];
-    return [{ ...photo, imageUrl }];
+    return [{
+      ...photo,
+      imageUrl,
+      objectPosition: objectPositionFromHotspot(image?.hotspot),
+    }];
   });
 }
 
