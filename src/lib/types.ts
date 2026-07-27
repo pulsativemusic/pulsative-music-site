@@ -9,8 +9,21 @@ export interface LocalizedString {
 
 export interface SanityImage {
   asset?: {
+    _id?: string;
     _ref?: string;
     url?: string;
+  };
+  crop?: {
+    top: number;
+    bottom: number;
+    left: number;
+    right: number;
+  };
+  hotspot?: {
+    x: number;
+    y: number;
+    height: number;
+    width: number;
   };
   alt?: string;
 }

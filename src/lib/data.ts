@@ -9,13 +9,15 @@ import {
   mockPhotos,
   mockVideos,
 } from './mock-data';
-import { fetchSanity, isSanityConfigured, queries } from './sanity';
+import { fetchSanity, getImageUrl, isSanityConfigured, queries } from './sanity';
 import type {
   AboutContent,
+  BandMember,
   LegalPage,
   PhotoPrint,
   PressAsset,
   Release,
+  SanityImage,
   Show,
   SiteSettings,
   Photo,
@@ -71,21 +73,33 @@ export function isAnnouncementBannerVisible(
   return Boolean(message?.trim());
 }
 
+type SiteSettingsRow = Omit<
+  SiteSettings,
+  'showreelPosterUrl' | 'heroImageUrl' | 'logoUrl'
+> & {
+  showreelPoster?: SanityImage;
+  heroImage?: SanityImage;
+  logo?: SanityImage;
+};
+
 export async function getSiteSettings(): Promise<SiteSettings> {
   if (!isSanityConfigured()) {
     return mockSiteSettings;
   }
 
-  const settings = await fetchSanity<SiteSettings | null>(
-    queries.siteSettings,
-  );
+  const settings = await fetchSanity<SiteSettingsRow | null>(queries.siteSettings);
   if (!settings) {
     return mockSiteSettings;
   }
 
+  const { showreelPoster, heroImage, logo, ...rest } = settings;
+
   return {
     ...mockSiteSettings,
-    ...settings,
+    ...rest,
+    showreelPosterUrl: getImageUrl(showreelPoster),
+    heroImageUrl: getImageUrl(heroImage),
+    logoUrl: getImageUrl(logo),
     socials:
       settings.socials && settings.socials.length > 0
         ? settings.socials
@@ -93,12 +107,21 @@ export async function getSiteSettings(): Promise<SiteSettings> {
   };
 }
 
+type ShowRow = Omit<Show, 'posterUrl' | 'poster'> & {
+  poster?: SanityImage;
+};
+
 export async function getShows(): Promise<Show[]> {
   if (!isSanityConfigured()) {
     return mockShows;
   }
 
-  return await fetchSanity<Show[]>(queries.shows);
+  const rows = await fetchSanity<ShowRow[]>(queries.shows);
+  return rows.map(({ poster, ...show }) => ({
+    ...show,
+    poster,
+    posterUrl: getImageUrl(poster),
+  }));
 }
 
 export async function getUpcomingShows(limit?: number): Promise<Show[]> {
@@ -114,28 +137,56 @@ function withVimeoId(videos: Video[]): Video[] {
   return videos.filter((video) => video.vimeoId?.trim());
 }
 
+type VideoRow = Omit<Video, 'thumbnailUrl'> & {
+  thumbnail?: SanityImage;
+};
+
 export async function getVideos(): Promise<Video[]> {
   if (!isSanityConfigured()) {
     return withVimeoId(mockVideos);
   }
 
-  return withVimeoId(await fetchSanity<Video[]>(queries.videos));
+  const rows = await fetchSanity<VideoRow[]>(queries.videos);
+  return withVimeoId(
+    rows.map(({ thumbnail, ...video }) => ({
+      ...video,
+      thumbnailUrl: getImageUrl(thumbnail),
+    })),
+  );
 }
+
+type PhotoRow = Omit<Photo, 'imageUrl'> & {
+  image?: SanityImage;
+};
 
 export async function getPhotos(): Promise<Photo[]> {
   if (!isSanityConfigured()) {
     return mockPhotos;
   }
 
-  return await fetchSanity<Photo[]>(queries.photos);
+  const rows = await fetchSanity<PhotoRow[]>(queries.photos);
+  return rows.flatMap(({ image, ...photo }) => {
+    const imageUrl = getImageUrl(image);
+    if (!imageUrl) return [];
+    return [{ ...photo, imageUrl }];
+  });
 }
+
+type ReleaseRow = Omit<Release, 'coverUrl' | 'coverArt'> & {
+  coverArt?: SanityImage;
+};
 
 export async function getReleases(): Promise<Release[]> {
   if (!isSanityConfigured()) {
     return mockReleases;
   }
 
-  return await fetchSanity<Release[]>(queries.releases);
+  const rows = await fetchSanity<ReleaseRow[]>(queries.releases);
+  return rows.map(({ coverArt, ...release }) => ({
+    ...release,
+    coverArt,
+    coverUrl: getImageUrl(coverArt),
+  }));
 }
 
 export async function getPressAssets(): Promise<PressAsset[]> {
@@ -146,6 +197,15 @@ export async function getPressAssets(): Promise<PressAsset[]> {
   return await fetchSanity<PressAsset[]>(queries.pressAssets);
 }
 
+type AboutMemberRow = Omit<BandMember, 'photoUrl'> & {
+  photo?: SanityImage;
+};
+
+type AboutRow = Omit<Partial<AboutContent>, 'bandPhotoUrl' | 'members'> & {
+  bandPhoto?: SanityImage;
+  members?: AboutMemberRow[];
+};
+
 export async function getAboutContent(locale: Locale = 'de'): Promise<AboutContent> {
   if (!isSanityConfigured()) {
     const bio =
@@ -153,7 +213,7 @@ export async function getAboutContent(locale: Locale = 'de'): Promise<AboutConte
     return { ...mockAbout, bio };
   }
 
-  const about = await fetchSanity<Partial<AboutContent> | null>(queries.about);
+  const about = await fetchSanity<AboutRow | null>(queries.about);
   if (!about) {
     const bio =
       locale === 'en' && mockAbout.bioEn?.length ? mockAbout.bioEn : mockAbout.bio;
@@ -165,8 +225,11 @@ export async function getAboutContent(locale: Locale = 'de'): Promise<AboutConte
 
   return {
     bio,
-    bandPhotoUrl: about.bandPhotoUrl,
-    members: about.members ?? [],
+    bandPhotoUrl: getImageUrl(about.bandPhoto),
+    members: (about.members ?? []).map(({ photo, ...member }) => ({
+      ...member,
+      photoUrl: getImageUrl(photo),
+    })),
     pressQuotes: about.pressQuotes ?? [],
     lineup: about.lineup,
     repertoire: about.repertoire,
@@ -190,12 +253,21 @@ export async function getLegalPage(
   return page;
 }
 
+type PhotoPrintRow = Omit<PhotoPrint, 'imageUrl' | 'image'> & {
+  image?: SanityImage;
+};
+
 export async function getPhotoPrints(): Promise<PhotoPrint[]> {
   if (!isSanityConfigured()) {
     return mockPhotoPrints;
   }
 
-  return await fetchSanity<PhotoPrint[]>(queries.photoPrints);
+  const rows = await fetchSanity<PhotoPrintRow[]>(queries.photoPrints);
+  return rows.map(({ image, ...print }) => ({
+    ...print,
+    image,
+    imageUrl: getImageUrl(image),
+  }));
 }
 
 export { partitionShows };

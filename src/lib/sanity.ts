@@ -25,6 +25,9 @@ const builder =
     ? imageUrlBuilder({ projectId, dataset })
     : null;
 
+/** GROQ projection: enough for @sanity/image-url to apply crop/hotspot */
+export const imageProjection = `{ asset->{_id}, crop, hotspot }`;
+
 export function urlFor(source: SanityImageSource | SanityImage | undefined) {
   if (!source || !builder) {
     return null;
@@ -37,12 +40,8 @@ export function getImageUrl(
   image: SanityImage | undefined,
   options?: { width?: number; height?: number; quality?: number },
 ): string | undefined {
-  if (!image) {
+  if (!image?.asset) {
     return undefined;
-  }
-
-  if (image.asset?.url) {
-    return image.asset.url;
   }
 
   const imageBuilder = urlFor(image);
@@ -91,11 +90,11 @@ export const queries = {
     "showreelVimeoId": coalesce(showreelVimeoId, showreelYoutubeId),
     showreelTitle,
     showreelDescription,
-    "showreelPosterUrl": showreelPoster.asset->url,
+    "showreelPoster": showreelPoster${imageProjection},
     socials[]{platform, url},
-    "heroImageUrl": heroImage.asset->url,
+    "heroImage": heroImage${imageProjection},
     "heroVideoUrl": heroVideo.asset->url,
-    "logoUrl": logo.asset->url
+    "logo": logo${imageProjection}
   }`,
 
   shows: `*[_type == "show"] | order(date desc){
@@ -107,8 +106,7 @@ export const queries = {
     ticketUrl,
     soldOut,
     description,
-    poster,
-    "posterUrl": poster.asset->url
+    "poster": poster${imageProjection}
   }`,
 
   videos: `*[_type == "video"] | order(sortOrder asc, _createdAt desc){
@@ -117,7 +115,7 @@ export const queries = {
     vimeoId,
     orientation,
     sortOrder,
-    "thumbnailUrl": thumbnail.asset->url
+    "thumbnail": thumbnail${imageProjection}
   }`,
 
   photos: `*[_type == "photo"] | order(sortOrder asc, _createdAt desc){
@@ -126,7 +124,7 @@ export const queries = {
     credit,
     orientation,
     sortOrder,
-    "imageUrl": image.asset->url
+    "image": image${imageProjection}
   }`,
 
   releases: `*[_type == "release"] | order(releaseDate desc){
@@ -136,8 +134,7 @@ export const queries = {
     spotifyUrl,
     appleUrl,
     youtubeId,
-    coverArt,
-    "coverUrl": coverArt.asset->url
+    "coverArt": coverArt${imageProjection}
   }`,
 
   pressAssets: `*[_type == "pressAsset"] | order(title asc){
@@ -151,12 +148,12 @@ export const queries = {
   about: `*[_type == "page" && slug.current == "about"][0]{
     "bio": sections[_type == "richText" && heading == "Bio"][0].body,
     "bioEn": sections[_type == "richText" && heading == "Bio (EN)"][0].body,
-    "bandPhotoUrl": sections[_type == "imageGrid"][0].images[0].asset->url,
+    "bandPhoto": sections[_type == "imageGrid"][0].images[0]${imageProjection},
     "members": sections[_type == "memberGrid"][0].members[]{
       name,
       role,
       bio,
-      "photoUrl": photo.asset->url
+      "photo": photo${imageProjection}
     },
     "pressQuotes": sections[_type == "pressQuotes"][0].quotes[]{quote, source},
     lineup,
@@ -184,7 +181,6 @@ export const queries = {
     purchaseUrl,
     soldOut,
     featured,
-    image,
-    "imageUrl": image.asset->url
+    "image": image${imageProjection}
   }`,
 };
