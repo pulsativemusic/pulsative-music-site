@@ -800,27 +800,7 @@
             },
             {
               "type": "string",
-              "value": "photo"
-            },
-            {
-              "type": "string",
-              "value": "logo"
-            },
-            {
-              "type": "string",
-              "value": "bio"
-            },
-            {
-              "type": "string",
               "value": "technicalRider"
-            },
-            {
-              "type": "string",
-              "value": "stagePlot"
-            },
-            {
-              "type": "string",
-              "value": "other"
             }
           ]
         },

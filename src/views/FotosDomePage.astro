@@ -30,10 +30,9 @@ const domeImages = photos.map((photo) => ({
 <BaseLayout title={ui.fotos.domeTitle} description={intro} settings={settings}>
   <section class="page-hero section">
     <div class="container">
-      <p class="section-kicker reveal">{ui.fotos.domeKicker}</p>
-      <h1 class="page-title reveal reveal-delay-1">{ui.fotos.domeTitle}</h1>
-      <p class="page-intro text-muted reveal reveal-delay-2">{ui.fotos.domeNote}</p>
-      <p class="back-link reveal reveal-delay-2">
+      <h1 class="page-title reveal">{ui.fotos.domeTitle}</h1>
+      <p class="page-intro text-muted reveal reveal-delay-1">{ui.fotos.domeNote}</p>
+      <p class="back-link reveal reveal-delay-1">
         <a href={pathFor('fotos', locale)}>{ui.fotos.backToGrid}</a>
       </p>
     </div>

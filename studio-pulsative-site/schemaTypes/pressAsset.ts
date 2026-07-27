@@ -12,13 +12,8 @@ export const pressAsset = defineType({
       type: 'string',
       options: {
         list: [
-          { title: 'Press Kit (PDF)', value: 'pressKit' },
-          { title: 'Photo', value: 'photo' },
-          { title: 'Logo', value: 'logo' },
-          { title: 'Bio', value: 'bio' },
+          { title: 'Electronic Press Kit (EPK)', value: 'pressKit' },
           { title: 'Technical Rider', value: 'technicalRider' },
-          { title: 'Stage Plot', value: 'stagePlot' },
-          { title: 'Other', value: 'other' },
         ],
       },
     }),

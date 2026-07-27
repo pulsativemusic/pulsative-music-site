@@ -24,9 +24,8 @@ const intro = pickLocalized(settings.videosIntro, locale);
 <BaseLayout title={ui.videos.title} description={intro} settings={settings}>
   <section class="page-hero section">
     <div class="container">
-      <p class="section-kicker reveal">{ui.videos.kicker}</p>
-      <h1 class="page-title reveal reveal-delay-1">{ui.videos.title}</h1>
-      {intro && <p class="page-intro text-muted reveal reveal-delay-2">{intro}</p>}
+      <h1 class="page-title reveal">{ui.videos.title}</h1>
+      {intro && <p class="page-intro text-muted reveal reveal-delay-1">{intro}</p>}
     </div>
   </section>
 

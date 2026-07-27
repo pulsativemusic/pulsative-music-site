@@ -31,10 +31,9 @@ const intro = pickLocalized(settings.liveIntro, locale);
 <BaseLayout title={ui.live.title} description={intro} settings={settings}>
   <section class="page-hero section">
     <div class="container">
-      <p class="section-kicker reveal">{ui.live.kicker}</p>
-      <h1 class="page-title reveal reveal-delay-1">{ui.live.title}</h1>
-      {intro && <p class="page-intro text-muted reveal reveal-delay-2">{intro}</p>}
-      <Button href="/live/calendar.ics" variant="outline" class="reveal reveal-delay-3">
+      <h1 class="page-title reveal">{ui.live.title}</h1>
+      {intro && <p class="page-intro text-muted reveal reveal-delay-1">{intro}</p>}
+      <Button href="/live/calendar.ics" variant="outline" class="reveal reveal-delay-2">
         {ui.live.calendar}
       </Button>
     </div>

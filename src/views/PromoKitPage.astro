@@ -19,12 +19,9 @@ if (!isNavPageEnabled(settings, 'promoKit')) {
 const assets = await getPressAssets();
 const ui = getUi(locale);
 
-const groups: { key: PressAssetType | 'photo'; label: string }[] = [
+const groups: { key: PressAssetType; label: string }[] = [
   { key: 'pressKit', label: ui.promoKit.pressKit },
-  { key: 'photo', label: ui.promoKit.photos },
-  { key: 'logo', label: ui.promoKit.logos },
   { key: 'technicalRider', label: ui.promoKit.technicalRider },
-  { key: 'stagePlot', label: ui.promoKit.stagePlot },
 ];
 
 const assetsByType = (type: PressAssetType) =>
@@ -34,9 +31,8 @@ const assetsByType = (type: PressAssetType) =>
 <BaseLayout title={ui.promoKit.title} description={ui.seo.promoKit} settings={settings}>
   <section class="page-hero section">
     <div class="container">
-      <p class="section-kicker reveal">{ui.promoKit.kicker}</p>
-      <h1 class="page-title reveal reveal-delay-1">{ui.promoKit.title}</h1>
-      <p class="page-intro text-muted reveal reveal-delay-2">{ui.promoKit.intro}</p>
+      <h1 class="page-title reveal">{ui.promoKit.title}</h1>
+      <p class="page-intro text-muted reveal reveal-delay-1">{ui.promoKit.intro}</p>
     </div>
   </section>
 

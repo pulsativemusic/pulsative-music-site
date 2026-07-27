@@ -24,10 +24,9 @@ const intro = pickLocalized(settings.fotosIntro, locale);
 <BaseLayout title={ui.fotos.title} description={intro} settings={settings}>
   <section class="page-hero section">
     <div class="container">
-      <p class="section-kicker reveal">{ui.fotos.kicker}</p>
-      <h1 class="page-title reveal reveal-delay-1">{ui.fotos.title}</h1>
-      {intro && <p class="page-intro text-muted reveal reveal-delay-2">{intro}</p>}
-      <p class="experiment-link reveal reveal-delay-2">
+      <h1 class="page-title reveal">{ui.fotos.title}</h1>
+      {intro && <p class="page-intro text-muted reveal reveal-delay-1">{intro}</p>}
+      <p class="experiment-link reveal reveal-delay-1">
         <a href={pathFor('fotosDome', locale)}>{ui.fotos.tryDome}</a>
       </p>
     </div>

@@ -17,10 +17,9 @@ const ui = getUi(locale);
 >
   <section class="page-hero section">
     <div class="container not-found">
-      <p class="section-kicker reveal">404</p>
-      <h1 class="page-title reveal reveal-delay-1">{ui.misc.notFoundTitle}</h1>
-      <p class="page-intro text-muted reveal reveal-delay-2">{ui.misc.notFoundText}</p>
-      <div class="reveal reveal-delay-3">
+      <h1 class="page-title reveal">{ui.misc.notFoundTitle}</h1>
+      <p class="page-intro text-muted reveal reveal-delay-1">{ui.misc.notFoundText}</p>
+      <div class="reveal reveal-delay-2">
         <Button href={pathFor('home', locale)}>{ui.misc.backHome}</Button>
       </div>
     </div>

@@ -64,14 +64,11 @@ const ui = {
     promoKit: {
       kicker: 'Presse',
       title: 'Promo Kit',
-      intro: 'Logos, Fotos und Press Kit zum Download.',
+      intro: 'Electronic Press Kit und Technical Rider als PDF.',
       download: 'Download',
       comingSoon: 'Demnächst verfügbar',
-      pressKit: 'Press Kit',
-      photos: 'Pressefotos',
-      logos: 'Logo',
+      pressKit: 'Electronic Press Kit (EPK)',
       technicalRider: 'Technical Rider',
-      stagePlot: 'Stage Plot',
       bookingPress: 'Booking & Presse',
       bookingPressText: 'Für Interviews, Presseanfragen und Booking:',
     },
@@ -101,7 +98,7 @@ const ui = {
       about:
         'PULSATIVE — Neo-Brass-Kollektiv aus Köln. House, Techno und EDM live. Besetzung, Repertoire und Booking.',
       promoKit:
-        'Pressebereich von PULSATIVE: EPK, Logos, Fotos und Booking-Kontakt für Medien und Veranstalter.',
+        'Pressebereich von PULSATIVE: Electronic Press Kit (EPK), Technical Rider und Booking-Kontakt für Medien und Veranstalter.',
       legalImpressum: 'Impressum und Anbieterkennzeichnung der offiziellen PULSATIVE Website.',
       legalPrivacy: 'Datenschutzerklärung der PULSATIVE Website inklusive Cloudflare Web Analytics.',
     },
@@ -160,14 +157,11 @@ const ui = {
     promoKit: {
       kicker: 'Press',
       title: 'Promo Kit',
-      intro: 'Download logos, photos, and press materials.',
+      intro: 'Electronic Press Kit and Technical Rider as PDF.',
       download: 'Download',
       comingSoon: 'Coming soon',
-      pressKit: 'Press Kit',
-      photos: 'Press Photos',
-      logos: 'Logo',
+      pressKit: 'Electronic Press Kit (EPK)',
       technicalRider: 'Technical Rider',
-      stagePlot: 'Stage Plot',
       bookingPress: 'Booking & Press',
       bookingPressText: 'For interviews, press requests, and booking:',
     },
@@ -197,7 +191,7 @@ const ui = {
       about:
         'PULSATIVE — neo-brass collective from Cologne. Live House, Techno and EDM. Lineup, repertoire and booking.',
       promoKit:
-        'PULSATIVE press area: EPK, logos, photos, and booking contact for media and promoters.',
+        'PULSATIVE press area: Electronic Press Kit (EPK), Technical Rider, and booking contact for media and promoters.',
       legalImpressum: 'Legal notice and provider information for the official PULSATIVE website.',
       legalPrivacy: 'Privacy policy for the PULSATIVE website, including Cloudflare Web Analytics.',
     },

@@ -143,14 +143,7 @@ export interface Gallery {
   photos: GalleryPhoto[];
 }
 
-export type PressAssetType =
-  | 'pressKit'
-  | 'photo'
-  | 'logo'
-  | 'bio'
-  | 'technicalRider'
-  | 'stagePlot'
-  | 'other';
+export type PressAssetType = 'pressKit' | 'technicalRider';
 
 export interface PressAsset {
   _id: string;

@@ -185,22 +185,8 @@ export const mockPhotoPrints: PhotoPrint[] = [];
 
 export const mockPressAssets: PressAsset[] = [
   {
-    _id: 'press-1',
-    title: 'PULSATIVE Logo (PNG)',
-    assetType: 'logo',
-    fileUrl: '/press/band-logo.svg',
-    description: 'High-resolution logo on transparent background.',
-  },
-  {
-    _id: 'press-2',
-    title: 'Press Photo Pack',
-    assetType: 'photo',
-    fileUrl: '/press/press-photos.zip',
-    description: 'Official promo photos for media use.',
-  },
-  {
     _id: 'press-3',
-    title: 'EPK Web (PDF)',
+    title: 'Electronic Press Kit (EPK)',
     assetType: 'pressKit',
     fileUrl: '/press/pulsative-epk-web.pdf',
     description: 'Offizielles Electronic Press Kit — Bio, Repertoire, Besetzung, Booking.',
@@ -209,12 +195,6 @@ export const mockPressAssets: PressAsset[] = [
     _id: 'press-4',
     title: 'Technical Rider',
     assetType: 'technicalRider',
-    description: 'Available soon.',
-  },
-  {
-    _id: 'press-5',
-    title: 'Stage Plot',
-    assetType: 'stagePlot',
     description: 'Available soon.',
   },
 ];

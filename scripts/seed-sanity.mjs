@@ -251,16 +251,9 @@ const documents = [
     credit: '© PULSATIVE',
   },
   {
-    _id: 'press-1',
-    _type: 'pressAsset',
-    title: 'PULSATIVE Logo (PNG)',
-    assetType: 'logo',
-    description: 'High-resolution logo on transparent background.',
-  },
-  {
     _id: 'press-3',
     _type: 'pressAsset',
-    title: 'EPK Web (PDF)',
+    title: 'Electronic Press Kit (EPK)',
     assetType: 'pressKit',
     description: 'Offizielles Electronic Press Kit — Bio, Repertoire, Besetzung, Booking.',
   },
@@ -269,13 +262,6 @@ const documents = [
     _type: 'pressAsset',
     title: 'Technical Rider',
     assetType: 'technicalRider',
-    description: 'Available soon.',
-  },
-  {
-    _id: 'press-5',
-    _type: 'pressAsset',
-    title: 'Stage Plot',
-    assetType: 'stagePlot',
     description: 'Available soon.',
   },
   {
@@ -501,14 +487,13 @@ function permissionHelp(error) {
 try {
   console.log(`Seeding ${projectId}/${dataset} via ${tokenSource}...`);
 
-  const [heroImage, showreelPoster, bandPhoto, logoFile, epkFile] = await Promise.all([
+  const [heroImage, showreelPoster, bandPhoto, epkFile] = await Promise.all([
     uploadImageFromFile('public/images/hero.png', 'hero.png'),
     uploadImageFromFile('public/images/hero.png', 'showreel-poster.png'),
     uploadImageFromUrl(
       'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=1200&q=80',
       'band-photo.jpg',
     ),
-    uploadFileFromFile('public/press/band-logo.svg', 'pulsative-logo.svg'),
     uploadFileFromFile('public/press/pulsative-epk-web.pdf', 'pulsative-epk-web.pdf'),
   ]);
 
@@ -541,10 +526,6 @@ for (const doc of documents) {
 
   if (doc._type === 'photo' && photoAssetMap[doc._id]) {
     doc.image = imageRef(photoAssetMap[doc._id]);
-  }
-
-  if (doc._id === 'press-1') {
-    doc.file = fileRef(logoFile);
   }
 
   if (doc._id === 'press-3') {
