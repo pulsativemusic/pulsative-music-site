@@ -1,6 +1,7 @@
 .hero-text {
   position: relative;
-  max-width: 52rem;
+  max-width: min(52rem, 100%);
+  min-width: 0;
 }
 
 .hero-pulse-line {
@@ -16,9 +17,9 @@
 
 .hero-title {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4.5vw + 0.5rem, 5.25rem);
+  font-size: clamp(1.75rem, 9vw, 5.25rem);
   line-height: 0.88;
-  letter-spacing: clamp(0.06em, 0.08em, 0.14em);
+  letter-spacing: clamp(0.04em, 0.06em, 0.14em);
   text-transform: uppercase;
   margin: 0 0 1.25rem;
   color: var(--color-text);

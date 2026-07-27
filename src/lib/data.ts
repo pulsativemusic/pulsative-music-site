@@ -75,7 +75,7 @@ export function isAnnouncementBannerVisible(
 
 type SiteSettingsRow = Omit<
   SiteSettings,
-  'showreelPosterUrl' | 'heroImageUrl' | 'logoUrl'
+  'showreelPosterUrl' | 'heroImageUrl' | 'heroObjectPosition' | 'logoUrl'
 > & {
   showreelPoster?: SanityImage;
   heroImage?: SanityImage;
@@ -99,6 +99,7 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     ...rest,
     showreelPosterUrl: getImageUrl(showreelPoster),
     heroImageUrl: getImageUrl(heroImage),
+    heroObjectPosition: objectPositionFromHotspot(heroImage?.hotspot),
     logoUrl: getImageUrl(logo),
     socials:
       settings.socials && settings.socials.length > 0
