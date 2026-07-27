@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build && node scripts/strip-admin-csp.mjs",
+    "deploy": "wrangler pages deploy dist --project-name=pulsative-site",
     "preview": "astro preview",
     "astro": "astro",
     "typecheck": "astro check",
@@ -40,6 +41,7 @@
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "typescript": "^5.9.3",
-    "vite": "^8.1.2"
+    "vite": "^8.1.2",
+    "wrangler": "^4.114.0"
   }
 }

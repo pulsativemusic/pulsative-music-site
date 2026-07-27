@@ -120,9 +120,22 @@ pnpm build
 pnpm preview
 ```
 
+## Workers Builds (Git)
+
+Build settings in the Cloudflare dashboard:
+
+| Setting | Value |
+|---------|--------|
+| **Build command** | `pnpm run build` |
+| **Deploy command** | `pnpm run deploy` |
+
+Do **not** use bare `npx wrangler deploy` here. This is a Pages project (`pages_build_output_dir` in `wrangler.toml`), and the repo is a pnpm workspace (`studio-pulsative-site`). Bare `wrangler deploy` runs autoconfig and fails on the workspace root.
+
+`pnpm run deploy` runs `wrangler pages deploy dist --project-name=pulsative-site`.
+
 ## Manual deploy (optional)
 
 ```bash
 pnpm build
-npx wrangler pages deploy dist --project-name=pulsative-site
+pnpm run deploy
 ```

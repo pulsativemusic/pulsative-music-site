@@ -1,6 +1,7 @@
 packages:
+  - "."
   - studio-pulsative-site
 allowBuilds:
   esbuild: true
   sharp: true
-  workerd: set this to true or false
+  workerd: true
