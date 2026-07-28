@@ -15,7 +15,7 @@ const ui = {
       live: 'Live',
       videos: 'Videos',
       fotos: 'Fotos',
-      about: 'About',
+      about: 'Über uns',
       contact: 'Kontakt',
       promoKit: 'Promo Kit',
     },
@@ -48,7 +48,7 @@ const ui = {
     },
     about: {
       kicker: 'Die Band',
-      title: 'About',
+      title: 'Über uns',
       lineup: 'Besetzung',
     },
     contact: {
