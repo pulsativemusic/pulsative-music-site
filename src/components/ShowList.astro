@@ -25,7 +25,7 @@ const ui = getUi(locale);
           <li class="show-item">
             <div class="show-date">
               <time datetime={datetime}>
-                <span class="show-date-day">{formatShowDate(show.date)}</span>
+                <span class="show-date-day">{formatShowDate(show.date, locale)}</span>
                 {show.time && (
                   <span class="show-date-time">{formatShowTime(show.time, locale)}</span>
                 )}

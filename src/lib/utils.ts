@@ -1,11 +1,10 @@
-export function formatShowDate(date: string, options?: Intl.DateTimeFormatOptions) {
-  return new Date(`${date}T12:00:00`).toLocaleDateString('en-US', {
-    weekday: 'short',
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-    ...options,
-  });
+export function formatShowDate(date: string, locale: 'de' | 'en' = 'de') {
+  const formatted = new Date(`${date}T12:00:00`).toLocaleDateString(
+    locale === 'en' ? 'en-US' : 'de-DE',
+    { day: 'numeric', month: 'short', year: 'numeric' },
+  );
+  // de-DE yields "17. Okt. 2023"; strip the month abbreviation period → "17. Okt 2023"
+  return locale === 'de' ? formatted.replace(/([A-Za-zäöüÄÖÜ]+)\./g, '$1') : formatted;
 }
 
 /** `time` is HH:mm (24h). EN → am/pm, DE → 24-hour. */
