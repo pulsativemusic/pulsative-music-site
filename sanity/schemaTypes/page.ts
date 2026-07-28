@@ -73,8 +73,7 @@ const imageGrid = defineArrayMember({
   title: 'Image Grid',
   type: 'object',
   icon: ImagesIcon,
-  description:
-    'Optional fallback. Prefer Site Settings → About Page Image. First image is used as the band photo when settings has none.',
+  description: 'Optional image gallery section.',
   fields: [
     defineField({ name: 'heading', title: 'Heading', type: 'string' }),
     defineField({

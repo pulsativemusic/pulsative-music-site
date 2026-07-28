@@ -283,7 +283,7 @@ export async function getAboutContent(locale: Locale = 'de'): Promise<AboutConte
   if (!about?.bio?.length && !about?.bioEn?.length) {
     const bio =
       locale === 'en' && mockAbout.bioEn?.length ? mockAbout.bioEn : mockAbout.bio;
-    return { ...mockAbout, bio };
+    return { ...mockAbout, bio, bandPhotoUrl: undefined };
   }
 
   const bio =

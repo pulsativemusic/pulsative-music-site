@@ -193,10 +193,7 @@ export const queries = {
       *[_id == "siteSettings"][0].aboutBio.en,
       *[_type == "page" && slug.current == "about"][0].sections[_type == "richText" && heading == "Bio (EN)"][0].body
     ),
-    "bandPhoto": coalesce(
-      *[_id == "siteSettings"][0].aboutImage${imageProjection},
-      *[_type == "page" && slug.current == "about"][0].sections[_type == "imageGrid"][0].images[0]${imageProjection}
-    ),
+    "bandPhoto": *[_id == "siteSettings"][0].aboutImage${imageProjection},
     "members": *[_type == "page" && slug.current == "about"][0].sections[_type == "memberGrid"][0].members[]{
       name,
       role,

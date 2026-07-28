@@ -31,8 +31,6 @@ export const mockSiteSettings: SiteSettings = {
   },
   liveImageUrl:
     'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=1200&q=80',
-  aboutImageUrl:
-    'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=1200&q=80',
   videosIntro: {
     de: 'Festival Trailer, Live-Clips und Cover-Performances.',
     en: 'Festival trailer, live clips, and cover performances.',
@@ -290,8 +288,6 @@ export const mockAbout: AboutContent = {
       ],
     },
   ],
-  bandPhotoUrl:
-    'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=1200&q=80',
   members: [],
   pressQuotes: [],
 };
