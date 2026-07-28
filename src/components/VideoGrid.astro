@@ -23,7 +23,7 @@ const playableVideos = videos.filter((video) => video.vimeoId?.trim());
           <article class="video-card reveal">
             <div class:list={['video-embed', orientation]}>
               <iframe
-                src={`https://player.vimeo.com/video/${vimeoId}?title=0&byline=0&portrait=0`}
+                src={`https://player.vimeo.com/video/${vimeoId}?title=0&byline=0&portrait=0&dnt=1`}
                 title={pickLocalized(video.title, locale)}
                 loading="lazy"
                 allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
