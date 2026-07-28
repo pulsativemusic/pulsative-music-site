@@ -8,6 +8,17 @@ export const show = defineType({
   icon: CalendarIcon,
   fields: [
     defineField({ name: 'date', title: 'Date', type: 'date' }),
+    defineField({
+      name: 'time',
+      title: 'Time',
+      type: 'string',
+      description: 'Start time in 24-hour format (e.g. 20:00). Displayed as am/pm in English, 24-hour in German.',
+      validation: (rule) =>
+        rule.regex(/^([01]\d|2[0-3]):[0-5]\d$/, {
+          name: 'HH:mm',
+          invert: false,
+        }).error('Use 24-hour HH:mm (e.g. 20:00)'),
+    }),
     defineField({ name: 'venue', title: 'Venue', type: 'string' }),
     defineField({ name: 'city', title: 'City', type: 'string' }),
     defineField({ name: 'country', title: 'Country', type: 'string' }),
@@ -43,11 +54,13 @@ export const show = defineType({
       title: 'venue',
       subtitle: 'city',
       date: 'date',
+      time: 'time',
       media: 'poster',
     },
-    prepare({ title, subtitle, date, media }) {
+    prepare({ title, subtitle, date, time, media }) {
+      const when = [date, time].filter(Boolean).join(' ') || 'TBD';
       return {
-        title: `${date ?? 'TBD'} — ${title}`,
+        title: `${when} — ${title}`,
         subtitle,
         media,
       };

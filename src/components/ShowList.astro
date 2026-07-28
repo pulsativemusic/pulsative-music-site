@@ -1,7 +1,7 @@
 ---
 import type { Locale, Show } from '../lib/types';
 import { getUi } from '../lib/i18n';
-import { formatShowDate } from '../lib/utils';
+import { formatShowDate, formatShowTime } from '../lib/utils';
 import Button from './Button.astro';
 
 interface Props {
@@ -19,39 +19,47 @@ const ui = getUi(locale);
     <p class="empty text-muted">—</p>
   ) : (
     <ul class:list={['show-list', { compact }]}>
-      {shows.map((show) => (
-        <li class="show-item">
-          <div class="show-date">
-            <time datetime={show.date}>{formatShowDate(show.date)}</time>
-          </div>
-          <div class="show-details">
-            <h3 class="show-venue">{show.venue}</h3>
-            <p class="show-location text-muted">
-              {show.city}, {show.country}
-            </p>
-            {show.description && !compact && (
-              <p class="show-description">{show.description}</p>
-            )}
-          </div>
-          <div class="show-action">
-            {show.soldOut ? (
-              <span class="sold-out">{ui.misc.soldOut}</span>
-            ) : show.ticketUrl ? (
-              <Button
-                href={show.ticketUrl}
-                variant="primary"
-                size="sm"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {ui.misc.tickets}
-              </Button>
-            ) : (
-              <span class="text-muted">TBA</span>
-            )}
-          </div>
-        </li>
-      ))}
+      {shows.map((show) => {
+        const datetime = show.time ? `${show.date}T${show.time}` : show.date;
+        return (
+          <li class="show-item">
+            <div class="show-date">
+              <time datetime={datetime}>
+                <span class="show-date-day">{formatShowDate(show.date)}</span>
+                {show.time && (
+                  <span class="show-date-time">{formatShowTime(show.time, locale)}</span>
+                )}
+              </time>
+            </div>
+            <div class="show-details">
+              <h3 class="show-venue">{show.venue}</h3>
+              <p class="show-location text-muted">
+                {show.city}, {show.country}
+              </p>
+              {show.description && !compact && (
+                <p class="show-description">{show.description}</p>
+              )}
+            </div>
+            <div class="show-action">
+              {show.soldOut ? (
+                <span class="sold-out">{ui.misc.soldOut}</span>
+              ) : show.ticketUrl ? (
+                <Button
+                  href={show.ticketUrl}
+                  variant="primary"
+                  size="sm"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {ui.misc.tickets}
+                </Button>
+              ) : (
+                <span class="text-muted">TBA</span>
+              )}
+            </div>
+          </li>
+        );
+      })}
     </ul>
   )
 }
@@ -96,11 +104,20 @@ const ui = getUi(locale);
   }
 
   .show-date time {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
     font-size: 0.8rem;
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-accent);
+  }
+
+  .show-date-time {
+    letter-spacing: 0.04em;
+    text-transform: none;
+    font-variant-numeric: tabular-nums;
   }
 
   .show-venue {

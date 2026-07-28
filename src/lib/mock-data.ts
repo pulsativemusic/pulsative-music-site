@@ -70,6 +70,7 @@ export const mockShows: Show[] = [
   {
     _id: 'show-1',
     date: '2026-08-15',
+    time: '20:00',
     venue: 'Gloria Theater',
     city: 'Cologne',
     country: 'Germany',
@@ -82,6 +83,7 @@ export const mockShows: Show[] = [
   {
     _id: 'show-2',
     date: '2026-09-02',
+    time: '21:30',
     venue: 'Luxor',
     city: 'Cologne',
     country: 'Germany',
@@ -93,6 +95,7 @@ export const mockShows: Show[] = [
   {
     _id: 'show-3',
     date: '2026-09-20',
+    time: '22:00',
     venue: 'Berghain Kantine',
     city: 'Berlin',
     country: 'Germany',

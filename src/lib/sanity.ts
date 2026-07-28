@@ -112,6 +112,7 @@ export const queries = {
   shows: `*[_type == "show"] | order(date desc){
     _id,
     date,
+    time,
     venue,
     city,
     country,

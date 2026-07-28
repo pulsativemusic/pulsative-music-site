@@ -30,10 +30,12 @@ function partitionShows(shows: Show[]) {
   const today = new Date().toISOString().slice(0, 10);
   const upcoming = shows
     .filter((show) => show.date >= today)
-    .sort((a, b) => a.date.localeCompare(b.date));
+    .sort((a, b) => a.date.localeCompare(b.date) || (a.time ?? '').localeCompare(b.time ?? ''));
   const past = shows
     .filter((show) => show.date < today)
-    .sort((a, b) => b.date.localeCompare(a.date));
+    .sort(
+      (a, b) => b.date.localeCompare(a.date) || (b.time ?? '').localeCompare(a.time ?? ''),
+    );
 
   return { upcoming, past };
 }

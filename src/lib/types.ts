@@ -79,6 +79,8 @@ export interface Showreel {
 export interface Show {
   _id: string;
   date: string;
+  /** Start time as HH:mm (24h). Formatted per locale on display. */
+  time?: string;
   venue: string;
   city: string;
   country: string;

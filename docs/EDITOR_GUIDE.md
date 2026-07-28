@@ -37,6 +37,7 @@ Click **Publish** when done.
 2. Click **Create** (+ button)
 3. Fill in:
    - **Date** — when the show happens
+   - **Time** — start time in 24-hour format (e.g. `20:00`). Optional. Shown as am/pm on the English site, 24-hour on German
    - **Venue** — club or festival name
    - **City** and **Country**
    - **Ticket URL** — link to buy tickets (optional)

@@ -8,6 +8,18 @@ export function formatShowDate(date: string, options?: Intl.DateTimeFormatOption
   });
 }
 
+/** `time` is HH:mm (24h). EN → am/pm, DE → 24-hour. */
+export function formatShowTime(time: string, locale: 'de' | 'en') {
+  const match = /^([01]\d|2[0-3]):([0-5]\d)$/.exec(time);
+  if (!match) return time;
+  const date = new Date(2000, 0, 1, Number(match[1]), Number(match[2]));
+  return date.toLocaleTimeString(locale === 'en' ? 'en-US' : 'de-DE', {
+    hour: locale === 'en' ? 'numeric' : '2-digit',
+    minute: '2-digit',
+    hour12: locale === 'en',
+  });
+}
+
 export function formatShortDate(date: string) {
   return new Date(`${date}T12:00:00`).toLocaleDateString('en-US', {
     month: 'short',
@@ -25,7 +37,15 @@ function escapeIcsText(value: string) {
 }
 
 export function generateIcsFeed(
-  shows: { date: string; venue: string; city: string; country: string; description?: string; ticketUrl?: string }[],
+  shows: {
+    date: string;
+    time?: string;
+    venue: string;
+    city: string;
+    country: string;
+    description?: string;
+    ticketUrl?: string;
+  }[],
   bandName: string,
   siteUrl: string,
 ) {
@@ -37,12 +57,16 @@ export function generateIcsFeed(
       const description = [show.description, show.ticketUrl ? `Tickets: ${show.ticketUrl}` : '']
         .filter(Boolean)
         .join('\\n');
+      const timeMatch = show.time?.match(/^([01]\d|2[0-3]):([0-5]\d)$/);
+      const dtStart = timeMatch
+        ? `DTSTART:${dateKey}T${timeMatch[1]}${timeMatch[2]}00`
+        : `DTSTART;VALUE=DATE:${dateKey}`;
 
       return [
         'BEGIN:VEVENT',
         `UID:${uid}`,
         `DTSTAMP:${dateKey}T120000Z`,
-        `DTSTART;VALUE=DATE:${dateKey}`,
+        dtStart,
         `SUMMARY:${escapeIcsText(`${bandName} — ${show.venue}`)}`,
         `LOCATION:${escapeIcsText(location)}`,
         description ? `DESCRIPTION:${escapeIcsText(description)}` : '',
