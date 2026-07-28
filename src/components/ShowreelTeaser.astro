@@ -1,6 +1,6 @@
 ---
 import type { Locale, Showreel } from '../lib/types';
-import { pickLocalized } from '../lib/i18n';
+import { getUi, pickLocalized } from '../lib/i18n';
 
 interface Props {
   showreel: Showreel;
@@ -8,6 +8,7 @@ interface Props {
 }
 
 const { showreel, locale } = Astro.props;
+const ui = getUi(locale);
 
 const videoUrl = showreel.videoUrl?.trim();
 const title = pickLocalized(showreel.title, locale) || 'Showreel';
@@ -25,11 +26,96 @@ const title = pickLocalized(showreel.title, locale) || 'Showreel';
         muted
         loop
         playsinline
+        data-showreel-video
       />
       <div class="showreel-fade" aria-hidden="true" />
+      <button
+        type="button"
+        class="showreel-mute btn btn-outline btn-sm"
+        data-showreel-mute
+        data-label-unmute={ui.home.unmute}
+        data-label-mute={ui.home.mute}
+        aria-pressed="true"
+        aria-label={ui.home.unmute}
+      >
+        <svg
+          class="showreel-mute-icon showreel-mute-icon--off"
+          viewBox="0 0 24 24"
+          width="16"
+          height="16"
+          aria-hidden="true"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <line x1="23" y1="9" x2="17" y2="15"></line>
+          <line x1="17" y1="9" x2="23" y2="15"></line>
+        </svg>
+        <svg
+          class="showreel-mute-icon showreel-mute-icon--on is-hidden"
+          viewBox="0 0 24 24"
+          width="16"
+          height="16"
+          aria-hidden="true"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+          <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+        </svg>
+        <span data-showreel-mute-label>{ui.home.unmute}</span>
+      </button>
     </div>
   )
 }
+
+<script>
+  function bindShowreelMute(root: ParentNode = document) {
+    root.querySelectorAll<HTMLButtonElement>('[data-showreel-mute]').forEach((button) => {
+      if (button.dataset.bound === '1') return;
+      button.dataset.bound = '1';
+
+      const teaser = button.closest('.showreel-teaser');
+      const video = teaser?.querySelector<HTMLVideoElement>('[data-showreel-video]');
+      if (!video) return;
+
+      const label = button.querySelector<HTMLElement>('[data-showreel-mute-label]');
+      const iconOff = button.querySelector<HTMLElement>('.showreel-mute-icon--off');
+      const iconOn = button.querySelector<HTMLElement>('.showreel-mute-icon--on');
+      const unmuteLabel = button.dataset.labelUnmute ?? 'Unmute';
+      const muteLabel = button.dataset.labelMute ?? 'Mute';
+
+      const sync = () => {
+        const muted = video.muted;
+        button.setAttribute('aria-pressed', muted ? 'true' : 'false');
+        button.setAttribute('aria-label', muted ? unmuteLabel : muteLabel);
+        if (label) label.textContent = muted ? unmuteLabel : muteLabel;
+        iconOff?.classList.toggle('is-hidden', !muted);
+        iconOn?.classList.toggle('is-hidden', muted);
+      };
+
+      button.addEventListener('click', () => {
+        video.muted = !video.muted;
+        if (!video.muted) {
+          void video.play().catch(() => {});
+        }
+        sync();
+      });
+
+      sync();
+    });
+  }
+
+  bindShowreelMute();
+  document.addEventListener('astro:page-load', () => bindShowreelMute());
+</script>
 
 <style>
   .showreel-teaser {
@@ -61,5 +147,33 @@ const title = pickLocalized(showreel.title, locale) || 'Showreel';
       transparent 82%,
       rgba(9, 9, 11, 0.2) 100%
     );
+  }
+
+  .showreel-mute {
+    position: absolute;
+    z-index: 2;
+    right: var(--space-sm);
+    bottom: var(--space-sm);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: rgba(9, 9, 11, 0.72);
+    backdrop-filter: blur(8px);
+    color: var(--color-text);
+    border-color: rgba(244, 240, 234, 0.28);
+  }
+
+  .showreel-mute:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+    background: rgba(9, 9, 11, 0.85);
+  }
+
+  .showreel-mute-icon {
+    flex-shrink: 0;
+  }
+
+  .showreel-mute-icon.is-hidden {
+    display: none;
   }
 </style>

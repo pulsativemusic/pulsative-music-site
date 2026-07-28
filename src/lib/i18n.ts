@@ -22,6 +22,8 @@ const ui = {
     home: {
       showreel: 'Showreel',
       playTeaser: 'Teaser abspielen',
+      unmute: 'Ton an',
+      mute: 'Ton aus',
       upcomingShows: 'Nächste Termine',
       allDates: 'Alle Termine',
       scroll: 'Scroll',
@@ -112,6 +114,8 @@ const ui = {
     home: {
       showreel: 'Showreel',
       playTeaser: 'Play teaser',
+      unmute: 'Unmute',
+      mute: 'Mute',
       upcomingShows: 'Upcoming Dates',
       allDates: 'All Dates',
       scroll: 'Scroll',
