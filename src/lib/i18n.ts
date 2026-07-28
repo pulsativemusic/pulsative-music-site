@@ -42,11 +42,6 @@ const ui = {
     fotos: {
       kicker: 'Fotos',
       title: 'Fotos',
-      tryDome: 'Dome-Galerie ausprobieren',
-      backToGrid: 'Zurück zur Raster-Galerie',
-      domeKicker: 'Experiment',
-      domeTitle: 'Dome-Galerie',
-      domeNote: 'Interaktiver Test — ziehen zum Drehen, tippen zum Vergrößern.',
     },
     about: {
       kicker: 'Die Band',
@@ -134,11 +129,6 @@ const ui = {
     fotos: {
       kicker: 'Photos',
       title: 'Photos',
-      tryDome: 'Try dome gallery',
-      backToGrid: 'Back to grid gallery',
-      domeKicker: 'Experiment',
-      domeTitle: 'Dome Gallery',
-      domeNote: 'Interactive test — drag to rotate, tap to enlarge.',
     },
     about: {
       kicker: 'The Band',

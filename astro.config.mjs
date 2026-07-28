@@ -47,7 +47,6 @@ export default defineConfig({
       styleDirective: {
         resources: [
           { resource: "'self'", kind: 'element' },
-          // React islands (DomeGallery) use style attributes.
           { resource: "'unsafe-inline'", kind: 'attribute' },
         ],
       },
