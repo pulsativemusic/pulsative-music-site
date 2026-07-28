@@ -4,7 +4,10 @@ import { CogIcon } from '@sanity/icons/Cog';
 import { DesktopIcon } from '@sanity/icons/Desktop';
 import { EyeClosedIcon } from '@sanity/icons/EyeClosed';
 import { ImagesIcon } from '@sanity/icons/Images';
+import { UsersIcon } from '@sanity/icons/Users';
 import type { StructureResolver } from 'sanity/structure';
+
+const ABOUT_PAGE_ID = 'page-about';
 
 export const structure: StructureResolver = (S) =>
   S.list()
@@ -28,6 +31,15 @@ export const structure: StructureResolver = (S) =>
             .items([S.documentTypeListItem('show').title('Live Dates')]),
         ),
       S.listItem()
+        .title('About')
+        .icon(UsersIcon)
+        .child(
+          S.document()
+            .schemaType('page')
+            .documentId(ABOUT_PAGE_ID)
+            .title('About'),
+        ),
+      S.listItem()
         .title('Media')
         .icon(ImagesIcon)
         .child(
@@ -45,7 +57,17 @@ export const structure: StructureResolver = (S) =>
           S.list()
             .title('Website')
             .items([
-              S.documentTypeListItem('page').title('Pages'),
+              S.listItem()
+                .title('Pages')
+                .child(
+                  S.documentTypeList('page')
+                    .title('Pages')
+                    .filter('_type == "page" && !(_id in [$aboutId, $aboutDraftId])')
+                    .params({
+                      aboutId: ABOUT_PAGE_ID,
+                      aboutDraftId: `drafts.${ABOUT_PAGE_ID}`,
+                    }),
+                ),
               S.documentTypeListItem('legalPage').title('Legal Pages'),
             ]),
         ),

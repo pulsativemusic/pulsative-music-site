@@ -129,6 +129,15 @@ export const siteSettings = defineType({
       description: 'Optional. Shown on the Live page. Leave empty to hide.',
     }),
     defineField({
+      name: 'showAboutPage',
+      title: 'Show About Page',
+      type: 'boolean',
+      group: 'about',
+      initialValue: true,
+      description:
+        'Shows the About nav link and /about page. When off, /about redirects to the homepage.',
+    }),
+    defineField({
       name: 'aboutImage',
       title: 'About Page Image',
       type: 'image',

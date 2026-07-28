@@ -141,15 +141,6 @@ export const siteSettings = defineType({
         'Shows the Fotos nav link and /fotos page. When off, /fotos redirects to the homepage.',
     }),
     defineField({
-      name: 'showAboutPage',
-      title: 'Show About Page',
-      type: 'boolean',
-      group: 'navigation',
-      initialValue: true,
-      description:
-        'Shows the About nav link and /about page. When off, /about redirects to the homepage.',
-    }),
-    defineField({
       name: 'showContactPage',
       title: 'Show Contact Page',
       type: 'boolean',
@@ -175,6 +166,15 @@ export const siteSettings = defineType({
       group: 'live',
       options: { hotspot: true },
       description: 'Optional. Shown on the Live page. Leave empty to hide.',
+    }),
+    defineField({
+      name: 'showAboutPage',
+      title: 'Show About Page',
+      type: 'boolean',
+      group: 'about',
+      initialValue: true,
+      description:
+        'Shows the About nav link and /about page. When off, /about redirects to the homepage.',
     }),
     defineField({
       name: 'aboutImage',
