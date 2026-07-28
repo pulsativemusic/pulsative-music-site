@@ -16,19 +16,7 @@ if (!isNavPageEnabled(settings, 'about')) {
   return Astro.redirect(pathFor('home', locale));
 }
 
-const aboutContent = await getAboutContent(locale);
-const settingsBio =
-  locale === 'en'
-    ? settings.aboutBio?.en?.length
-      ? settings.aboutBio.en
-      : settings.aboutBio?.de
-    : settings.aboutBio?.de;
-const about = {
-  ...aboutContent,
-  // Site settings wins; page document is fallback for older content
-  bandPhotoUrl: settings.aboutImageUrl ?? aboutContent.bandPhotoUrl,
-  bio: settingsBio?.length ? settingsBio : aboutContent.bio,
-};
+const about = await getAboutContent(locale);
 const ui = getUi(locale);
 ---
 

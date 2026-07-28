@@ -280,7 +280,7 @@ export async function getAboutContent(locale: Locale = 'de'): Promise<AboutConte
   }
 
   const about = await fetchSanity<AboutRow | null>(queries.about);
-  if (!about) {
+  if (!about?.bio?.length && !about?.bioEn?.length) {
     const bio =
       locale === 'en' && mockAbout.bioEn?.length ? mockAbout.bioEn : mockAbout.bio;
     return { ...mockAbout, bio };

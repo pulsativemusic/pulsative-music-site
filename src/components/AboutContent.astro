@@ -1,6 +1,6 @@
 ---
 import type { AboutContent } from '../lib/types';
-import { portableTextToPlainText } from '../lib/portable-text';
+import { portableTextToHtml } from '../lib/portable-text';
 
 interface AboutUi {
   lineup: string;
@@ -13,7 +13,7 @@ interface Props {
 }
 
 const { about, bandName, ui } = Astro.props;
-const bioText = portableTextToPlainText(about.bio);
+const bioHtml = portableTextToHtml(about.bio);
 ---
 
 <div class="about-grid">
@@ -30,11 +30,7 @@ const bioText = portableTextToPlainText(about.bio);
     )
   }
 
-  <div class="bio reveal">
-    {bioText.split('\n\n').map((paragraph) => (
-      <p>{paragraph}</p>
-    ))}
-  </div>
+  {bioHtml && <div class="bio reveal" set:html={bioHtml} />}
 
   {
     about.members.length > 0 && (
@@ -79,6 +75,18 @@ const bioText = portableTextToPlainText(about.bio);
     max-width: 42rem;
     font-size: 1.1rem;
     line-height: 1.8;
+  }
+
+  .bio :global(p) {
+    margin-bottom: 1em;
+  }
+
+  .bio :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .bio :global(strong) {
+    font-weight: 700;
   }
 
   .member-grid {

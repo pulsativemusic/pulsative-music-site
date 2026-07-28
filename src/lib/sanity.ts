@@ -184,17 +184,26 @@ export const queries = {
     "fileUrl": file.asset->url
   }`,
 
-  about: `*[_type == "page" && slug.current == "about"][0]{
-    "bio": sections[_type == "richText" && heading == "Bio"][0].body,
-    "bioEn": sections[_type == "richText" && heading == "Bio (EN)"][0].body,
-    "bandPhoto": sections[_type == "imageGrid"][0].images[0]${imageProjection},
-    "members": sections[_type == "memberGrid"][0].members[]{
+  about: `{
+    "bio": coalesce(
+      *[_id == "siteSettings"][0].aboutBio.de,
+      *[_type == "page" && slug.current == "about"][0].sections[_type == "richText" && heading == "Bio"][0].body
+    ),
+    "bioEn": coalesce(
+      *[_id == "siteSettings"][0].aboutBio.en,
+      *[_type == "page" && slug.current == "about"][0].sections[_type == "richText" && heading == "Bio (EN)"][0].body
+    ),
+    "bandPhoto": coalesce(
+      *[_id == "siteSettings"][0].aboutImage${imageProjection},
+      *[_type == "page" && slug.current == "about"][0].sections[_type == "imageGrid"][0].images[0]${imageProjection}
+    ),
+    "members": *[_type == "page" && slug.current == "about"][0].sections[_type == "memberGrid"][0].members[]{
       name,
       role,
       bio,
       "photo": photo${imageProjection}
     },
-    "pressQuotes": sections[_type == "pressQuotes"][0].quotes[]{quote, source}
+    "pressQuotes": *[_type == "page" && slug.current == "about"][0].sections[_type == "pressQuotes"][0].quotes[]{quote, source}
   }`,
 
   legalPage: `*[_type == "legalPage" && slug == $slug && locale == $locale][0]{
