@@ -77,10 +77,22 @@ export function isAnnouncementBannerVisible(
 
 type SiteSettingsRow = Omit<
   SiteSettings,
-  'showreelPosterUrl' | 'heroImageUrl' | 'heroObjectPosition' | 'logoUrl'
+  | 'showreelPosterUrl'
+  | 'heroImageUrl'
+  | 'heroImageMobileUrl'
+  | 'heroImageDesktopUrl'
+  | 'heroImageWideUrl'
+  | 'heroObjectPosition'
+  | 'heroObjectPositionMobile'
+  | 'heroObjectPositionDesktop'
+  | 'heroObjectPositionWide'
+  | 'logoUrl'
 > & {
   showreelPoster?: SanityImage;
   heroImage?: SanityImage;
+  heroImageMobile?: SanityImage;
+  heroImageDesktop?: SanityImage;
+  heroImageWide?: SanityImage;
   logo?: SanityImage;
 };
 
@@ -94,14 +106,46 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     return mockSiteSettings;
   }
 
-  const { showreelPoster, heroImage, logo, ...rest } = settings;
+  const {
+    showreelPoster,
+    heroImage,
+    heroImageMobile,
+    heroImageDesktop,
+    heroImageWide,
+    logo,
+    ...rest
+  } = settings;
+
+  const heroFallbackUrl = getImageUrl(heroImage);
+  const heroDesktopUrl =
+    getImageUrl(heroImageDesktop, { width: 1440 }) ?? heroFallbackUrl;
+  const heroMobileUrl =
+    getImageUrl(heroImageMobile, { width: 1100 }) ?? heroFallbackUrl;
+  const heroWideUrl =
+    getImageUrl(heroImageWide, { width: 1920 }) ?? heroDesktopUrl ?? heroFallbackUrl;
+
+  const heroPosFallback = objectPositionFromHotspot(heroImage?.hotspot);
+  const heroPosDesktop =
+    objectPositionFromHotspot(heroImageDesktop?.hotspot) ?? heroPosFallback;
+  const heroPosMobile =
+    objectPositionFromHotspot(heroImageMobile?.hotspot) ?? heroPosFallback;
+  const heroPosWide =
+    objectPositionFromHotspot(heroImageWide?.hotspot) ??
+    heroPosDesktop ??
+    heroPosFallback;
 
   return {
     ...mockSiteSettings,
     ...rest,
     showreelPosterUrl: getImageUrl(showreelPoster),
-    heroImageUrl: getImageUrl(heroImage),
-    heroObjectPosition: objectPositionFromHotspot(heroImage?.hotspot),
+    heroImageUrl: heroFallbackUrl,
+    heroImageMobileUrl: heroMobileUrl,
+    heroImageDesktopUrl: heroDesktopUrl,
+    heroImageWideUrl: heroWideUrl,
+    heroObjectPosition: heroPosFallback,
+    heroObjectPositionMobile: heroPosMobile,
+    heroObjectPositionDesktop: heroPosDesktop,
+    heroObjectPositionWide: heroPosWide,
     logoUrl: getImageUrl(logo),
     socials:
       settings.socials && settings.socials.length > 0

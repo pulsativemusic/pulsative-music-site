@@ -58,8 +58,14 @@ export interface SiteSettings {
   phone?: string;
   socials: SocialLink[];
   heroImageUrl?: string;
-  /** CSS object-position from Sanity hero hotspot */
+  heroImageMobileUrl?: string;
+  heroImageDesktopUrl?: string;
+  heroImageWideUrl?: string;
+  /** CSS object-position from Sanity hero hotspot (fallback / legacy) */
   heroObjectPosition?: string;
+  heroObjectPositionMobile?: string;
+  heroObjectPositionDesktop?: string;
+  heroObjectPositionWide?: string;
   heroVideoUrl?: string;
   logoUrl?: string;
   showreelVideoUrl?: string;

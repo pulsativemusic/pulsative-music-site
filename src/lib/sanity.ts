@@ -104,6 +104,9 @@ export const queries = {
     "showreelVideoUrl": showreelVideo.asset->url,
     socials[]{platform, url},
     "heroImage": heroImage${imageProjection},
+    "heroImageMobile": heroImageMobile${imageProjection},
+    "heroImageDesktop": heroImageDesktop${imageProjection},
+    "heroImageWide": heroImageWide${imageProjection},
     "heroVideoUrl": heroVideo.asset->url,
     "logo": logo${imageProjection}
   }`,

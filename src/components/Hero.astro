@@ -14,13 +14,31 @@ const { settings, locale, showreel = null } = Astro.props;
 const ui = getUi(locale);
 const taglineLine1 = pickLocalized(settings.taglineLine1, locale);
 const taglineLine2 = pickLocalized(settings.taglineLine2, locale);
+
+const heroMobileUrl = settings.heroImageMobileUrl ?? settings.heroImageUrl;
+const heroDesktopUrl = settings.heroImageDesktopUrl ?? settings.heroImageUrl;
+const heroWideUrl = settings.heroImageWideUrl ?? heroDesktopUrl ?? settings.heroImageUrl;
+
+const heroStackStyle = [
+  settings.heroObjectPositionMobile || settings.heroObjectPosition
+    ? `--hero-pos-mobile: ${settings.heroObjectPositionMobile ?? settings.heroObjectPosition}`
+    : null,
+  settings.heroObjectPositionDesktop || settings.heroObjectPosition
+    ? `--hero-pos-desktop: ${settings.heroObjectPositionDesktop ?? settings.heroObjectPosition}`
+    : null,
+  settings.heroObjectPositionWide ||
+  settings.heroObjectPositionDesktop ||
+  settings.heroObjectPosition
+    ? `--hero-pos-wide: ${settings.heroObjectPositionWide ?? settings.heroObjectPositionDesktop ?? settings.heroObjectPosition}`
+    : null,
+]
+  .filter(Boolean)
+  .join('; ');
 ---
 
 <div
   class="home-hero-stack"
-  style={settings.heroObjectPosition
-    ? `--hero-object-position: ${settings.heroObjectPosition}`
-    : undefined}
+  style={heroStackStyle || undefined}
 >
   <section class="hero">
     {
@@ -35,15 +53,23 @@ const taglineLine2 = pickLocalized(settings.taglineLine2, locale);
           poster={settings.heroImageUrl}
         />
       ) : (
-        settings.heroImageUrl && (
-          <img
-            class="hero-bg"
-            src={settings.heroImageUrl}
-            alt=""
-            fetchpriority="high"
-            width={1920}
-            height={1080}
-          />
+        heroMobileUrl && (
+          <picture>
+            {heroWideUrl && (
+              <source media="(min-width: 1440px)" srcset={heroWideUrl} />
+            )}
+            {heroDesktopUrl && (
+              <source media="(min-width: 1101px)" srcset={heroDesktopUrl} />
+            )}
+            <img
+              class="hero-bg"
+              src={heroMobileUrl}
+              alt=""
+              fetchpriority="high"
+              width={1920}
+              height={1080}
+            />
+          </picture>
         )
       )
     }
@@ -111,7 +137,19 @@ const taglineLine2 = pickLocalized(settings.taglineLine2, locale);
     height: 100%;
     max-width: none;
     object-fit: cover;
-    object-position: var(--hero-object-position, center top);
+    object-position: var(--hero-pos-mobile, center top);
+  }
+
+  @media (min-width: 1101px) {
+    .hero-bg {
+      object-position: var(--hero-pos-desktop, var(--hero-pos-mobile, center top));
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .hero-bg {
+      object-position: var(--hero-pos-wide, var(--hero-pos-desktop, center top));
+    }
   }
 
   .hero-overlay {

@@ -61,6 +61,9 @@ export const mockSiteSettings: SiteSettings = {
   },
   showreelPosterUrl: '/images/hero.png',
   heroImageUrl: '/images/hero.png',
+  heroImageMobileUrl: '/images/hero.png',
+  heroImageDesktopUrl: '/images/hero.png',
+  heroImageWideUrl: '/images/hero.png',
   socials: [
     { platform: 'Instagram', url: 'https://instagram.com/pulsative.music' },
   ],
