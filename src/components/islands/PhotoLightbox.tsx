@@ -7,21 +7,37 @@ interface PhotoLightboxProps {
   downloadLabel?: string;
 }
 
-function syncDownloadLink(link: HTMLAnchorElement, pswp: {
-  currSlide?: { data: { src?: string; element?: HTMLElement } } | null;
-}) {
-  const trigger = pswp.currSlide?.data.element;
-  const originalUrl = trigger?.dataset.downloadSrc || pswp.currSlide?.data.src;
-  const filename = trigger?.dataset.downloadFilename;
-
-  if (!originalUrl) return;
-
-  link.href = originalUrl;
-  if (filename) {
-    link.setAttribute('download', filename);
-  } else {
-    link.setAttribute('download', '');
+function filenameFromUrl(url: string): string {
+  try {
+    const name = new URL(url).pathname.split('/').pop();
+    return name && name.length > 0 ? name : 'photo.jpg';
+  } catch {
+    return 'photo.jpg';
   }
+}
+
+function currentDownload(pswp: {
+  currSlide?: { data: { src?: string; element?: HTMLElement } } | null;
+}): { url: string; filename: string } | null {
+  const trigger = pswp.currSlide?.data.element;
+  const url = trigger?.dataset.downloadSrc || pswp.currSlide?.data.src;
+  if (!url) return null;
+  return {
+    url,
+    filename: trigger?.dataset.downloadFilename || filenameFromUrl(url),
+  };
+}
+
+/** Same-origin proxy sets Content-Disposition: attachment (Sanity CDN blocks CORS fetch). */
+function triggerSaveToDevice(src: string, filename: string): void {
+  const params = new URLSearchParams({ src, filename });
+  const anchor = document.createElement('a');
+  anchor.href = `/api/download?${params.toString()}`;
+  anchor.rel = 'noopener';
+  // Same-origin + Content-Disposition from the proxy → Save dialog
+  document.body.appendChild(anchor);
+  anchor.click();
+  anchor.remove();
 }
 
 export default function PhotoLightbox({ downloadLabel = 'Download' }: PhotoLightboxProps) {
@@ -43,7 +59,7 @@ export default function PhotoLightbox({ downloadLabel = 'Download' }: PhotoLight
         name: 'download-button',
         order: 8,
         isButton: true,
-        tagName: 'a',
+        tagName: 'button',
         title: downloadLabel,
         ariaLabel: downloadLabel,
         html: {
@@ -52,14 +68,13 @@ export default function PhotoLightbox({ downloadLabel = 'Download' }: PhotoLight
             '<path d="M20.5 14.3 17.1 18V10h-2.2v7.9l-3.4-3.6L10 16l6 6.1 6-6.1ZM23 23H9v2h14Z" id="pswp__icn-download"/>',
           outlineID: 'pswp__icn-download',
         },
-        onInit: (el, pswp) => {
-          const link = el as HTMLAnchorElement;
-          link.setAttribute('target', '_blank');
-          link.setAttribute('rel', 'noopener');
-          syncDownloadLink(link, pswp);
-          pswp.on('change', () => {
-            syncDownloadLink(link, pswp);
-          });
+        onClick: (event, _el, pswp) => {
+          event.preventDefault();
+          event.stopPropagation();
+
+          const target = currentDownload(pswp);
+          if (!target) return;
+          triggerSaveToDevice(target.url, target.filename);
         },
       });
 

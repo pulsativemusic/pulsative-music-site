@@ -1,9 +1,13 @@
 name = "pulsative-music-site"
 compatibility_date = "2026-01-01"
+main = "worker/index.ts"
 
 # Workers static assets (not Pages). Skips wrangler autoconfig so
 # `npx wrangler deploy` works in this pnpm workspace.
 [assets]
 directory = "./dist"
+binding = "ASSETS"
 not_found_handling = "404-page"
 html_handling = "auto-trailing-slash"
+# Only invoke the Worker for the download proxy; everything else stays static.
+run_worker_first = ["/api/download"]

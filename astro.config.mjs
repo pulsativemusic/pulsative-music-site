@@ -37,7 +37,7 @@ export default defineConfig({
         "font-src 'self'",
         "media-src 'self' blob: https://cdn.sanity.io",
         "frame-src https://player.vimeo.com https://www.youtube.com https://www.youtube-nocookie.com",
-        "connect-src 'self' https://static.cloudflareinsights.com",
+        "connect-src 'self' https://cdn.sanity.io https://static.cloudflareinsights.com",
         "worker-src 'self' blob:",
         'upgrade-insecure-requests',
       ],
@@ -89,5 +89,42 @@ export default defineConfig({
     ssr: {
       noExternal: ['photoswipe'],
     },
+    plugins: [
+      {
+        name: 'sanity-download-proxy',
+        configureServer(server) {
+          server.middlewares.use(async (req, res, next) => {
+            if (!req.url?.startsWith('/api/download')) {
+              next();
+              return;
+            }
+
+            try {
+              const { proxySanityDownload } = await import('./worker/download-asset.ts');
+              const url = new URL(req.url, 'http://localhost');
+              const src = url.searchParams.get('src');
+              const filename = url.searchParams.get('filename') || 'photo.jpg';
+              if (!src) {
+                res.statusCode = 400;
+                res.end('Missing src');
+                return;
+              }
+
+              const response = await proxySanityDownload(src, filename);
+              res.statusCode = response.status;
+              response.headers.forEach((value, key) => {
+                res.setHeader(key, value);
+              });
+              const body = Buffer.from(await response.arrayBuffer());
+              res.end(body);
+            } catch (error) {
+              console.error('[download-proxy]', error);
+              res.statusCode = 500;
+              res.end('Download proxy failed');
+            }
+          });
+        },
+      },
+    ],
   },
 });
