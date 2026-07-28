@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../components/layout/BaseLayout.astro';
-import SocialLinks from '../components/SocialLinks.astro';
 import { getSiteSettings, isNavPageEnabled } from '../lib/data';
 import { getUi, pathFor } from '../lib/i18n';
 import type { Locale } from '../lib/types';
@@ -47,11 +46,6 @@ const ui = getUi(locale);
           </div>
         )
       }
-
-      <div class="contact-block reveal reveal-delay-2">
-        <h2 class="block-title">{ui.contact.social}</h2>
-        <SocialLinks socials={settings.socials} />
-      </div>
     </div>
   </section>
 </BaseLayout>
