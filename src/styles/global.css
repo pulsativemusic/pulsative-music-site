@@ -5,8 +5,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: optional;
-  src: url('https://fonts.gstatic.com/s/michroma/v21/PN_zRfy9qWD8fEagAPg9pTn5_PDb.woff2')
-    format('woff2');
+  src: url('/fonts/michroma-400.woff2') format('woff2');
 }
 
 @font-face {
@@ -14,8 +13,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: optional;
-  src: url('https://fonts.gstatic.com/s/dmsans/v17/rP2Yp2ywxg089UriI5-g4vlH9VoD8Cmcqbu0-K6z9mXg.woff2')
-    format('woff2');
+  src: url('/fonts/dm-sans-400.woff2') format('woff2');
 }
 
 @font-face {
@@ -23,8 +21,7 @@
   font-style: normal;
   font-weight: 600;
   font-display: optional;
-  src: url('https://fonts.gstatic.com/s/dmsans/v17/rP2Yp2ywxg089UriI5-g4vlH9VoD8Cmcqbu0-K6z9mXg.woff2')
-    format('woff2');
+  src: url('/fonts/dm-sans-600.woff2') format('woff2');
 }
 
 *,

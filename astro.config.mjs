@@ -34,7 +34,7 @@ export default defineConfig({
         "form-action 'self'",
         "object-src 'none'",
         "img-src 'self' data: blob: https://cdn.sanity.io https://images.unsplash.com https://pbs.twimg.com",
-        "font-src 'self' https://fonts.gstatic.com",
+        "font-src 'self'",
         "media-src 'self' blob: https://cdn.sanity.io",
         "frame-src https://player.vimeo.com https://www.youtube.com https://www.youtube-nocookie.com",
         "connect-src 'self' https://static.cloudflareinsights.com",
