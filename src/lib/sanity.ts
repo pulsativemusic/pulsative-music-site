@@ -100,6 +100,7 @@ export const queries = {
     liveIntro,
     "liveImage": liveImage${imageProjection},
     "aboutImage": aboutImage${imageProjection},
+    aboutBio,
     showHomepageUpcomingDates,
     showLivePage,
     showVideosPage,

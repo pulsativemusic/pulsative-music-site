@@ -7,6 +7,11 @@ export interface LocalizedString {
   en?: string;
 }
 
+export interface LocalizedPortableText {
+  de?: PortableTextBlock[];
+  en?: PortableTextBlock[];
+}
+
 export interface SanityImage {
   asset?: {
     _id?: string;
@@ -51,6 +56,8 @@ export interface SiteSettings {
   liveImageUrl?: string;
   /** Optional band photo on the About page. */
   aboutImageUrl?: string;
+  /** Optional About bio (rich text). Site settings wins over the About page document. */
+  aboutBio?: LocalizedPortableText;
   showHomepageUpcomingDates?: boolean;
   showLivePage?: boolean;
   showVideosPage?: boolean;

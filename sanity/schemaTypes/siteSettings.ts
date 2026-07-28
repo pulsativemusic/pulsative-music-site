@@ -1,6 +1,6 @@
 import { CogIcon } from '@sanity/icons/Cog';
 import { defineField, defineType } from 'sanity';
-import { localizedString } from './localized';
+import { localizedBlockContent, localizedString } from './localized';
 
 const socialPlatformOptions = [
   { title: 'Instagram', value: 'Instagram' },
@@ -184,6 +184,7 @@ export const siteSettings = defineType({
       options: { hotspot: true },
       description: 'Optional band photo on the About page. Leave empty to hide.',
     }),
+    localizedBlockContent('aboutBio', 'About Bio', 'about'),
 
     defineField({
       name: 'showAnnouncementBanner',

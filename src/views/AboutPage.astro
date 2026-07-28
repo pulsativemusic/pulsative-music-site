@@ -17,10 +17,17 @@ if (!isNavPageEnabled(settings, 'about')) {
 }
 
 const aboutContent = await getAboutContent(locale);
+const settingsBio =
+  locale === 'en'
+    ? settings.aboutBio?.en?.length
+      ? settings.aboutBio.en
+      : settings.aboutBio?.de
+    : settings.aboutBio?.de;
 const about = {
   ...aboutContent,
-  // Site settings wins; page imageGrid is fallback for older content
+  // Site settings wins; page document is fallback for older content
   bandPhotoUrl: settings.aboutImageUrl ?? aboutContent.bandPhotoUrl,
+  bio: settingsBio?.length ? settingsBio : aboutContent.bio,
 };
 const ui = getUi(locale);
 ---
