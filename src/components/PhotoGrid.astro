@@ -1,5 +1,4 @@
 ---
-import { orientationClass } from '../lib/media';
 import { pickLocalized } from '../lib/i18n';
 import type { Locale, Photo } from '../lib/types';
 
@@ -11,31 +10,42 @@ interface Props {
 const { photos, locale } = Astro.props;
 ---
 
-<div class="photo-grid" data-photo-masonry>
+<div id="pswp-gallery" class="photo-grid" data-photo-masonry>
   {
     photos.length === 0 ? (
       <p class="empty text-muted">No photos yet.</p>
     ) : (
       photos.map((photo) => {
-        const orientation = orientationClass(photo.orientation);
-        const isPortrait = orientation === 'portrait';
+        const title = pickLocalized(photo.title, locale);
+        const caption = photo.credit ? `${title} — ${photo.credit}` : title;
 
         return (
           <article class="photo-card reveal">
-            <div class="photo-frame">
-              <img
-                src={photo.imageUrl}
-                alt={pickLocalized(photo.title, locale)}
-                loading="lazy"
-                width={isPortrait ? 900 : 1600}
-                height={isPortrait ? 1600 : 900}
-                style={photo.objectPosition ? { objectPosition: photo.objectPosition } : undefined}
-              />
-              <div class="photo-meta">
-                <h3>{pickLocalized(photo.title, locale)}</h3>
-                {photo.credit && <p class="photo-credit">{photo.credit}</p>}
+            <a
+              class="photo-lightbox-link"
+              href={photo.imageUrl}
+              data-pswp-width={photo.width}
+              data-pswp-height={photo.height}
+              data-download-src={photo.originalUrl}
+              data-download-filename={photo.downloadFilename ?? undefined}
+              data-pswp-caption={caption}
+              aria-label={title}
+            >
+              <div class="photo-frame">
+                <img
+                  src={photo.imageUrl}
+                  alt={title}
+                  loading="lazy"
+                  width={photo.width}
+                  height={photo.height}
+                  style={photo.objectPosition ? { objectPosition: photo.objectPosition } : undefined}
+                />
+                <div class="photo-meta">
+                  <h3>{title}</h3>
+                  {photo.credit && <p class="photo-credit">{photo.credit}</p>}
+                </div>
               </div>
-            </div>
+            </a>
           </article>
         );
       })
@@ -120,6 +130,18 @@ const { photos, locale } = Astro.props;
 
   .photo-card {
     min-width: 0;
+  }
+
+  .photo-lightbox-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    cursor: zoom-in;
+  }
+
+  .photo-lightbox-link:focus-visible {
+    outline: 2px solid var(--color-accent, currentColor);
+    outline-offset: 3px;
   }
 
   .photo-frame {

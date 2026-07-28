@@ -12,6 +12,13 @@ export interface SanityImage {
     _id?: string;
     _ref?: string;
     url?: string;
+    originalFilename?: string;
+    metadata?: {
+      dimensions?: {
+        width: number;
+        height: number;
+      };
+    };
   };
   crop?: {
     top: number;
@@ -112,6 +119,11 @@ export interface Photo {
   _id: string;
   title: LocalizedString | string;
   imageUrl: string;
+  /** Raw Sanity asset URL for max-res download */
+  originalUrl: string;
+  width: number;
+  height: number;
+  downloadFilename?: string;
   /** CSS object-position from Sanity hotspot, e.g. "42% 30%" */
   objectPosition?: string;
   sortOrder: number;

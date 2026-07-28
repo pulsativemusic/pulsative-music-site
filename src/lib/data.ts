@@ -9,7 +9,7 @@ import {
   mockPhotos,
   mockVideos,
 } from './mock-data';
-import { fetchSanity, getImageUrl, isSanityConfigured, objectPositionFromHotspot, queries } from './sanity';
+import { fetchSanity, getImageUrl, isSanityConfigured, dimensionsAfterCrop, objectPositionFromHotspot, queries } from './sanity';
 import type {
   AboutContent,
   BandMember,
@@ -202,7 +202,7 @@ export async function getVideos(): Promise<Video[]> {
   );
 }
 
-type PhotoRow = Omit<Photo, 'imageUrl'> & {
+type PhotoRow = Omit<Photo, 'imageUrl' | 'originalUrl' | 'width' | 'height' | 'downloadFilename'> & {
   image?: SanityImage;
 };
 
@@ -213,12 +213,19 @@ export async function getPhotos(): Promise<Photo[]> {
 
   const rows = await fetchSanity<PhotoRow[]>(queries.photos);
   return rows.flatMap(({ image, ...photo }) => {
-    const imageUrl = getImageUrl(image);
-    if (!imageUrl) return [];
+    const imageUrl = getImageUrl(image, { width: 2400, quality: 85 });
+    const originalUrl = image?.asset?.url;
+    const dims = dimensionsAfterCrop(image);
+    if (!imageUrl || !originalUrl || !dims) return [];
     return [{
       ...photo,
       imageUrl,
-      objectPosition: objectPositionFromHotspot(image?.hotspot),
+      originalUrl,
+      width: dims.width,
+      height: dims.height,
+      downloadFilename: image?.asset?.originalFilename,
+      // Crop is already baked into imageUrl — hotspot position would pan a cropped frame.
+      objectPosition: image?.crop ? undefined : objectPositionFromHotspot(image?.hotspot),
     }];
   });
 }

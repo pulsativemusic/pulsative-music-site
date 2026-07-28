@@ -42,6 +42,7 @@ const ui = {
     fotos: {
       kicker: 'Fotos',
       title: 'Fotos',
+      download: 'Download',
     },
     about: {
       kicker: 'Die Band',
@@ -129,6 +130,7 @@ const ui = {
     fotos: {
       kicker: 'Photos',
       title: 'Photos',
+      download: 'Download',
     },
     about: {
       kicker: 'The Band',

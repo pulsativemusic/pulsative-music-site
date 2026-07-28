@@ -73,6 +73,23 @@ export function objectPositionFromHotspot(
   return `${hotspot.x * 100}% ${hotspot.y * 100}%`;
 }
 
+/** Pixel size after Sanity crop (crop fields are 0–1 insets). */
+export function dimensionsAfterCrop(
+  image: SanityImage | undefined,
+): { width: number; height: number } | undefined {
+  const width = image?.asset?.metadata?.dimensions?.width;
+  const height = image?.asset?.metadata?.dimensions?.height;
+  if (!width || !height) return undefined;
+
+  const crop = image.crop;
+  if (!crop) return { width, height };
+
+  const croppedWidth = Math.round(width * (1 - crop.left - crop.right));
+  const croppedHeight = Math.round(height * (1 - crop.top - crop.bottom));
+  if (croppedWidth < 1 || croppedHeight < 1) return { width, height };
+  return { width: croppedWidth, height: croppedHeight };
+}
+
 export const queries = {
   siteSettings: `*[_type == "siteSettings"][0]{
     _id,
@@ -139,7 +156,11 @@ export const queries = {
     credit,
     orientation,
     sortOrder,
-    "image": image${imageProjection}
+    "image": image{
+      asset->{_id, url, originalFilename, metadata{dimensions{width,height}}},
+      crop,
+      hotspot
+    }
   }`,
 
   releases: `*[_type == "release"] | order(releaseDate desc){
