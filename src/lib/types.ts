@@ -62,7 +62,7 @@ export interface SiteSettings {
   heroObjectPosition?: string;
   heroVideoUrl?: string;
   logoUrl?: string;
-  showreelVimeoId?: string;
+  showreelVideoUrl?: string;
   showreelTitle?: LocalizedString | string;
   showreelDescription?: LocalizedString | string;
   showreelPosterUrl?: string;
@@ -70,7 +70,7 @@ export interface SiteSettings {
 }
 
 export interface Showreel {
-  vimeoId: string;
+  videoUrl: string;
   title?: LocalizedString | string;
   description?: LocalizedString | string;
   posterUrl?: string;

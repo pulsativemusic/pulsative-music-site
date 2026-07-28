@@ -50,7 +50,7 @@ export const mockSiteSettings: SiteSettings = {
   phone: '01577-9588093',
   seoDescription:
     'PULSATIVE — Neo-Brass-Kollektiv aus Köln. House, Techno und EDM live. Termine, Videos, Presse und Booking.',
-  showreelVimeoId: '1203716758',
+  showreelVideoUrl: '/videos/showreel.mp4',
   showreelTitle: {
     de: 'Festival Trailer',
     en: 'Festival Trailer',

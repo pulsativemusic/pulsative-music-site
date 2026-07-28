@@ -151,7 +151,6 @@ const documents = [
     bookingContactName: 'Fabian Junge',
     bookingEmail: 'pulsative@proton.me',
     phone: '01577-9588093',
-    showreelVimeoId: '1203716758',
     showreelTitle: { de: 'Festival Trailer', en: 'Festival Trailer' },
     showreelDescription: {
       de: 'Ein Minutengerüst aus PULSATIVE live — Klick zum Abspielen.',
@@ -470,9 +469,10 @@ function permissionHelp(error) {
 try {
   console.log(`Seeding ${projectId}/${dataset} via ${tokenSource}...`);
 
-  const [heroImage, showreelPoster, bandPhoto, epkFile] = await Promise.all([
+  const [heroImage, showreelPoster, showreelVideo, bandPhoto, epkFile] = await Promise.all([
     uploadImageFromFile('public/images/hero.png', 'hero.png'),
     uploadImageFromFile('public/images/hero.png', 'showreel-poster.png'),
+    uploadFileFromFile('public/videos/showreel.mp4', 'showreel.mp4'),
     uploadImageFromUrl(
       'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=1200&q=80',
       'band-photo.jpg',
@@ -501,6 +501,7 @@ for (const doc of documents) {
   if (doc._type === 'siteSettings') {
     doc.heroImage = imageRef(heroImage);
     doc.showreelPoster = imageRef(showreelPoster);
+    doc.showreelVideo = fileRef(showreelVideo);
   }
 
   if (doc._type === 'show' && showPosterMap[doc._id]) {

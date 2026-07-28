@@ -9,23 +9,22 @@ interface Props {
 
 const { showreel, locale } = Astro.props;
 
-const vimeoId = showreel.vimeoId?.trim();
+const videoUrl = showreel.videoUrl?.trim();
 const title = pickLocalized(showreel.title, locale) || 'Showreel';
-
-const vimeoEmbedUrl = vimeoId
-  ? `https://player.vimeo.com/video/${vimeoId}?autoplay=1&muted=1&loop=1&title=0&byline=0&portrait=0&dnt=1`
-  : null;
 ---
 
 {
-  vimeoEmbedUrl && (
+  videoUrl && (
     <div class="showreel-teaser">
-      <iframe
-        class="showreel-media showreel-media--vimeo"
-        src={vimeoEmbedUrl}
+      <video
+        class="showreel-media"
+        src={videoUrl}
+        poster={showreel.posterUrl}
         title={title}
-        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
-        loading="eager"
+        autoplay
+        muted
+        loop
+        playsinline
       />
       <div class="showreel-fade" aria-hidden="true" />
     </div>

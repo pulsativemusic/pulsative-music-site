@@ -59,11 +59,13 @@ export const siteSettings = defineType({
       options: { accept: 'video/*' },
     }),
     defineField({
-      name: 'showreelVimeoId',
-      title: 'Showreel Vimeo ID',
-      type: 'string',
+      name: 'showreelVideo',
+      title: 'Showreel Video',
+      type: 'file',
       group: 'homepage',
-      description: 'Vimeo video ID for the homepage showreel teaser.',
+      options: { accept: 'video/*' },
+      description:
+        'MP4 (or other video) for the homepage showreel teaser. Leave empty to hide the showreel block.',
     }),
     localizedString('showreelTitle', 'Showreel Title', undefined, 'homepage'),
     localizedString('showreelDescription', 'Showreel Description', 2, 'homepage'),

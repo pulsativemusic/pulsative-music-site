@@ -17,7 +17,7 @@ Open **Site Settings** (single document at the top of the sidebar). Fields are g
 | **Band Name**, **Tagline**, **Short Description** | Homepage text |
 | **Hero Image** | Homepage background (used when no hero video is set) |
 | **Hero Video** | Optional MP4 background — overrides hero image when set |
-| **Showreel Vimeo ID** | Vimeo embed below the hero on the homepage |
+| **Showreel Video** | Optional MP4 below the hero on the homepage |
 | **Showreel Title / Description / Poster** | Optional metadata for the showreel (poster is a loading fallback) |
 | **Live / Videos / Fotos Page Intro** | Intro text on those pages (DE + EN) |
 | **Show Upcoming Dates on Homepage** | When on, future shows appear in the homepage section (only if dates exist) |
@@ -27,7 +27,9 @@ Open **Site Settings** (single document at the top of the sidebar). Fields are g
 | **Announcement Link / Link Label** | Optional CTA — ticket URL or internal page; label defaults to “Mehr erfahren” / “Learn more” if empty |
 | **Booking Email**, **Phone**, **Social Links** | Contact page and header/footer |
 
-**Showreel & videos:** Only the numeric **Vimeo video ID** is needed (e.g. from `vimeo.com/1203716758` → `1203716758`). If **Showreel Vimeo ID** is empty, no showreel block appears on the homepage — no empty box.
+**Showreel:** Upload an MP4 (or other video) under **Showreel Video**. If empty, no showreel block appears on the homepage — no empty box.
+
+**Videos page:** Only the numeric **Vimeo video ID** is needed (e.g. from `vimeo.com/1203716758` → `1203716758`). Entries without a Vimeo ID are not shown.
 
 Click **Publish** when done.
 
@@ -97,7 +99,7 @@ Edit the page intro under **Site Settings** → **Fotos Page Intro**.
 - Keep show dates in the future for the homepage **Upcoming** section (when **Show Upcoming Dates on Homepage** is on)
 - Turn off **Show Live Page** to hide tour dates from navigation while keeping show data in the CMS
 - Turn off **Show Announcement Banner** when the promo is over — you can leave the message in place for next time
-- Clear **Showreel Vimeo ID** or delete a video document to remove it from the site — nothing empty is left behind
+- Clear **Showreel Video** or delete a video document to remove it from the site — nothing empty is left behind
 
 ## Need Help?
 

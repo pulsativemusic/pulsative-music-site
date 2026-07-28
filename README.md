@@ -13,7 +13,7 @@ Astro 7 static site with Sanity CMS for [pulsative.band](https://pulsative.band)
 
 | Route | Content |
 |-------|---------|
-| `/` | Homepage — hero, optional Vimeo showreel, upcoming dates |
+| `/` | Homepage — hero, optional self-hosted showreel, upcoming dates |
 | `/live` | Tour dates |
 | `/videos` | Vimeo embeds (portrait/landscape grid) |
 | `/fotos` | Live photos (masonry grid) |
@@ -23,7 +23,7 @@ Astro 7 static site with Sanity CMS for [pulsative.band](https://pulsative.band)
 | `/en/*` | English versions |
 | `404` | Custom not-found page (`src/pages/404.astro` → `dist/404.html`) |
 
-Missing Vimeo IDs or showreel settings produce **no empty placeholder** — those blocks are omitted entirely.
+Missing showreel video or Vimeo IDs produce **no empty placeholder** — those blocks are omitted entirely.
 
 ## Content (Sanity)
 
