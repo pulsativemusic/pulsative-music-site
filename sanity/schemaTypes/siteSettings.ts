@@ -167,6 +167,14 @@ export const siteSettings = defineType({
         'Shows the Promo Kit nav link and /promo-kit page. When off, /promo-kit redirects to the homepage.',
     }),
     localizedString('liveIntro', 'Live Page Intro', 3, 'live'),
+    defineField({
+      name: 'liveImage',
+      title: 'Live Page Image',
+      type: 'image',
+      group: 'live',
+      options: { hotspot: true },
+      description: 'Optional. Shown on the Live page like the About band photo.',
+    }),
 
     defineField({
       name: 'showAnnouncementBanner',

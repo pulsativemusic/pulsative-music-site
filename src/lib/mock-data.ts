@@ -29,6 +29,8 @@ export const mockSiteSettings: SiteSettings = {
     de: 'PULSATIVE live — Festivals, Clubs und Events in Köln, NRW und Europa.',
     en: 'PULSATIVE live — festivals, clubs, and events across Cologne, NRW, and Europe.',
   },
+  liveImageUrl:
+    'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=1200&q=80',
   videosIntro: {
     de: 'Festival Trailer, Live-Clips und Cover-Performances.',
     en: 'Festival trailer, live clips, and cover performances.',

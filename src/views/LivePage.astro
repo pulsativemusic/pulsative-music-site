@@ -26,6 +26,7 @@ const ui = getUi(locale);
 const upcomingShows = await getUpcomingShows();
 const pastShows = await getPastShows();
 const intro = pickLocalized(settings.liveIntro, locale);
+const liveImageUrl = settings.liveImageUrl;
 ---
 
 <BaseLayout title={ui.live.title} description={intro} settings={settings}>
@@ -38,6 +39,23 @@ const intro = pickLocalized(settings.liveIntro, locale);
       </Button>
     </div>
   </section>
+
+  {
+    liveImageUrl && (
+      <section class="section live-photo-section">
+        <div class="container">
+          <img
+            class="live-photo reveal"
+            src={liveImageUrl}
+            alt={settings.bandName}
+            loading="lazy"
+            width={1200}
+            height={800}
+          />
+        </div>
+      </section>
+    )
+  }
 
   <section class="section shows-section">
     <div class="container">
@@ -95,6 +113,18 @@ const intro = pickLocalized(settings.liveIntro, locale);
   .page-intro {
     max-width: 36rem;
     margin-bottom: var(--space-lg);
+  }
+
+  .live-photo-section {
+    padding-block: 0 var(--space-lg);
+  }
+
+  .live-photo {
+    width: 100%;
+    max-height: 32rem;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
   }
 
   .shows-section {

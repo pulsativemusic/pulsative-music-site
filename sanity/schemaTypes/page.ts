@@ -73,6 +73,8 @@ const imageGrid = defineArrayMember({
   title: 'Image Grid',
   type: 'object',
   icon: ImagesIcon,
+  description:
+    'Optional. On the About page, the first image is used as the band photo — leave empty to hide it.',
   fields: [
     defineField({ name: 'heading', title: 'Heading', type: 'string' }),
     defineField({

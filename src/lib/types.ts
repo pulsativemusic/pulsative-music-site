@@ -47,6 +47,8 @@ export interface SiteSettings {
   taglineLine2?: LocalizedString | string;
   shortDescription?: LocalizedString | string;
   liveIntro?: LocalizedString | string;
+  /** Optional photo on the Live page (like About band photo). */
+  liveImageUrl?: string;
   showHomepageUpcomingDates?: boolean;
   showLivePage?: boolean;
   showVideosPage?: boolean;

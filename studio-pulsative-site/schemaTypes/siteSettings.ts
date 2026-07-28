@@ -119,6 +119,14 @@ export const siteSettings = defineType({
         'Shows the Live nav link and /live page. When off, /live redirects to the homepage.',
     }),
     localizedString('liveIntro', 'Live Page Intro', 3, 'live'),
+    defineField({
+      name: 'liveImage',
+      title: 'Live Page Image',
+      type: 'image',
+      group: 'live',
+      options: { hotspot: true },
+      description: 'Optional. Shown on the Live page like the About band photo.',
+    }),
 
     defineField({
       name: 'showAnnouncementBanner',

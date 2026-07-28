@@ -87,6 +87,7 @@ type SiteSettingsRow = Omit<
   | 'heroObjectPositionDesktop'
   | 'heroObjectPositionWide'
   | 'logoUrl'
+  | 'liveImageUrl'
 > & {
   showreelPoster?: SanityImage;
   heroImage?: SanityImage;
@@ -94,6 +95,7 @@ type SiteSettingsRow = Omit<
   heroImageDesktop?: SanityImage;
   heroImageWide?: SanityImage;
   logo?: SanityImage;
+  liveImage?: SanityImage;
 };
 
 export async function getSiteSettings(): Promise<SiteSettings> {
@@ -113,6 +115,7 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     heroImageDesktop,
     heroImageWide,
     logo,
+    liveImage,
     ...rest
   } = settings;
 
@@ -147,6 +150,7 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     heroObjectPositionDesktop: heroPosDesktop,
     heroObjectPositionWide: heroPosWide,
     logoUrl: getImageUrl(logo),
+    liveImageUrl: getImageUrl(liveImage, { width: 1200 }),
     socials:
       settings.socials && settings.socials.length > 0
         ? settings.socials
