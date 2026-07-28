@@ -16,7 +16,12 @@ if (!isNavPageEnabled(settings, 'about')) {
   return Astro.redirect(pathFor('home', locale));
 }
 
-const about = await getAboutContent(locale);
+const aboutContent = await getAboutContent(locale);
+const about = {
+  ...aboutContent,
+  // Site settings wins; page imageGrid is fallback for older content
+  bandPhotoUrl: settings.aboutImageUrl ?? aboutContent.bandPhotoUrl,
+};
 const ui = getUi(locale);
 ---
 

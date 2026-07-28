@@ -18,6 +18,7 @@ export const siteSettings = defineType({
     { name: 'general', title: 'General', default: true },
     { name: 'homepage', title: 'Homepage' },
     { name: 'live', title: 'Live' },
+    { name: 'about', title: 'About' },
     { name: 'announcement', title: 'Announcement' },
     { name: 'pages', title: 'Page intros' },
     { name: 'contact', title: 'Contact & social' },
@@ -125,7 +126,15 @@ export const siteSettings = defineType({
       type: 'image',
       group: 'live',
       options: { hotspot: true },
-      description: 'Optional. Shown on the Live page like the About band photo.',
+      description: 'Optional. Shown on the Live page. Leave empty to hide.',
+    }),
+    defineField({
+      name: 'aboutImage',
+      title: 'About Page Image',
+      type: 'image',
+      group: 'about',
+      options: { hotspot: true },
+      description: 'Optional band photo on the About page. Leave empty to hide.',
     }),
 
     defineField({
