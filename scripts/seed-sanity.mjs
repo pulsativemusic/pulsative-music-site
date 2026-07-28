@@ -364,26 +364,6 @@ const documents = [
     _type: 'page',
     title: 'About',
     slug: { _type: 'slug', current: 'about' },
-    lineup: [
-      'Sousaphon',
-      'Bariton-, Alt-, Tenorsax',
-      'Posaune',
-      'Trompete',
-      'Schlagzeug',
-      'Percussion (optional)',
-    ],
-    repertoire: [
-      'Benny Benassi – Satisfaction',
-      'Fisher – Losing It',
-      'Gaia – Freed from Desire',
-      'Roya – Cruise',
-      'Tyga & Zyntherius – Sunglasses at Night',
-      'u.v.m.',
-    ],
-    setLength: {
-      de: '30–45 Minuten. Erweiterbar bis 90 Minuten.',
-      en: '30–45 minutes. Extendable up to 90 minutes.',
-    },
     sections: [
       {
         _type: 'richText',

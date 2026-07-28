@@ -168,10 +168,7 @@ export const queries = {
       bio,
       "photo": photo${imageProjection}
     },
-    "pressQuotes": sections[_type == "pressQuotes"][0].quotes[]{quote, source},
-    lineup,
-    repertoire,
-    setLength
+    "pressQuotes": sections[_type == "pressQuotes"][0].quotes[]{quote, source}
   }`,
 
   legalPage: `*[_type == "legalPage" && slug == $slug && locale == $locale][0]{

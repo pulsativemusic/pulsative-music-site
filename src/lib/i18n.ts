@@ -50,8 +50,6 @@ const ui = {
       kicker: 'Die Band',
       title: 'About',
       lineup: 'Besetzung',
-      repertoire: 'Repertoire',
-      setLength: 'Spielzeit',
     },
     contact: {
       kicker: 'Kontakt',
@@ -96,7 +94,7 @@ const ui = {
     },
     seo: {
       about:
-        'PULSATIVE — Neo-Brass-Kollektiv aus Köln. House, Techno und EDM live. Besetzung, Repertoire und Booking.',
+        'PULSATIVE — Neo-Brass-Kollektiv aus Köln. House, Techno und EDM live. Band und Booking.',
       promoKit:
         'Pressebereich von PULSATIVE: Electronic Press Kit (EPK), Technical Rider und Booking-Kontakt für Medien und Veranstalter.',
       legalImpressum: 'Impressum und Anbieterkennzeichnung der offiziellen PULSATIVE Website.',
@@ -143,8 +141,6 @@ const ui = {
       kicker: 'The Band',
       title: 'About',
       lineup: 'Lineup',
-      repertoire: 'Repertoire',
-      setLength: 'Set length',
     },
     contact: {
       kicker: 'Get in Touch',
@@ -189,7 +185,7 @@ const ui = {
     },
     seo: {
       about:
-        'PULSATIVE — neo-brass collective from Cologne. Live House, Techno and EDM. Lineup, repertoire and booking.',
+        'PULSATIVE — neo-brass collective from Cologne. Live House, Techno and EDM. Band and booking.',
       promoKit:
         'PULSATIVE press area: Electronic Press Kit (EPK), Technical Rider, and booking contact for media and promoters.',
       legalImpressum: 'Legal notice and provider information for the official PULSATIVE website.',

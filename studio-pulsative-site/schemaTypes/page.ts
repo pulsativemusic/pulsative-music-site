@@ -1,5 +1,4 @@
 import { defineArrayMember, defineField, defineType } from 'sanity';
-import { localizedString } from './localized';
 
 const richText = defineArrayMember({
   name: 'richText',
@@ -114,18 +113,5 @@ export const page = defineType({
       type: 'array',
       of: [richText, memberGrid, pressQuotes, imageGrid, embed, cta],
     }),
-    defineField({
-      name: 'lineup',
-      title: 'Lineup (Instruments)',
-      type: 'array',
-      of: [{ type: 'string' }],
-    }),
-    defineField({
-      name: 'repertoire',
-      title: 'Repertoire',
-      type: 'array',
-      of: [{ type: 'string' }],
-    }),
-    localizedString('setLength', 'Set Length', 2),
   ],
 });

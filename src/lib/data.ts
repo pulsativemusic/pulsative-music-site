@@ -238,9 +238,6 @@ export async function getAboutContent(locale: Locale = 'de'): Promise<AboutConte
       photoUrl: getImageUrl(photo),
     })),
     pressQuotes: about.pressQuotes ?? [],
-    lineup: about.lineup,
-    repertoire: about.repertoire,
-    setLength: about.setLength,
   };
 }
 

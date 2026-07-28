@@ -211,7 +211,4 @@ export interface AboutContent {
   bandPhotoUrl?: string;
   members: BandMember[];
   pressQuotes: { quote: string; source: string }[];
-  lineup?: string[];
-  repertoire?: string[];
-  setLength?: LocalizedString | string;
 }
