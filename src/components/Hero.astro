@@ -14,7 +14,6 @@ const { settings, locale, showreel = null } = Astro.props;
 const ui = getUi(locale);
 const taglineLine1 = pickLocalized(settings.taglineLine1, locale);
 const taglineLine2 = pickLocalized(settings.taglineLine2, locale);
-const shortDescription = pickLocalized(settings.shortDescription, locale);
 ---
 
 <div
@@ -74,8 +73,6 @@ const shortDescription = pickLocalized(settings.shortDescription, locale);
           </div>
         )
       }
-
-      {shortDescription && <p class="hero-description">{shortDescription}</p>}
     </div>
 
     {!showreel && (
@@ -155,14 +152,6 @@ const shortDescription = pickLocalized(settings.shortDescription, locale);
 
   .hero-text-static .hero-tagline-line {
     display: block;
-  }
-
-  .hero-description {
-    max-width: 40rem;
-    margin-top: var(--space-md);
-    font-size: 1.05rem;
-    line-height: 1.7;
-    color: var(--color-text);
   }
 
   .hero-scroll {

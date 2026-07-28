@@ -43,7 +43,7 @@ export const siteSettings = defineType({
       options: { hotspot: true },
     }),
 
-    localizedString('shortDescription', 'Short Description (Homepage)', 3, 'homepage'),
+    localizedString('shortDescription', 'Homepage Meta Description', 3, 'seo'),
     defineField({
       name: 'heroImage',
       title: 'Hero Image',
