@@ -56,6 +56,8 @@ export interface SiteSettings {
   liveImageUrl?: string;
   /** Optional band photo on the About page. */
   aboutImageUrl?: string;
+  /** Optional photo on the Contact page. */
+  contactImageUrl?: string;
   /** Optional About bio (rich text). Site settings wins over the About page document. */
   aboutBio?: LocalizedPortableText;
   showHomepageUpcomingDates?: boolean;

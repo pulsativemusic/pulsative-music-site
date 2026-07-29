@@ -170,6 +170,14 @@ export const siteSettings = defineType({
     localizedString('fotosIntro', 'Fotos Page Intro', 3, 'pages'),
 
     defineField({
+      name: 'contactImage',
+      title: 'Contact Page Image',
+      type: 'image',
+      group: 'contact',
+      options: { hotspot: true },
+      description: 'Optional. Shown on the Contact page. Leave empty to hide.',
+    }),
+    defineField({
       name: 'bookingContactName',
       title: 'Booking Contact Name',
       type: 'string',

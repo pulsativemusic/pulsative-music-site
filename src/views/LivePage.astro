@@ -31,31 +31,29 @@ const liveImageUrl = settings.liveImageUrl;
 
 <BaseLayout title={ui.live.title} description={intro} settings={settings}>
   <section class="page-hero section">
-    <div class="container">
-      <h1 class="page-title reveal">{ui.live.title}</h1>
-      {intro && <p class="page-intro text-muted reveal reveal-delay-1">{intro}</p>}
-      <Button href="/live/calendar.ics" variant="outline" class="reveal reveal-delay-2">
-        {ui.live.calendar}
-      </Button>
-    </div>
-  </section>
+    <div class:list={['container', 'live-split', { 'has-photo': Boolean(liveImageUrl) }]}>
+      <div class="live-copy">
+        <h1 class="page-title reveal">{ui.live.title}</h1>
+        {intro && <p class="page-intro text-muted reveal reveal-delay-1">{intro}</p>}
+        <Button href="/live/calendar.ics" variant="outline" class="reveal reveal-delay-2">
+          {ui.live.calendar}
+        </Button>
+      </div>
 
-  {
-    liveImageUrl && (
-      <section class="section live-photo-section">
-        <div class="container">
+      {
+        liveImageUrl && (
           <img
-            class="live-photo reveal"
+            class="live-photo reveal reveal-delay-1"
             src={liveImageUrl}
             alt={settings.bandName}
-            loading="lazy"
+            loading="eager"
             width={1200}
             height={800}
           />
-        </div>
-      </section>
-    )
-  }
+        )
+      }
+    </div>
+  </section>
 
   <section class="section shows-section">
     <div class="container">
@@ -82,8 +80,17 @@ const liveImageUrl = settings.liveImageUrl;
 
 <style>
   .page-hero {
-    padding-bottom: var(--space-lg);
+    padding-block: var(--space-md) var(--space-sm);
     container-type: inline-size;
+  }
+
+  .live-split {
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  .live-copy {
+    min-width: 0;
   }
 
   /* Button is a child component — need :global to pierce Astro scope */
@@ -106,33 +113,47 @@ const liveImageUrl = settings.liveImageUrl;
   }
 
   .page-title {
-    font-size: clamp(3rem, 10vw, 6rem);
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
     margin-bottom: var(--space-sm);
   }
 
   .page-intro {
     max-width: 36rem;
-    margin-bottom: var(--space-lg);
-  }
-
-  .live-photo-section {
-    padding-block: 0 var(--space-lg);
+    margin-bottom: var(--space-md);
   }
 
   .live-photo {
     width: 100%;
-    max-height: 32rem;
+    max-height: 28rem;
     object-fit: cover;
     border-radius: var(--radius-md);
     border: 1px solid var(--color-border);
   }
 
+  @media (min-width: 900px) {
+    .live-split.has-photo {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: center;
+    }
+
+    .page-title {
+      font-size: clamp(2.25rem, 3.5vw, 3.75rem);
+    }
+
+    .live-photo {
+      aspect-ratio: 4 / 3;
+      height: auto;
+      max-height: 20rem;
+    }
+  }
+
   .shows-section {
-    padding-block: var(--space-2xl);
+    padding-block: var(--space-md) var(--space-2xl);
   }
 
   .shows-section-header {
-    margin-bottom: var(--space-xl);
+    margin-bottom: var(--space-md);
     min-width: 0;
     container-type: inline-size;
   }

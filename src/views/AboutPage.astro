@@ -21,21 +21,15 @@ const ui = getUi(locale);
 ---
 
 <BaseLayout title={ui.about.title} description={ui.seo.about} settings={settings}>
-  <section class="page-hero section">
+  <section class="section about-section">
     <div class="container">
-      <h1 class="page-title reveal">{ui.about.title}</h1>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <AboutSections about={about} bandName={settings.bandName} ui={ui.about} />
+      <AboutSections about={about} bandName={settings.bandName} title={ui.about.title} ui={ui.about} />
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .page-title {
-    font-size: clamp(3rem, 10vw, 6rem);
+  .about-section {
+    padding-block: var(--space-lg) var(--space-xl);
   }
 </style>

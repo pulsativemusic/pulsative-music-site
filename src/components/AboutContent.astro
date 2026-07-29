@@ -9,28 +9,35 @@ interface AboutUi {
 interface Props {
   about: AboutContent;
   bandName: string;
+  title: string;
   ui: AboutUi;
 }
 
-const { about, bandName, ui } = Astro.props;
+const { about, bandName, title, ui } = Astro.props;
 const bioHtml = portableTextToHtml(about.bio);
+const hasPhoto = Boolean(about.bandPhotoUrl);
 ---
 
-<div class="about-grid">
-  {
-    about.bandPhotoUrl && (
-      <img
-        class="band-photo reveal"
-        src={about.bandPhotoUrl}
-        alt={bandName}
-        loading="lazy"
-        width={1200}
-        height={800}
-      />
-    )
-  }
+<div class="about">
+  <div class:list={['about-split', { 'has-photo': hasPhoto }]}>
+    <div class="about-copy">
+      <h1 class="page-title reveal">{title}</h1>
+      {bioHtml && <div class="bio reveal reveal-delay-1" set:html={bioHtml} />}
+    </div>
 
-  {bioHtml && <div class="bio reveal" set:html={bioHtml} />}
+    {
+      about.bandPhotoUrl && (
+        <img
+          class="band-photo reveal reveal-delay-1"
+          src={about.bandPhotoUrl}
+          alt={bandName}
+          loading="eager"
+          width={1200}
+          height={800}
+        />
+      )
+    }
+  </div>
 
   {
     about.members.length > 0 && (
@@ -58,27 +65,42 @@ const bioHtml = portableTextToHtml(about.bio);
 </div>
 
 <style>
-  .about-grid {
+  .about {
     display: grid;
     gap: var(--space-2xl);
   }
 
+  .about-split {
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  .about-copy {
+    min-width: 0;
+  }
+
+  .page-title {
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    margin-bottom: var(--space-md);
+  }
+
   .band-photo {
-    width: 100%;
-    max-height: 32rem;
-    object-fit: cover;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 20rem;
     border-radius: var(--radius-md);
     border: 1px solid var(--color-border);
   }
 
   .bio {
     max-width: 42rem;
-    font-size: 1.1rem;
-    line-height: 1.8;
+    font-size: 1.05rem;
+    line-height: 1.7;
   }
 
   .bio :global(p) {
-    margin-bottom: 1em;
+    margin-bottom: 0.85em;
   }
 
   .bio :global(p:last-child) {
@@ -87,6 +109,30 @@ const bioHtml = portableTextToHtml(about.bio);
 
   .bio :global(strong) {
     font-weight: 700;
+  }
+
+  /* Laptop+: text left, photo right — photo sticks while bio scrolls */
+  @media (min-width: 900px) {
+    .about-split.has-photo {
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    .page-title {
+      font-size: clamp(2.25rem, 3.5vw, 3.75rem);
+      margin-bottom: var(--space-sm);
+    }
+
+    .band-photo {
+      position: sticky;
+      top: calc(var(--header-height) + var(--announcement-banner-height) + var(--space-md));
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      max-height: 22rem;
+      align-self: start;
+    }
   }
 
   .member-grid {

@@ -89,6 +89,7 @@ type SiteSettingsRow = Omit<
   | 'logoUrl'
   | 'liveImageUrl'
   | 'aboutImageUrl'
+  | 'contactImageUrl'
 > & {
   showreelPoster?: SanityImage;
   heroImage?: SanityImage;
@@ -98,6 +99,7 @@ type SiteSettingsRow = Omit<
   logo?: SanityImage;
   liveImage?: SanityImage;
   aboutImage?: SanityImage;
+  contactImage?: SanityImage;
 };
 
 export async function getSiteSettings(): Promise<SiteSettings> {
@@ -119,6 +121,7 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     logo,
     liveImage,
     aboutImage,
+    contactImage,
     ...rest
   } = settings;
 
@@ -155,6 +158,7 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     logoUrl: getImageUrl(logo),
     liveImageUrl: getImageUrl(liveImage, { width: 1200 }),
     aboutImageUrl: getImageUrl(aboutImage, { width: 1200 }),
+    contactImageUrl: getImageUrl(contactImage, { width: 1200 }),
     socials:
       settings.socials && settings.socials.length > 0
         ? settings.socials

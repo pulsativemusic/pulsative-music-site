@@ -16,34 +16,48 @@ if (!isNavPageEnabled(settings, 'contact')) {
 }
 
 const ui = getUi(locale);
+const contactImageUrl = settings.contactImageUrl;
 ---
 
 <BaseLayout title={ui.contact.title} description={ui.contact.intro} settings={settings}>
   <section class="page-hero section">
-    <div class="container">
-      <h1 class="page-title reveal">{ui.contact.title}</h1>
-      <p class="page-intro text-muted reveal reveal-delay-1">{ui.contact.intro}</p>
-    </div>
-  </section>
+    <div class:list={['container', 'contact-split', { 'has-photo': Boolean(contactImageUrl) }]}>
+      <div class="contact-copy">
+        <h1 class="page-title reveal">{ui.contact.title}</h1>
+        <p class="page-intro text-muted reveal reveal-delay-1">{ui.contact.intro}</p>
 
-  <section class="section">
-    <div class="container contact-grid">
-      <div class="contact-block reveal">
-        <h2 class="block-title">{ui.contact.booking}</h2>
-        {settings.bookingContactName && <p class="contact-name">{settings.bookingContactName}</p>}
-        <a href={`mailto:${settings.bookingEmail}`} class="contact-link">
-          {settings.bookingEmail}
-        </a>
+        <div class="contact-details">
+          <div class="contact-block reveal reveal-delay-1">
+            <h2 class="block-title">{ui.contact.booking}</h2>
+            {settings.bookingContactName && <p class="contact-name">{settings.bookingContactName}</p>}
+            <a href={`mailto:${settings.bookingEmail}`} class="contact-link">
+              {settings.bookingEmail}
+            </a>
+          </div>
+
+          {
+            settings.phone && (
+              <div class="contact-block reveal reveal-delay-2">
+                <h2 class="block-title">{ui.contact.phone}</h2>
+                <a href={`tel:${settings.phone.replace(/\s/g, '')}`} class="contact-link">
+                  {settings.phone}
+                </a>
+              </div>
+            )
+          }
+        </div>
       </div>
 
       {
-        settings.phone && (
-          <div class="contact-block reveal reveal-delay-1">
-            <h2 class="block-title">{ui.contact.phone}</h2>
-            <a href={`tel:${settings.phone.replace(/\s/g, '')}`} class="contact-link">
-              {settings.phone}
-            </a>
-          </div>
+        contactImageUrl && (
+          <img
+            class="contact-photo reveal reveal-delay-1"
+            src={contactImageUrl}
+            alt={settings.bandName}
+            loading="eager"
+            width={1200}
+            height={800}
+          />
         )
       }
     </div>
@@ -51,20 +65,32 @@ const ui = getUi(locale);
 </BaseLayout>
 
 <style>
+  .page-hero {
+    padding-block: var(--space-md) var(--space-xl);
+  }
+
+  .contact-split {
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  .contact-copy {
+    min-width: 0;
+  }
+
   .page-title {
-    font-size: clamp(3rem, 10vw, 6rem);
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
     margin-bottom: var(--space-sm);
   }
 
-  .contact-grid {
-    display: grid;
-    gap: var(--space-xl);
+  .page-intro {
+    max-width: 36rem;
+    margin-bottom: var(--space-lg);
   }
 
-  @media (min-width: 768px) {
-    .contact-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+  .contact-details {
+    display: grid;
+    gap: var(--space-lg);
   }
 
   .block-title {
@@ -84,5 +110,30 @@ const ui = getUi(locale);
 
   .contact-link:hover {
     color: var(--color-accent-hover);
+  }
+
+  .contact-photo {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 20rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+  }
+
+  @media (min-width: 900px) {
+    .contact-split.has-photo {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: center;
+    }
+
+    .page-title {
+      font-size: clamp(2.25rem, 3.5vw, 3.75rem);
+    }
+
+    .contact-photo {
+      max-height: 22rem;
+    }
   }
 </style>
