@@ -106,6 +106,7 @@ export const siteSettings = defineType({
       options: { hotspot: true },
       description: 'Optional fallback thumbnail when video is loading.',
     }),
+    localizedBlockContent('elevatorPitch', 'Elevator Pitch', 'homepage'),
     defineField({
       name: 'showHomepageUpcomingDates',
       title: 'Show Upcoming Dates on Homepage',

@@ -2,7 +2,8 @@
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
     "target": "ESNext",
-    "lib": ["ESNext", "DOM", "DOM.Iterable"]
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "plugins": [{ "name": "@astrojs/ts-plugin" }]
   },
   "include": [".astro/types.d.ts", "src/**/*", "sanity/**/*", "astro.config.mjs"],
   "exclude": ["dist", "studio-pulsative-site", "node_modules"]

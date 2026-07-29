@@ -104,6 +104,7 @@ export const queries = {
     "contactImage": contactImage${imageProjection},
     aboutTitle,
     aboutBio,
+    elevatorPitch,
     showHomepageUpcomingDates,
     showLivePage,
     showVideosPage,

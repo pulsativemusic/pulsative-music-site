@@ -83,6 +83,40 @@ export const mockSiteSettings: SiteSettings = {
     de: 'Ein Minutengerüst aus PULSATIVE live — Klick zum Abspielen.',
     en: 'A one-minute glimpse of PULSATIVE live — click to play.',
   },
+  elevatorPitch: {
+    de: [
+      {
+        _type: 'block',
+        _key: 'pitchDe1',
+        style: 'normal',
+        markDefs: [],
+        children: [
+          {
+            _type: 'span',
+            _key: 'pitchDe1span',
+            text: 'What you see is what you get',
+            marks: [],
+          },
+        ],
+      },
+    ],
+    en: [
+      {
+        _type: 'block',
+        _key: 'pitchEn1',
+        style: 'normal',
+        markDefs: [],
+        children: [
+          {
+            _type: 'span',
+            _key: 'pitchEn1span',
+            text: 'What you see is what you get',
+            marks: [],
+          },
+        ],
+      },
+    ],
+  },
   showreelPosterUrl: '/images/hero.png',
   heroImageUrl: '/images/hero.png',
   heroImageMobileUrl: '/images/hero.png',

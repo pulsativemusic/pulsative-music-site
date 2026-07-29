@@ -62,6 +62,8 @@ export interface SiteSettings {
   aboutTitle?: LocalizedString | string;
   /** Optional About bio (rich text). Site settings wins over the About page document. */
   aboutBio?: LocalizedPortableText;
+  /** Homepage elevator pitch (rich text), shown under the showreel. */
+  elevatorPitch?: LocalizedPortableText;
   showHomepageUpcomingDates?: boolean;
   showLivePage?: boolean;
   showVideosPage?: boolean;

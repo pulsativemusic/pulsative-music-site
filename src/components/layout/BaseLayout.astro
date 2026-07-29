@@ -28,6 +28,7 @@ interface Props {
   description?: string;
   settings: SiteSettings;
   noindex?: boolean;
+  children?: any;
 }
 
 const { title, description, settings, noindex = false } = Astro.props;

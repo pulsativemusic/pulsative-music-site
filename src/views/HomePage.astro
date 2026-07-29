@@ -4,12 +4,15 @@ import Hero from '../components/Hero.astro';
 import ShowList from '../components/ShowList.astro';
 import Button from '../components/Button.astro';
 import {
+  getPressAssets,
   getSiteSettings,
   getUpcomingShows,
   isHomepageUpcomingDatesEnabled,
   isLivePageEnabled,
+  isNavPageEnabled,
 } from '../lib/data';
 import { getUi, pathFor } from '../lib/i18n';
+import { portableTextToHtml } from '../lib/portable-text';
 import { getShowreelFromSettings } from '../lib/showreel';
 import type { Locale } from '../lib/types';
 
@@ -20,12 +23,51 @@ interface Props {
 const { locale } = Astro.props;
 const settings = await getSiteSettings();
 const upcomingShows = await getUpcomingShows(3);
+const pressAssets = await getPressAssets();
 const ui = getUi(locale);
 const showreel = getShowreelFromSettings(settings);
+
+const pitch = settings.elevatorPitch;
+const pitchBlocks =
+  (locale === 'en' && pitch?.en?.length ? pitch.en : pitch?.de) ?? [];
+const pitchHtml = portableTextToHtml(pitchBlocks);
+const epkUrl = pressAssets.find(
+  (asset) => asset.assetType === 'pressKit' && asset.fileUrl,
+)?.fileUrl;
+const showContactCta = isNavPageEnabled(settings, 'contact');
+const showPitchSection = Boolean(pitchHtml || showContactCta || epkUrl);
 ---
 
 <BaseLayout settings={settings}>
   <Hero settings={settings} locale={locale} showreel={showreel} />
+
+  {
+    showPitchSection && (
+      <section class="section elevator-pitch">
+        <div class="container elevator-pitch-inner">
+          {
+            pitchHtml && (
+              <div class="elevator-pitch-body reveal" set:html={pitchHtml} />
+            )
+          }
+          <div class="elevator-pitch-actions reveal reveal-delay-1">
+            {
+              showContactCta && (
+                <Button href={pathFor('contact', locale)}>{ui.home.bookNow}</Button>
+              )
+            }
+            {
+              epkUrl && (
+                <Button href={epkUrl} variant="outline" download>
+                  {ui.home.downloadEpk}
+                </Button>
+              )
+            }
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   {
     isHomepageUpcomingDatesEnabled(settings) &&
@@ -53,6 +95,38 @@ const showreel = getShowreelFromSettings(settings);
 </BaseLayout>
 
 <style>
+  .elevator-pitch-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-md);
+    max-width: 40rem;
+  }
+
+  .elevator-pitch-body {
+    font-size: clamp(1.15rem, 2.4vw, 1.45rem);
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    color: var(--color-text);
+  }
+
+  .elevator-pitch-body :global(p) {
+    margin: 0;
+  }
+
+  .elevator-pitch-body :global(p + p) {
+    margin-top: var(--space-sm);
+  }
+
+  .elevator-pitch-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-sm);
+  }
+
   .section-alt {
     background: var(--color-bg-elevated);
     border-block: 1px solid var(--color-border);
