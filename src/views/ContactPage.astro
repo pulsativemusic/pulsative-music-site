@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../components/layout/BaseLayout.astro';
+import Button from '../components/Button.astro';
 import { getSiteSettings, isNavPageEnabled } from '../lib/data';
 import { getUi, pathFor, pickLocalized } from '../lib/i18n';
 import type { Locale } from '../lib/types';
@@ -22,12 +23,14 @@ const contactImageUrl = settings.contactImageUrl;
 
 <BaseLayout title={title} description={ui.contact.intro} settings={settings}>
   <section class="page-hero section">
-    <div class="container">
+    <div class="container contact-layout">
+      <header class="contact-header">
+        <h1 class="page-title reveal">{title}</h1>
+        <p class="page-intro text-muted reveal reveal-delay-1">{ui.contact.intro}</p>
+      </header>
+
       <div class:list={['contact-split', { 'has-photo': Boolean(contactImageUrl) }]}>
         <div class="contact-copy">
-          <h1 class="page-title reveal">{title}</h1>
-          <p class="page-intro text-muted reveal reveal-delay-1">{ui.contact.intro}</p>
-
           <div class="contact-block reveal reveal-delay-1">
             <h2 class="section-title">{ui.contact.booking}</h2>
             {settings.bookingContactName && <p class="contact-name">{settings.bookingContactName}</p>}
@@ -44,6 +47,17 @@ const contactImageUrl = settings.contactImageUrl;
                   {settings.phone}
                 </a>
               </div>
+            )
+          }
+
+          {
+            settings.bookingEmail && (
+              <Button
+                href={`mailto:${settings.bookingEmail}`}
+                class="contact-cta reveal reveal-delay-2"
+              >
+                {ui.contact.sendMail}
+              </Button>
             )
           }
         </div>
@@ -73,6 +87,16 @@ const contactImageUrl = settings.contactImageUrl;
     min-height: calc(100svh - var(--header-height) - var(--announcement-banner-height));
     padding-block: var(--space-lg);
     box-sizing: border-box;
+  }
+
+  .contact-layout {
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  .contact-header {
+    display: grid;
+    gap: var(--space-sm);
   }
 
   .contact-split {
@@ -114,6 +138,10 @@ const contactImageUrl = settings.contactImageUrl;
     color: var(--color-accent-hover);
   }
 
+  .contact-cta {
+    justify-self: start;
+  }
+
   .contact-photo {
     width: 100%;
     max-height: 28rem;
@@ -130,7 +158,7 @@ const contactImageUrl = settings.contactImageUrl;
     }
 
     .contact-photo {
-      height: min(32rem, calc(100svh - var(--header-height) - var(--announcement-banner-height) - 6rem));
+      height: min(32rem, calc(100svh - var(--header-height) - var(--announcement-banner-height) - 10rem));
       max-height: none;
       aspect-ratio: auto;
       object-fit: cover;

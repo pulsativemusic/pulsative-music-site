@@ -54,6 +54,7 @@ const ui = {
       intro: 'Booking, Presse und allgemeine Anfragen.',
       booking: 'Booking',
       phone: 'Telefon',
+      sendMail: 'Jetzt buchen',
     },
     promoKit: {
       kicker: 'Presse',
@@ -143,6 +144,7 @@ const ui = {
       intro: 'Booking, press, and general inquiries.',
       booking: 'Booking',
       phone: 'Phone',
+      sendMail: 'Book now',
     },
     promoKit: {
       kicker: 'Press',
