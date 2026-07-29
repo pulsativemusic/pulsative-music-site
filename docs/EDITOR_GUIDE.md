@@ -84,13 +84,6 @@ Photos appear on `/fotos` (and `/en/fotos`) within a few minutes.
 
 Edit the page intro under **Site Settings** → **Fotos Page Intro**.
 
-## Adding a Release
-
-1. Click **Releases** (listed as **Music (hidden)** in the sidebar)
-2. Add title, release date, cover art
-3. Paste Spotify, Apple Music, or YouTube links
-4. Publish
-
 ## Tips
 
 - Always click **Publish** — drafts don't appear on the live site

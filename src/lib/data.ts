@@ -1,9 +1,7 @@
 import {
   mockAbout,
   mockLegalPages,
-  mockPhotoPrints,
   mockPressAssets,
-  mockReleases,
   mockShows,
   mockSiteSettings,
   mockPhotos,
@@ -14,9 +12,7 @@ import type {
   AboutContent,
   BandMember,
   LegalPage,
-  PhotoPrint,
   PressAsset,
-  Release,
   SanityImage,
   Show,
   SiteSettings,
@@ -242,23 +238,6 @@ export async function getPhotos(): Promise<Photo[]> {
   });
 }
 
-type ReleaseRow = Omit<Release, 'coverUrl' | 'coverArt'> & {
-  coverArt?: SanityImage;
-};
-
-export async function getReleases(): Promise<Release[]> {
-  if (!isSanityConfigured()) {
-    return mockReleases;
-  }
-
-  const rows = await fetchSanity<ReleaseRow[]>(queries.releases);
-  return rows.map(({ coverArt, ...release }) => ({
-    ...release,
-    coverArt,
-    coverUrl: getImageUrl(coverArt),
-  }));
-}
-
 export async function getPressAssets(): Promise<PressAsset[]> {
   if (!isSanityConfigured()) {
     return mockPressAssets;
@@ -318,23 +297,6 @@ export async function getLegalPage(
   });
 
   return page;
-}
-
-type PhotoPrintRow = Omit<PhotoPrint, 'imageUrl' | 'image'> & {
-  image?: SanityImage;
-};
-
-export async function getPhotoPrints(): Promise<PhotoPrint[]> {
-  if (!isSanityConfigured()) {
-    return mockPhotoPrints;
-  }
-
-  const rows = await fetchSanity<PhotoPrintRow[]>(queries.photoPrints);
-  return rows.map(({ image, ...print }) => ({
-    ...print,
-    image,
-    imageUrl: getImageUrl(image),
-  }));
 }
 
 export { partitionShows };

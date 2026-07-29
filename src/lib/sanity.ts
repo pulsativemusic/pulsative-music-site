@@ -173,16 +173,6 @@ export const queries = {
     }
   }`,
 
-  releases: `*[_type == "release"] | order(releaseDate desc){
-    _id,
-    title,
-    releaseDate,
-    spotifyUrl,
-    appleUrl,
-    youtubeId,
-    "coverArt": coverArt${imageProjection}
-  }`,
-
   pressAssets: `*[_type == "pressAsset"] | order(title asc){
     _id,
     title,
@@ -216,20 +206,5 @@ export const queries = {
     slug,
     locale,
     body
-  }`,
-
-  photoPrints: `*[_type == "photoPrint"] | order(featured desc, title asc){
-    _id,
-    title,
-    "slug": slug.current,
-    description,
-    category,
-    price,
-    currency,
-    sizes,
-    purchaseUrl,
-    soldOut,
-    featured,
-    "image": image${imageProjection}
   }`,
 };

@@ -49,7 +49,7 @@ In the Worker → **Settings → Domains & Routes**, add `pulsative.band` and op
 2. Sanity: **API → Webhooks → Create**
    - **URL:** deploy hook URL
    - **Trigger on:** Create, Update, Delete
-   - **Filter:** `_type in ["show", "video", "photo", "siteSettings", "page", "pressAsset", "legalPage", "release", "photoPrint"]`
+   - **Filter:** `_type in ["show", "video", "photo", "siteSettings", "page", "pressAsset", "legalPage"]`
    - **Projection:** leave empty (deploy hook only needs the POST)
 3. In Studio, use **Publish** — draft saves do not update the live site.
 

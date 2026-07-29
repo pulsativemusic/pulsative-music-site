@@ -1,9 +1,7 @@
 import type {
   AboutContent,
   LegalPage,
-  PhotoPrint,
   PressAsset,
-  Release,
   Show,
   SiteSettings,
   Photo,
@@ -230,10 +228,6 @@ export const mockVideos: Video[] = [
     orientation: 'portrait',
   },
 ];
-
-export const mockReleases: Release[] = [];
-
-export const mockPhotoPrints: PhotoPrint[] = [];
 
 export const mockPressAssets: PressAsset[] = [
   {

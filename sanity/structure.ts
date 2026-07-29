@@ -1,13 +1,9 @@
 import { CalendarIcon } from '@sanity/icons/Calendar';
 import { CaseIcon } from '@sanity/icons/Case';
 import { CogIcon } from '@sanity/icons/Cog';
-import { DesktopIcon } from '@sanity/icons/Desktop';
-import { EyeClosedIcon } from '@sanity/icons/EyeClosed';
+import { DocumentTextIcon } from '@sanity/icons/DocumentText';
 import { ImagesIcon } from '@sanity/icons/Images';
-import { UsersIcon } from '@sanity/icons/Users';
 import type { StructureResolver } from 'sanity/structure';
-
-const ABOUT_PAGE_ID = 'page-about';
 
 export const structure: StructureResolver = (S) =>
   S.list()
@@ -22,23 +18,7 @@ export const structure: StructureResolver = (S) =>
             .documentId('siteSettings'),
         ),
       S.divider(),
-      S.listItem()
-        .title('Live')
-        .icon(CalendarIcon)
-        .child(
-          S.list()
-            .title('Live')
-            .items([S.documentTypeListItem('show').title('Live Dates')]),
-        ),
-      S.listItem()
-        .title('About')
-        .icon(UsersIcon)
-        .child(
-          S.document()
-            .schemaType('page')
-            .documentId(ABOUT_PAGE_ID)
-            .title('About'),
-        ),
+      S.documentTypeListItem('show').title('Live Dates').icon(CalendarIcon),
       S.listItem()
         .title('Media')
         .icon(ImagesIcon)
@@ -50,27 +30,7 @@ export const structure: StructureResolver = (S) =>
               S.documentTypeListItem('photo').title('Photos'),
             ]),
         ),
-      S.listItem()
-        .title('Website')
-        .icon(DesktopIcon)
-        .child(
-          S.list()
-            .title('Website')
-            .items([
-              S.listItem()
-                .title('Pages')
-                .child(
-                  S.documentTypeList('page')
-                    .title('Pages')
-                    .filter('_type == "page" && !(_id in [$aboutId, $aboutDraftId])')
-                    .params({
-                      aboutId: ABOUT_PAGE_ID,
-                      aboutDraftId: `drafts.${ABOUT_PAGE_ID}`,
-                    }),
-                ),
-              S.documentTypeListItem('legalPage').title('Legal Pages'),
-            ]),
-        ),
+      S.documentTypeListItem('legalPage').title('Legal Pages').icon(DocumentTextIcon),
       S.listItem()
         .title('Press')
         .icon(CaseIcon)
@@ -78,17 +38,5 @@ export const structure: StructureResolver = (S) =>
           S.list()
             .title('Press')
             .items([S.documentTypeListItem('pressAsset').title('Press Kit')]),
-        ),
-      S.divider(),
-      S.listItem()
-        .title('Hidden')
-        .icon(EyeClosedIcon)
-        .child(
-          S.list()
-            .title('Hidden')
-            .items([
-              S.documentTypeListItem('release').title('Music'),
-              S.documentTypeListItem('photoPrint').title('Merch'),
-            ]),
         ),
     ]);

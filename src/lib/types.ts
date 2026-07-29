@@ -150,17 +150,6 @@ export interface Photo {
   credit?: string;
 }
 
-export interface Release {
-  _id: string;
-  title: string;
-  releaseDate: string;
-  coverArt?: SanityImage;
-  coverUrl?: string;
-  spotifyUrl?: string;
-  appleUrl?: string;
-  youtubeId?: string;
-}
-
 export interface GalleryPhoto {
   _key?: string;
   image?: SanityImage;
@@ -217,22 +206,6 @@ export interface Page {
   slug: string;
   title: string;
   sections: PageSection[];
-}
-
-export interface PhotoPrint {
-  _id: string;
-  title: string;
-  slug: string;
-  image?: SanityImage;
-  imageUrl?: string;
-  description?: string;
-  category?: string;
-  price: number;
-  currency: string;
-  sizes?: string[];
-  purchaseUrl?: string;
-  soldOut: boolean;
-  featured?: boolean;
 }
 
 export interface BandMember {
