@@ -85,10 +85,9 @@ const hasPhoto = Boolean(about.bandPhotoUrl);
   }
 
   .band-photo {
-    width: auto;
-    max-width: 100%;
-    height: auto;
-    max-height: 20rem;
+    width: 100%;
+    max-height: 28rem;
+    object-fit: cover;
     border-radius: var(--radius-md);
     border: 1px solid var(--color-border);
   }
@@ -111,12 +110,11 @@ const hasPhoto = Boolean(about.bandPhotoUrl);
     font-weight: 700;
   }
 
-  /* Laptop+: text left, photo right — photo sticks while bio scrolls */
   @media (min-width: 900px) {
     .about-split.has-photo {
-      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       gap: var(--space-xl);
-      align-items: start;
+      align-items: center;
     }
 
     .page-title {
@@ -125,13 +123,9 @@ const hasPhoto = Boolean(about.bandPhotoUrl);
     }
 
     .band-photo {
-      position: sticky;
-      top: calc(var(--header-height) + var(--announcement-banner-height) + var(--space-md));
-      width: auto;
-      max-width: 100%;
-      height: auto;
-      max-height: 22rem;
-      align-self: start;
+      height: min(32rem, calc(100svh - var(--header-height) - var(--announcement-banner-height) - 6rem));
+      max-height: none;
+      object-fit: cover;
     }
   }
 

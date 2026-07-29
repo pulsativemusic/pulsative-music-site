@@ -21,12 +21,12 @@ const contactImageUrl = settings.contactImageUrl;
 
 <BaseLayout title={ui.contact.title} description={ui.contact.intro} settings={settings}>
   <section class="page-hero section">
-    <div class:list={['container', 'contact-split', { 'has-photo': Boolean(contactImageUrl) }]}>
-      <div class="contact-copy">
-        <h1 class="page-title reveal">{ui.contact.title}</h1>
-        <p class="page-intro text-muted reveal reveal-delay-1">{ui.contact.intro}</p>
+    <div class="container">
+      <div class:list={['contact-split', { 'has-photo': Boolean(contactImageUrl) }]}>
+        <div class="contact-copy">
+          <h1 class="page-title reveal">{ui.contact.title}</h1>
+          <p class="page-intro text-muted reveal reveal-delay-1">{ui.contact.intro}</p>
 
-        <div class="contact-details">
           <div class="contact-block reveal reveal-delay-1">
             <h2 class="block-title">{ui.contact.booking}</h2>
             {settings.bookingContactName && <p class="contact-name">{settings.bookingContactName}</p>}
@@ -46,27 +46,32 @@ const contactImageUrl = settings.contactImageUrl;
             )
           }
         </div>
-      </div>
 
-      {
-        contactImageUrl && (
-          <img
-            class="contact-photo reveal reveal-delay-1"
-            src={contactImageUrl}
-            alt={settings.bandName}
-            loading="eager"
-            width={1200}
-            height={800}
-          />
-        )
-      }
+        {
+          contactImageUrl && (
+            <img
+              class="contact-photo reveal reveal-delay-1"
+              src={contactImageUrl}
+              alt={settings.bandName}
+              loading="eager"
+              width={1200}
+              height={800}
+            />
+          )
+        }
+      </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
   .page-hero {
-    padding-block: var(--space-md) var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(100svh - var(--header-height) - var(--announcement-banner-height));
+    padding-block: var(--space-lg);
+    box-sizing: border-box;
   }
 
   .contact-split {
@@ -76,21 +81,19 @@ const contactImageUrl = settings.contactImageUrl;
 
   .contact-copy {
     min-width: 0;
+    display: grid;
+    gap: var(--space-md);
+    align-content: center;
   }
 
   .page-title {
     font-size: clamp(2.5rem, 8vw, 4.5rem);
-    margin-bottom: var(--space-sm);
+    margin-bottom: 0;
   }
 
   .page-intro {
     max-width: 36rem;
-    margin-bottom: var(--space-lg);
-  }
-
-  .contact-details {
-    display: grid;
-    gap: var(--space-lg);
+    margin-bottom: 0;
   }
 
   .block-title {
@@ -113,10 +116,9 @@ const contactImageUrl = settings.contactImageUrl;
   }
 
   .contact-photo {
-    width: auto;
-    max-width: 100%;
-    height: auto;
-    max-height: 20rem;
+    width: 100%;
+    max-height: 28rem;
+    object-fit: cover;
     border-radius: var(--radius-md);
     border: 1px solid var(--color-border);
   }
@@ -133,7 +135,10 @@ const contactImageUrl = settings.contactImageUrl;
     }
 
     .contact-photo {
-      max-height: 22rem;
+      height: min(32rem, calc(100svh - var(--header-height) - var(--announcement-banner-height) - 6rem));
+      max-height: none;
+      aspect-ratio: auto;
+      object-fit: cover;
     }
   }
 </style>
