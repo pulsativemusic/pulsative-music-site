@@ -29,8 +29,7 @@ const ui = {
       scroll: 'Scroll',
     },
     live: {
-      kicker: 'Live',
-      title: 'Termine',
+      title: 'Live',
       upcoming: 'Kommende Shows',
       past: 'Vergangene Konzerte',
       calendar: 'Zum Kalender hinzufügen (.ics)',
@@ -94,8 +93,10 @@ const ui = {
         'PULSATIVE — Neo-Brass-Kollektiv aus Köln. House, Techno und EDM live. Band und Booking.',
       promoKit:
         'Pressebereich von PULSATIVE: Electronic Press Kit (EPK), Technical Rider und Booking-Kontakt für Medien und Veranstalter.',
-      legalImpressum: 'Impressum und Anbieterkennzeichnung der offiziellen PULSATIVE Website.',
-      legalPrivacy: 'Datenschutzerklärung der PULSATIVE Website inklusive Cloudflare Web Analytics.',
+      legalImpressum:
+        'Impressum und Anbieterkennzeichnung der offiziellen PULSATIVE Website.',
+      legalPrivacy:
+        'Datenschutzerklärung der PULSATIVE Website inklusive Cloudflare Web Analytics.',
     },
   },
   en: {
@@ -117,8 +118,7 @@ const ui = {
       scroll: 'Scroll',
     },
     live: {
-      kicker: 'Live',
-      title: 'Dates',
+      title: 'Live',
       upcoming: 'Upcoming Shows',
       past: 'Past Concerts',
       calendar: 'Add to Calendar (.ics)',
@@ -182,8 +182,10 @@ const ui = {
         'PULSATIVE — neo-brass collective from Cologne. Live House, Techno and EDM. Band and booking.',
       promoKit:
         'PULSATIVE press area: Electronic Press Kit (EPK), Technical Rider, and booking contact for media and promoters.',
-      legalImpressum: 'Legal notice and provider information for the official PULSATIVE website.',
-      legalPrivacy: 'Privacy policy for the PULSATIVE website, including Cloudflare Web Analytics.',
+      legalImpressum:
+        'Legal notice and provider information for the official PULSATIVE website.',
+      legalPrivacy:
+        'Privacy policy for the PULSATIVE website, including Cloudflare Web Analytics.',
     },
   },
 } as const;
@@ -221,7 +223,10 @@ export function getLocaleFromPath(pathname: string): Locale {
   return pathname === '/en' || pathname.startsWith('/en/') ? 'en' : 'de';
 }
 
-export function legalPath(slug: 'impressum' | 'privacy', locale: Locale): string {
+export function legalPath(
+  slug: 'impressum' | 'privacy',
+  locale: Locale,
+): string {
   return pathFor(slug, locale);
 }
 

@@ -28,7 +28,7 @@ const contactImageUrl = settings.contactImageUrl;
           <p class="page-intro text-muted reveal reveal-delay-1">{ui.contact.intro}</p>
 
           <div class="contact-block reveal reveal-delay-1">
-            <h2 class="block-title">{ui.contact.booking}</h2>
+            <h2 class="section-title">{ui.contact.booking}</h2>
             {settings.bookingContactName && <p class="contact-name">{settings.bookingContactName}</p>}
             <a href={`mailto:${settings.bookingEmail}`} class="contact-link">
               {settings.bookingEmail}
@@ -38,7 +38,7 @@ const contactImageUrl = settings.contactImageUrl;
           {
             settings.phone && (
               <div class="contact-block reveal reveal-delay-2">
-                <h2 class="block-title">{ui.contact.phone}</h2>
+                <h2 class="section-title">{ui.contact.phone}</h2>
                 <a href={`tel:${settings.phone.replace(/\s/g, '')}`} class="contact-link">
                   {settings.phone}
                 </a>
@@ -87,7 +87,6 @@ const contactImageUrl = settings.contactImageUrl;
   }
 
   .page-title {
-    font-size: clamp(2.5rem, 8vw, 4.5rem);
     margin-bottom: 0;
   }
 
@@ -96,8 +95,7 @@ const contactImageUrl = settings.contactImageUrl;
     margin-bottom: 0;
   }
 
-  .block-title {
-    font-size: 1.5rem;
+  .contact-block .section-title {
     margin-bottom: var(--space-sm);
   }
 
@@ -128,10 +126,6 @@ const contactImageUrl = settings.contactImageUrl;
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       gap: var(--space-xl);
       align-items: center;
-    }
-
-    .page-title {
-      font-size: clamp(2.25rem, 3.5vw, 3.75rem);
     }
 
     .contact-photo {

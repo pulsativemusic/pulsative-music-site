@@ -27,66 +27,64 @@ const upcomingShows = await getUpcomingShows();
 const pastShows = await getPastShows();
 const intro = pickLocalized(settings.liveIntro, locale);
 const liveImageUrl = settings.liveImageUrl;
+const hasPhoto = Boolean(liveImageUrl);
 ---
 
 <BaseLayout title={ui.live.title} description={intro} settings={settings}>
   <section class="page-hero section">
-    <div class:list={['container', 'live-split', { 'has-photo': Boolean(liveImageUrl) }]}>
-      <div class="live-copy">
-        <h1 class="page-title reveal">{ui.live.title}</h1>
-        {intro && <p class="page-intro text-muted reveal reveal-delay-1">{intro}</p>}
-        <Button href="/live/calendar.ics" variant="outline" class="reveal reveal-delay-2">
-          {ui.live.calendar}
-        </Button>
-      </div>
-
-      {
-        liveImageUrl && (
-          <img
-            class="live-photo reveal reveal-delay-1"
-            src={liveImageUrl}
-            alt={settings.bandName}
-            loading="eager"
-            width={1200}
-            height={800}
-          />
-        )
-      }
+    <div class="container live-copy">
+      <h1 class="page-title reveal">{ui.live.title}</h1>
+      {intro && <p class="page-intro text-muted reveal reveal-delay-1">{intro}</p>}
+      <Button href="/live/calendar.ics" variant="outline" class="reveal reveal-delay-2">
+        {ui.live.calendar}
+      </Button>
     </div>
   </section>
 
-  <section class="section shows-section">
+  <section class="section live-body">
     <div class="container">
-      <header class="shows-section-header reveal">
-        <h2 class="section-title">{ui.live.upcoming}</h2>
-      </header>
-      <ShowList shows={upcomingShows} locale={locale} />
+      <div class:list={['live-layout', { 'live-layout--photo': hasPhoto }]}>
+        {
+          liveImageUrl && (
+            <img
+              class="live-photo reveal"
+              src={liveImageUrl}
+              alt={settings.bandName}
+              loading="eager"
+              width={1200}
+              height={800}
+            />
+          )
+        }
+
+        <div class="live-shows">
+          <div class="shows-block">
+            <header class="shows-section-header reveal">
+              <h2 class="section-title">{ui.live.upcoming}</h2>
+            </header>
+            <ShowList shows={upcomingShows} locale={locale} />
+          </div>
+
+          {
+            pastShows.length > 0 && (
+              <div class="shows-block shows-past">
+                <header class="shows-section-header reveal">
+                  <h2 class="section-title">{ui.live.past}</h2>
+                </header>
+                <ShowList shows={pastShows} past compact locale={locale} />
+              </div>
+            )
+          }
+        </div>
+      </div>
     </div>
   </section>
-
-  {
-    pastShows.length > 0 && (
-      <section class="section section-alt shows-section">
-        <div class="container">
-          <header class="shows-section-header reveal">
-            <h2 class="section-title">{ui.live.past}</h2>
-          </header>
-          <ShowList shows={pastShows} compact locale={locale} />
-        </div>
-      </section>
-    )
-  }
 </BaseLayout>
 
 <style>
   .page-hero {
     padding-block: var(--space-md) var(--space-sm);
     container-type: inline-size;
-  }
-
-  .live-split {
-    display: grid;
-    gap: var(--space-lg);
   }
 
   .live-copy {
@@ -113,7 +111,6 @@ const liveImageUrl = settings.liveImageUrl;
   }
 
   .page-title {
-    font-size: clamp(2.5rem, 8vw, 4.5rem);
     margin-bottom: var(--space-sm);
   }
 
@@ -122,34 +119,20 @@ const liveImageUrl = settings.liveImageUrl;
     margin-bottom: var(--space-md);
   }
 
-  .live-photo {
-    width: 100%;
-    max-height: 28rem;
-    object-fit: cover;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--color-border);
-  }
-
-  @media (min-width: 900px) {
-    .live-split.has-photo {
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: var(--space-xl);
-      align-items: center;
-    }
-
-    .page-title {
-      font-size: clamp(2.25rem, 3.5vw, 3.75rem);
-    }
-
-    .live-photo {
-      aspect-ratio: 4 / 3;
-      height: auto;
-      max-height: 20rem;
-    }
-  }
-
-  .shows-section {
+  .live-body {
     padding-block: var(--space-md) var(--space-2xl);
+  }
+
+  .live-layout {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+
+  .live-shows {
+    display: grid;
+    gap: var(--space-2xl);
+    min-width: 0;
   }
 
   .shows-section-header {
@@ -158,25 +141,48 @@ const liveImageUrl = settings.liveImageUrl;
     container-type: inline-size;
   }
 
-  .shows-section .section-title {
+  /* Fit long DE titles in the half-width column without oversized text-fit */
+  .live-shows .section-title {
     line-height: 1.15;
-    /* Fallback: shrink with the header so long DE words fit intact */
-    font-size: clamp(1.6rem, 0.85rem + 4.6cqi, 4rem);
-    overflow-wrap: normal;
-    word-break: normal;
-    hyphens: none;
+    font-size: clamp(1.5rem, 0.9rem + 3.2cqi, 2.75rem);
     text-wrap: balance;
   }
 
-  @supports (text-fit: shrink) {
-    .shows-section .section-title {
-      font-size: clamp(2.5rem, 6vw, 4rem);
-      text-fit: shrink 50%;
-    }
+  .shows-past {
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--color-border);
   }
 
-  .section-alt {
-    background: var(--color-bg-elevated);
-    border-top: 1px solid var(--color-border);
+  .live-photo {
+    width: 100%;
+    max-height: 22rem;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+  }
+
+  /* Desktop: shows left, photo right */
+  @media (min-width: 900px) {
+    .live-layout--photo {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    .live-layout--photo .live-shows {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .live-layout--photo .live-photo {
+      grid-column: 2;
+      grid-row: 1;
+      position: sticky;
+      top: calc(var(--header-height) + var(--announcement-banner-height) + var(--space-md));
+      max-height: calc(100svh - var(--header-height) - var(--announcement-banner-height) - 2 * var(--space-md));
+      aspect-ratio: 4 / 3;
+      height: auto;
+    }
   }
 </style>
