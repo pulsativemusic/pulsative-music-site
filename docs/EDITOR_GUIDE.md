@@ -15,7 +15,10 @@ Open **Site Settings** (single document at the top of the sidebar). Fields are g
 | Field | What it does |
 |-------|----------------|
 | **Band Name**, **Tagline**, **Short Description** | Homepage text |
-| **Hero Image** | Homepage background (used when no hero video is set) |
+| **Hero Image** | Default / fallback homepage background (also video poster and OG; used when no hero video is set) |
+| **Hero Image (Mobile)** | Below 1101px — recommended ~9:16 (portrait). Falls back to Hero Image when empty |
+| **Hero Image (Desktop)** | 1101px–1439px — recommended ~16:9. Falls back to Hero Image when empty |
+| **Hero Image (Wide)** | From 1440px up — recommended ~21:9. Falls back to Desktop, then Hero Image |
 | **Hero Video** | Optional MP4 background — overrides hero image when set |
 | **Showreel Video** | Optional MP4 below the hero on the homepage |
 | **Showreel Title / Description / Poster** | Optional metadata for the showreel (poster is a loading fallback) |
@@ -26,6 +29,8 @@ Open **Site Settings** (single document at the top of the sidebar). Fields are g
 | **Announcement Message** | Banner text (DE + EN) — e.g. upcoming show, new release, festival appearance |
 | **Announcement Link / Link Label** | Optional CTA — ticket URL or internal page; label defaults to “Mehr erfahren” / “Learn more” if empty |
 | **Booking Email**, **Phone**, **Social Links** | Contact page and header/footer |
+
+**Hero images:** Prefer the recommended aspect ratios above. Set the hotspot (focal point) on each upload so the cover crop keeps the important part of the image in frame.
 
 **Showreel:** Upload an MP4 (or other video) under **Showreel Video**. If empty, no showreel block appears on the homepage — no empty box.
 

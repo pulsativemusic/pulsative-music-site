@@ -59,7 +59,8 @@ export const siteSettings = defineType({
       type: 'image',
       group: 'homepage',
       options: { hotspot: true },
-      description: 'Shown below 1101px. Falls back to Hero Image when empty.',
+      description:
+        'Shown below 1101px. Recommended aspect ratio ~9:16 (portrait). Falls back to Hero Image when empty.',
     }),
     defineField({
       name: 'heroImageDesktop',
@@ -67,7 +68,8 @@ export const siteSettings = defineType({
       type: 'image',
       group: 'homepage',
       options: { hotspot: true },
-      description: 'Shown from 1101px to 1439px. Falls back to Hero Image when empty.',
+      description:
+        'Shown from 1101px to 1439px. Recommended aspect ratio ~16:9. Falls back to Hero Image when empty.',
     }),
     defineField({
       name: 'heroImageWide',
@@ -75,7 +77,8 @@ export const siteSettings = defineType({
       type: 'image',
       group: 'homepage',
       options: { hotspot: true },
-      description: 'Shown from 1440px up. Falls back to Desktop, then Hero Image.',
+      description:
+        'Shown from 1440px up. Recommended aspect ratio ~21:9. Falls back to Desktop, then Hero Image.',
     }),
     defineField({
       name: 'heroVideo',
