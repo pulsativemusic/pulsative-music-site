@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import { getSiteSettings, isNavPageEnabled } from '../lib/data';
-import { getUi, pathFor } from '../lib/i18n';
+import { getUi, pathFor, pickLocalized } from '../lib/i18n';
 import type { Locale } from '../lib/types';
 
 interface Props {
@@ -16,15 +16,16 @@ if (!isNavPageEnabled(settings, 'contact')) {
 }
 
 const ui = getUi(locale);
+const title = pickLocalized(settings.contactTitle, locale) || ui.contact.title;
 const contactImageUrl = settings.contactImageUrl;
 ---
 
-<BaseLayout title={ui.contact.title} description={ui.contact.intro} settings={settings}>
+<BaseLayout title={title} description={ui.contact.intro} settings={settings}>
   <section class="page-hero section">
     <div class="container">
       <div class:list={['contact-split', { 'has-photo': Boolean(contactImageUrl) }]}>
         <div class="contact-copy">
-          <h1 class="page-title reveal">{ui.contact.title}</h1>
+          <h1 class="page-title reveal">{title}</h1>
           <p class="page-intro text-muted reveal reveal-delay-1">{ui.contact.intro}</p>
 
           <div class="contact-block reveal reveal-delay-1">

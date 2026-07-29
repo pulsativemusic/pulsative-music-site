@@ -51,6 +51,7 @@ export interface SiteSettings {
   taglineLine1: LocalizedString | string;
   taglineLine2?: LocalizedString | string;
   shortDescription?: LocalizedString | string;
+  liveTitle?: LocalizedString | string;
   liveIntro?: LocalizedString | string;
   /** Optional photo on the Live page. */
   liveImageUrl?: string;
@@ -58,6 +59,7 @@ export interface SiteSettings {
   aboutImageUrl?: string;
   /** Optional photo on the Contact page. */
   contactImageUrl?: string;
+  aboutTitle?: LocalizedString | string;
   /** Optional About bio (rich text). Site settings wins over the About page document. */
   aboutBio?: LocalizedPortableText;
   showHomepageUpcomingDates?: boolean;
@@ -71,8 +73,12 @@ export interface SiteSettings {
   announcementMessage?: LocalizedString | string;
   announcementLink?: string;
   announcementLinkLabel?: LocalizedString | string;
+  videosTitle?: LocalizedString | string;
   videosIntro?: LocalizedString | string;
+  fotosTitle?: LocalizedString | string;
   fotosIntro?: LocalizedString | string;
+  promoKitTitle?: LocalizedString | string;
+  contactTitle?: LocalizedString | string;
   bookingContactName?: string;
   bookingEmail: string;
   phone?: string;

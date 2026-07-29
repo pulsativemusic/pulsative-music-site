@@ -2,7 +2,7 @@
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import AboutSections from '../components/AboutContent.astro';
 import { getAboutContent, getSiteSettings, isNavPageEnabled } from '../lib/data';
-import { getUi, pathFor } from '../lib/i18n';
+import { getUi, pathFor, pickLocalized } from '../lib/i18n';
 import type { Locale } from '../lib/types';
 
 interface Props {
@@ -18,12 +18,13 @@ if (!isNavPageEnabled(settings, 'about')) {
 
 const about = await getAboutContent(locale);
 const ui = getUi(locale);
+const title = pickLocalized(settings.aboutTitle, locale) || ui.about.title;
 ---
 
-<BaseLayout title={ui.about.title} description={ui.seo.about} settings={settings}>
+<BaseLayout title={title} description={ui.seo.about} settings={settings}>
   <section class="page-hero section">
     <div class="container">
-      <AboutSections about={about} bandName={settings.bandName} title={ui.about.title} ui={ui.about} />
+      <AboutSections about={about} bandName={settings.bandName} title={title} ui={ui.about} />
     </div>
   </section>
 </BaseLayout>

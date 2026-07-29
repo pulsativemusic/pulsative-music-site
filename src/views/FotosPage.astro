@@ -19,13 +19,14 @@ if (!isNavPageEnabled(settings, 'fotos')) {
 
 const photos = await getPhotos();
 const ui = getUi(locale);
+const title = pickLocalized(settings.fotosTitle, locale) || ui.fotos.title;
 const intro = pickLocalized(settings.fotosIntro, locale);
 ---
 
-<BaseLayout title={ui.fotos.title} description={intro} settings={settings}>
+<BaseLayout title={title} description={intro} settings={settings}>
   <section class="page-hero section">
     <div class="container">
-      <h1 class="page-title reveal">{ui.fotos.title}</h1>
+      <h1 class="page-title reveal">{title}</h1>
       {intro && <p class="page-intro text-muted reveal reveal-delay-1">{intro}</p>}
     </div>
   </section>

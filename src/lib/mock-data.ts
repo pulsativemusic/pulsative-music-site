@@ -25,19 +25,43 @@ export const mockSiteSettings: SiteSettings = {
     de: 'Festivals · Clubs · Streets · Events — Köln · NRW · Deutschland · Europa. Clubkultur acoustique · Boiler Room trifft Brassensemble.',
     en: 'Festivals · Clubs · Streets · Events — Cologne · NRW · Germany · Europe. Club culture acoustique · Boiler Room meets brass ensemble.',
   },
+  liveTitle: {
+    de: 'Live',
+    en: 'Live',
+  },
   liveIntro: {
     de: 'PULSATIVE live — Festivals, Clubs und Events in Köln, NRW und Europa.',
     en: 'PULSATIVE live — festivals, clubs, and events across Cologne, NRW, and Europe.',
   },
   liveImageUrl:
     'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=1200&q=80',
+  videosTitle: {
+    de: 'Videos',
+    en: 'Videos',
+  },
   videosIntro: {
     de: 'Festival Trailer, Live-Clips und Cover-Performances.',
     en: 'Festival trailer, live clips, and cover performances.',
   },
+  fotosTitle: {
+    de: 'Fotos',
+    en: 'Photos',
+  },
   fotosIntro: {
     de: 'Live-Momente, Backstage und Festival-Eindrücke.',
     en: 'Live moments, backstage, and festival impressions.',
+  },
+  aboutTitle: {
+    de: 'Über uns',
+    en: 'About',
+  },
+  contactTitle: {
+    de: 'Kontakt',
+    en: 'Contact',
+  },
+  promoKitTitle: {
+    de: 'Promo Kit',
+    en: 'Promo Kit',
   },
   showHomepageUpcomingDates: true,
   showLivePage: true,

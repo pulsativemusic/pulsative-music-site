@@ -158,6 +158,7 @@ export const siteSettings = defineType({
       description:
         'Shows the Promo Kit nav link and /promo-kit page. When off, /promo-kit redirects to the homepage.',
     }),
+    localizedString('liveTitle', 'Live Page Title', undefined, 'live'),
     localizedString('liveIntro', 'Live Page Intro', 3, 'live'),
     defineField({
       name: 'liveImage',
@@ -176,6 +177,7 @@ export const siteSettings = defineType({
       description:
         'Shows the About nav link and /about page. When off, /about redirects to the homepage.',
     }),
+    localizedString('aboutTitle', 'About Page Title', undefined, 'about'),
     defineField({
       name: 'aboutImage',
       title: 'About Page Image',
@@ -205,9 +207,13 @@ export const siteSettings = defineType({
     }),
     localizedString('announcementLinkLabel', 'Announcement Link Label', undefined, 'announcement'),
 
+    localizedString('videosTitle', 'Videos Page Title', undefined, 'pages'),
     localizedString('videosIntro', 'Videos Page Intro', 3, 'pages'),
+    localizedString('fotosTitle', 'Fotos Page Title', undefined, 'pages'),
     localizedString('fotosIntro', 'Fotos Page Intro', 3, 'pages'),
+    localizedString('promoKitTitle', 'Promo Kit Page Title', undefined, 'pages'),
 
+    localizedString('contactTitle', 'Contact Page Title', undefined, 'contact'),
     defineField({
       name: 'contactImage',
       title: 'Contact Page Image',
