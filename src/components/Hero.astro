@@ -54,22 +54,39 @@ const heroStackStyle = [
         />
       ) : (
         heroMobileUrl && (
-          <picture>
-            {heroWideUrl && (
-              <source media="(min-width: 1440px)" srcset={heroWideUrl} />
-            )}
-            {heroDesktopUrl && (
-              <source media="(min-width: 1101px)" srcset={heroDesktopUrl} />
-            )}
-            <img
-              class="hero-bg"
-              src={heroMobileUrl}
-              alt=""
-              fetchpriority="high"
-              width={1920}
-              height={1080}
-            />
-          </picture>
+          <div class="hero-media" aria-hidden="true">
+            <picture>
+              {heroWideUrl && (
+                <source media="(min-width: 1440px)" srcset={heroWideUrl} />
+              )}
+              {heroDesktopUrl && (
+                <source media="(min-width: 1101px)" srcset={heroDesktopUrl} />
+              )}
+              <img
+                class="hero-bg hero-bg--blur"
+                src={heroMobileUrl}
+                alt=""
+                width={1920}
+                height={1080}
+              />
+            </picture>
+            <picture>
+              {heroWideUrl && (
+                <source media="(min-width: 1440px)" srcset={heroWideUrl} />
+              )}
+              {heroDesktopUrl && (
+                <source media="(min-width: 1101px)" srcset={heroDesktopUrl} />
+              )}
+              <img
+                class="hero-bg hero-bg--sharp"
+                src={heroMobileUrl}
+                alt=""
+                fetchpriority="high"
+                width={1920}
+                height={1080}
+              />
+            </picture>
+          </div>
         )
       )
     }
@@ -123,22 +140,17 @@ const heroStackStyle = [
     position: relative;
     width: 100%;
     max-width: 100%;
-    aspect-ratio: 9 / 16;
+    height: 80svh;
+    min-height: 20rem;
     display: flex;
     align-items: center;
     overflow: hidden;
   }
 
-  @media (min-width: 1101px) {
-    .hero {
-      aspect-ratio: 16 / 9;
-    }
-  }
-
-  @media (min-width: 1440px) {
-    .hero {
-      aspect-ratio: 21 / 9;
-    }
+  .hero-media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
   }
 
   .hero-bg {
@@ -149,6 +161,28 @@ const heroStackStyle = [
     max-width: none;
     object-fit: cover;
     object-position: var(--hero-pos-mobile, center top);
+  }
+
+  .hero-bg--blur {
+    z-index: 0;
+    filter: blur(28px) brightness(0.55);
+    transform: scale(1.08);
+  }
+
+  .hero-bg--sharp {
+    z-index: 1;
+  }
+
+  @media (max-width: 1100px) and (orientation: landscape) {
+    .hero-bg--sharp {
+      object-fit: contain;
+    }
+  }
+
+  @media (min-width: 600px) and (max-width: 1100px) and (orientation: portrait) {
+    .hero-bg--sharp {
+      object-fit: contain;
+    }
   }
 
   @media (min-width: 1101px) {
@@ -166,6 +200,7 @@ const heroStackStyle = [
   .hero-overlay {
     position: absolute;
     inset: 0;
+    z-index: 1;
     background:
       radial-gradient(ellipse at 20% 40%, rgba(232, 255, 0, 0.08), transparent 55%),
       radial-gradient(ellipse at 80% 60%, rgba(232, 255, 0, 0.04), transparent 50%);
