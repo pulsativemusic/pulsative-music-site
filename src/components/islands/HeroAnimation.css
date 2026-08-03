@@ -37,20 +37,16 @@
 }
 
 .hero-tagline {
-  font-size: clamp(0.95rem, 2.2vw, 1.2rem);
+  font-size: clamp(0.85rem, 1.8vw, 1.05rem);
   font-weight: 600;
   letter-spacing: 0.06em;
   color: var(--color-text-muted);
-  max-width: 42rem;
+  max-width: min(42rem, 100%);
   margin: 0;
-  line-height: 1.55;
+  line-height: 1.35;
   padding-left: 0.15rem;
   border-left: 2px solid rgba(232, 255, 0, 0.45);
   padding-inline-start: 0.85rem;
-}
-
-.hero-tagline-line {
-  display: block;
 }
 
 @keyframes hero-glow-pulse {

@@ -110,8 +110,7 @@ const heroStackStyle = [
         settings.logoUrl && (
           <div class="hero-text-static">
             <p class="hero-tagline">
-              {taglineLine1 && <span class="hero-tagline-line">{taglineLine1}</span>}
-              {taglineLine2 && <span class="hero-tagline-line">{taglineLine2}</span>}
+              {[taglineLine1, taglineLine2].filter(Boolean).join(' · ')}
             </p>
           </div>
         )
@@ -143,7 +142,7 @@ const heroStackStyle = [
     height: 80svh;
     min-height: 20rem;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     overflow: hidden;
   }
 
@@ -202,6 +201,7 @@ const heroStackStyle = [
     inset: 0;
     z-index: 1;
     background:
+      linear-gradient(to top, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.35) 28%, transparent 52%),
       radial-gradient(ellipse at 20% 40%, rgba(232, 255, 0, 0.08), transparent 55%),
       radial-gradient(ellipse at 80% 60%, rgba(232, 255, 0, 0.04), transparent 50%);
   }
@@ -210,8 +210,12 @@ const heroStackStyle = [
     position: relative;
     z-index: 1;
     min-width: 0;
-    max-width: 100%;
-    padding-block: var(--space-md);
+    padding-block: var(--space-md) var(--space-lg);
+    padding-inline: var(--space-sm);
+  }
+
+  .hero:has(.hero-scroll) .hero-content {
+    padding-block-end: calc(var(--space-lg) + 3.25rem);
   }
 
   @keyframes hero-fade-up {
@@ -258,9 +262,9 @@ const heroStackStyle = [
   }
 
   .hero-logo {
-    max-width: min(20rem, 70vw);
+    max-width: min(18rem, 68vw);
     height: auto;
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-sm);
     animation:
       hero-fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both,
       hero-logo-pulse 4s ease-in-out 1.2s infinite;
@@ -268,15 +272,14 @@ const heroStackStyle = [
 
   .hero-text-static .hero-tagline {
     position: relative;
-    font-size: clamp(0.95rem, 2.2vw, 1.2rem);
+    font-size: clamp(0.85rem, 1.8vw, 1.05rem);
     font-weight: 600;
     letter-spacing: 0.06em;
     color: var(--color-text-muted);
-    max-width: 42rem;
+    max-width: min(42rem, 100%);
     margin: 0;
-    line-height: 1.55;
+    line-height: 1.35;
     padding-inline-start: 0.85rem;
-    /* border handled by ::before so we can animate it */
     border-left: none;
     animation: hero-fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.6s both;
   }
@@ -306,14 +309,6 @@ const heroStackStyle = [
       transform: scaleY(1);
       opacity: 1;
     }
-  }
-
-  .hero-text-static .hero-tagline-line {
-    display: block;
-  }
-
-  .hero-text-static .hero-tagline-line:nth-child(2) {
-    animation: hero-fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.75s both;
   }
 
   .hero-scroll {
@@ -358,8 +353,7 @@ const heroStackStyle = [
 
     .hero-logo,
     .hero-text-static .hero-tagline,
-    .hero-text-static .hero-tagline::before,
-    .hero-text-static .hero-tagline-line:nth-child(2) {
+    .hero-text-static .hero-tagline::before {
       animation: none;
       opacity: 1;
       transform: none;

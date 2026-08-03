@@ -75,8 +75,7 @@ export default function HeroAnimation({
         ))}
       </h1>
       <p className="hero-tagline">
-        {taglineLine1 ? <span className="hero-tagline-line">{taglineLine1}</span> : null}
-        {taglineLine2 ? <span className="hero-tagline-line">{taglineLine2}</span> : null}
+        {[taglineLine1, taglineLine2].filter(Boolean).join(' · ')}
       </p>
     </div>
   );
