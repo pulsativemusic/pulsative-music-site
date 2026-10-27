@@ -17,6 +17,7 @@ import {
   buildMusicGroupJsonLd,
   buildPageTitle,
   buildWebPageJsonLd,
+  jsonLdDocument,
   getSiteUrl,
   ogLocale,
   resolveAssetUrl,
@@ -43,9 +44,18 @@ const pageTitle = buildPageTitle(title, settings.bandName);
 const pageDescription = resolvePageDescription(description, settings, locale, isHome);
 const ogImageUrl = resolveAssetUrl(settings.heroImageUrl, siteUrl);
 const ogImageAlt = `${settings.bandName} — ${joinTagline(settings.taglineLine1, settings.taglineLine2, locale)}`;
+const musicGroup = buildMusicGroupJsonLd({
+  settings,
+  siteUrl,
+  description: pageDescription,
+  locale,
+});
 const jsonLd = isHome
-  ? buildMusicGroupJsonLd({ settings, siteUrl, description: pageDescription, locale })
-  : buildWebPageJsonLd(siteUrl, canonicalUrl, pageTitle, pageDescription);
+  ? musicGroup
+  : jsonLdDocument(musicGroup, {
+      ...buildWebPageJsonLd(siteUrl, canonicalUrl, pageTitle, pageDescription),
+      about: { '@id': `${siteUrl}/#music-group` },
+    });
 const jsonLdSerialized = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
 ---
 

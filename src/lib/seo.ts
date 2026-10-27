@@ -71,6 +71,12 @@ export function buildMusicGroupJsonLd({
 }: MusicGroupJsonLdOptions): Record<string, unknown> {
   const image = resolveAssetUrl(settings.heroImageUrl, siteUrl);
   const sameAs = settings.socials?.map((social) => social.url).filter(Boolean) ?? [];
+  const locality = locale === 'de' ? 'Köln' : 'Cologne';
+  const address = {
+    '@type': 'PostalAddress',
+    addressLocality: locality,
+    addressCountry: 'DE',
+  };
 
   return {
     '@context': 'https://schema.org',
@@ -82,13 +88,34 @@ export function buildMusicGroupJsonLd({
     image,
     genre: ['House', 'Techno', 'EDM', 'Neo-Brass'],
     areaServed: locale === 'de' ? 'Deutschland' : 'Germany',
+    address,
     location: {
       '@type': 'Place',
       name: locale === 'de' ? 'Köln, Deutschland' : 'Cologne, Germany',
+      address,
     },
     ...(settings.bookingEmail && { email: settings.bookingEmail }),
     ...(settings.phone && { telephone: settings.phone }),
     ...(sameAs.length > 0 && { sameAs }),
+  };
+}
+
+export function jsonLdDocument(
+  primary: Record<string, unknown>,
+  extra?: Record<string, unknown>,
+): Record<string, unknown> {
+  if (!extra) {
+    return primary;
+  }
+
+  const strip = (node: Record<string, unknown>) => {
+    const { '@context': _context, ...rest } = node;
+    return rest;
+  };
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [strip(primary), strip(extra)],
   };
 }
 
